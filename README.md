@@ -1,7 +1,7 @@
 # OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary
 OoD Minimum Anomaly Score GAN (OMASGAN)
 
-Code Repository for OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary
+Code Repository for 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary'
 
 Abstract of Paper:
 Deep generative models trained in an unsupervised way encounter the problem of setting high likelihood and low reconstruction loss to Out-of-Distribution (OoD) samples.

@@ -29,9 +29,7 @@ Algorithm of OMASGAN:
 
 This Code Repository contains a PyTorch implementation of the OMASGAN model.
 
-# Environments - Requirements:
-Python3.7
-PyTorch1.3
+Environments - Requirements: Python3.7 and PyTorch1.3
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 

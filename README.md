@@ -39,4 +39,6 @@ Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a5
 
 Acknowledgement: Thanks to the repositories: [PyTorch Template](https://github.com/victoresque/pytorch-template "PyTorch Template")
 
+(ii) [Generative Models](https://github.com/shayneobrien/generative-models)
+
 This website is best viewed in Chrome or Firefox.

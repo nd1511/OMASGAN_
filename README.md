@@ -37,4 +37,6 @@ Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository 
 
 Project Website: [Website](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 
+Acknowledgement: Thanks to the repositories: [Website](https://github.com/victoresque/pytorch-template "PyTorch Template")
+
 This website is best viewed in Chrome or Firefox.

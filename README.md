@@ -17,7 +17,7 @@ Using the Area Under the Receiver Operating Characteristics curve (AUROC), OMASG
 
 Flowchart Diagram:
 
-![plot](./images/Flowchart_Diagram.png)
+![plot](./images/Diagram_OMASGAN.png)
 
 Diagram of OMASGAN:
 

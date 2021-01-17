@@ -33,7 +33,11 @@ Environments - Requirements: Python 3.7 and PyTorch 1.3
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 
-Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, make the code public, and release the code.
+Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the code, and make the code public.
+
+Date: Monday 18 January 2021: Creation of the Folder Proof Of Concept Experiment for OMASGAN.
+(According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
+After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.)
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 

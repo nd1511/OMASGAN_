@@ -35,7 +35,7 @@ Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 
 Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the code, and make the code public.
 
-Date: Monday 18 January 2021: Creation of the Folder Proof Of Concept Experiment for OMASGAN.
+Date: Monday 18 January 2021: Creation of the Folder Proof Of Concept Experiment for the Boundary Task and the Retraining Task of OMASGAN.
 (According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
 After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.)
 

@@ -37,8 +37,8 @@ Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository 
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 
-Acknowledgement: Thanks to the repositories: [PyTorch Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models), and [KLWGAN](https://github.com/ermongroup/f-wgan)
+Acknowledgement: Thanks to the repositories: [PyTorch Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 
-Also, thanks to the repositories: [BigGAN-PyTorch](https://github.com/ajbrock/BigGAN-PyTorch), [fD-GAN](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan)
+Also, thanks to the repositories: [BigGAN-PyTorch](https://github.com/ajbrock/BigGAN-PyTorch), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan)
 
 This website is best viewed in Chrome or Firefox.

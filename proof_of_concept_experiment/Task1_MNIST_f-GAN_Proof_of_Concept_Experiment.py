@@ -51,7 +51,7 @@ class ConjugateDualFunction:
       elif self.divergence_name == "gan":
           return -F.softplus(-v)
       else:
-          raise ValueError("Unknown divergence name in t function.")
+          raise ValueError("Unknown f-divergence.")
   def fstarT(self, v):
       if self.divergence_name == "kl":
           return torch.exp(v - 1.0)
@@ -70,7 +70,7 @@ class ConjugateDualFunction:
       elif self.divergence_name == "gan":
           return F.softplus(v)
       else:
-          raise ValueError("Unknown divergence name in fstar_t function.")
+          raise ValueError("This is an unknown f-divergence.")
 class DCGANGenerator(nn.Module):
   def __init__(self, nrand):
       super(DCGANGenerator, self).__init__()

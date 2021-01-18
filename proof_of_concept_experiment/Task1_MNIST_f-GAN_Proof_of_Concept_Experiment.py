@@ -26,6 +26,7 @@ def get_target_label_idx(labels, targets):
   return np.argwhere(np.isin(labels, targets)).flatten().tolist()
 train_idx_normal = get_target_label_idx(MNIST.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 MNIST = Subset(MNIST, train_idx_normal)
+print(len(MNIST))
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim

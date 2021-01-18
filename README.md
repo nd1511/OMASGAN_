@@ -27,7 +27,7 @@ Algorithm of OMASGAN:
 
 ![plot](./images/Illustration_OMASGAN.png)
 
-This Code Repository contains a PyTorch implementation of the OMASGAN model.
+This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.3
 

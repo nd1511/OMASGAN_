@@ -1,7 +1,7 @@
 from __future__ import print_function
-from datasets import *
-from networks import *
-from losses import *
+from datasets_Task1_f-GAN_Proof_of_Concept import *
+from networks_Task1_f-GAN_Proof_of_Concept import *
+from losses_Task1_f-GAN_Proof_of_Concept import *
 # According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import os

@@ -43,7 +43,7 @@ class ConjugateDualFunction:
         else:
             raise ValueError("This is an unknown f-divergence.")
 class FGANLearningObjective(nn.Module):
-    def __init__(self, gen, disc, divergence_name="gan", gamma=0.01):
+    def __init__(self, gen, disc, divergence_name="pearson", gamma=0.01):
         super(FGANLearningObjective, self).__init__()
         self.gen = gen
         self.disc = disc

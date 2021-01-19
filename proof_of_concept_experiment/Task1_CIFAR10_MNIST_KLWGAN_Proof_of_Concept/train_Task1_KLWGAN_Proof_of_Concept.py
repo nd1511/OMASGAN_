@@ -4,7 +4,7 @@
 from __future__ import print_function
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 #select_dataset = "select_dataset"
 select_dataset = "cifar10"
 #select_dataset = "mnist"

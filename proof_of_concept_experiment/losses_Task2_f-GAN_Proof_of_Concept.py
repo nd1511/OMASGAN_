@@ -49,13 +49,13 @@ class FGANLearningObjective(nn.Module):
         self.disc = disc
         self.conj = ConjugateDualFunction(divergence_name)
         self.gammahalf = 0.5*gamma
-    def forward(self, xreal, zmodel):
+    def forward(self, xreal, zmodel, mu, ni):
         vreal = self.disc(xreal)
         Treal = self.conj.T(vreal)
         xmodel = self.gen(zmodel)
         vmodel = self.disc(xmodel)
         fstar_Tmodel = self.conj.fstarT(vmodel)
-        loss_gen = -fstar_Tmodel.mean()
+        loss_gen = fstar_Tmodel.mean() + mu * + ni * 
         loss_disc = fstar_Tmodel.mean() - Treal.mean()
         # Gradient penalty
         if self.gammahalf > 0.0:

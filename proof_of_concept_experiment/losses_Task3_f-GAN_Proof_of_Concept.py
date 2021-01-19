@@ -57,7 +57,7 @@ class ConjugateDualFunction:
 # loss_disc = fstar_Tmodel.mean() - Treal.mean()
 # In order of appearance, we use the random variables x, G(z), B(z), and G’(z) where x~p_x(x) and G(z)~p_g(x).
 class FGANLearningObjective(nn.Module):
-    def __init__(self, gen, disc, divergence_name="gan", gamma=10.0):
+    def __init__(self, gen, disc, divergence_name="pearson", gamma=10.0):
         super(FGANLearningObjective, self).__init__()
         self.gen = gen
         self.disc = disc

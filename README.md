@@ -31,7 +31,7 @@ This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
 As shown in the flowchart diagram, OMASGAN performs model retraining by including negative samples, where the negative samples are generate by our negative data augmentation methodology.
 
-Our negative data augmentation methodology: OMASGAN generates minimum anomaly score OoD samples around the data points using a strictly decreasing function of a distribution metric between the boundary samples and the data.
+Our negative data augmentation methodology: OMASGAN generates minimum anomaly score OoD samples around the data using a strictly decreasing function of a distribution metric between the boundary samples and the data.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.3
 

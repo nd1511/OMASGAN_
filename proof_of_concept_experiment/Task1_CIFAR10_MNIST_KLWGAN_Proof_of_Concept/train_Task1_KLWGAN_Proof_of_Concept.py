@@ -64,10 +64,8 @@ def run(config):
     state_dict = {'itr': 0, 'epoch': 0, 'save_num': 0, 'save_best_num': 0,
                   'best_IS': 0, 'best_FID': 999999, 'config': config}
     if config['resume']:
-        utils_Task1_KLWGAN_Proof_of_Concept.load_weights(G, D, state_dict,
-                           config['weights_root'], experiment_name,
-                           config['load_weights'] if config['load_weights'] else None,
-                           G_ema if config['ema'] else None)
+        utils_Task1_KLWGAN_Proof_of_Concept.load_weights(G, D, state_dict, config['weights_root'], experiment_name,
+                           config['load_weights'] if config['load_weights'] else None, G_ema if config['ema'] else None)
     if config['parallel']:
         GD = nn.DataParallel(GD)
         if config['cross_replica']:

@@ -60,8 +60,7 @@ def prepare_parser():
         help='Parameterization style to use for D, spectral norm (SN) or SVD (SVD)'
         ' or None (default: %(default)s)')
     parser.add_argument(
-        '--G_ch', type=int, default=64,
-        help='Channel multiplier for G (default: %(default)s)')
+        '--G_ch', type=int, default=64, help='Channel multiplier for G (default: %(default)s)')
     parser.add_argument(
         '--D_ch', type=int, default=64,
         help='Channel multiplier for D (default: %(default)s)')

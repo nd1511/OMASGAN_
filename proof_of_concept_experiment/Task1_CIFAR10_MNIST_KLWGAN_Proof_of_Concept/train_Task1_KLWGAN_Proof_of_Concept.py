@@ -106,7 +106,6 @@ def run(config):
                                G=(G_ema if config['ema'] and config['use_ema']
                                    else G),
                                z_=z_, y_=y_, config=config)
-
     print('Beginning training at epoch %d...' % state_dict['epoch'])
     print('Total training epochs ',  config['num_epochs'])
     print("the dataset is ", config['dataset'], )

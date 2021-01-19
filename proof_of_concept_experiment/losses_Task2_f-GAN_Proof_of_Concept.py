@@ -56,7 +56,9 @@ class FGANLearningObjective(nn.Module):
         vmodel = self.disc(xmodel)
         fstar_Tmodel = self.conj.fstarT(vmodel)
         D1 = torch.norm(xreal[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)
+        #D1 = torch.norm(xreal[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)**2
         D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1))
+        #D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1)**2 / (1e-17 + torch.norm(xmodel[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)**2)
         loss_gen = fstar_Tmodel.mean() + mu * torch.min(D1, dim=1)[0].mean() + ni * torch.mean(D2, dim=1)[0].mean()
         loss_disc = fstar_Tmodel.mean() - Treal.mean()
         # Gradient penalty

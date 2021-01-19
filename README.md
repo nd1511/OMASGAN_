@@ -29,7 +29,7 @@ Algorithm of OMASGAN:
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
-As shown in the flowchart diagram, OMASGAN performs model retraining by including negative samples.
+As shown in the flowchart diagram, OMASGAN performs model retraining by including negative samples, where the negative samples are generate by our negative data augmentation methodology.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.3
 

@@ -1,5 +1,6 @@
-# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
-# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
+''' Datasets
+    This file contains definitions for our CIFAR, ImageFolder, and HDF5 datasets
+'''
 from dataset_utils import download_file_from_google_drive, check_integrity
 import pickle
 import torch
@@ -11,15 +12,29 @@ import PIL
 from PIL import Image
 import numpy as np
 from tqdm import tqdm, trange
+
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 from torchvision.datasets.utils import download_url, check_integrity
 import torch.utils.data as data
 from torch.utils.data import DataLoader
+
 IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm']
+
+
 def is_image_file(filename):
+    """Checks if a file is an image.
+
+    Args:
+        filename (string): path to a file
+
+    Returns:
+        bool: True if the filename ends with a known image extension
+    """
     filename_lower = filename.lower()
     return any(filename_lower.endswith(ext) for ext in IMG_EXTENSIONS)
+
+
 def find_classes(dir):
     classes = [d for d in os.listdir(
         dir) if os.path.isdir(os.path.join(dir, d))]
@@ -565,15 +580,35 @@ class CelebA(data.Dataset):
                 raise ValueError(
                     "Target type \"{}\" is not recognized.".format(t))
         target = tuple(target) if len(target) > 1 else target[0]
+
         if self.transform is not None:
             X = self.transform(X)
+
         if self.target_transform is not None:
             target = self.target_transform(target)
+
         return X, 0  # target
+
     def __len__(self):
         return len(self.attr)
+
     def extra_repr(self):
         lines = ["Target type: {target_type}", "Split: {split}"]
         return '\n'.join(lines).format(**self.__dict__)
-# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
-# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
+
+
+# class CINIC10(ImageFolder):
+
+    #   norm_mean = [0.5, 0.5, 0.5]
+    # norm_std = [0.5, 0.5, 0.5]
+    # if train:
+    #     path = os.path.join(root, 'cinic10', 'train')
+    # else:
+    #     path = os.path.join(root, 'cinic10', 'valid')
+
+    # print(path)
+    # transform = [] if not train else [transforms.RandomCrop(32, padding=4, padding_mode='reflect')]
+    # transform = transform + [transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)]
+    # transform = transforms.Compose(transform)
+
+    # dataset = ImageFolder(path, load_in_mem_labels=True, transform=transform)

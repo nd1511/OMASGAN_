@@ -1,18 +1,22 @@
-# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
-# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import os
 import os.path
 import hashlib
 import errno
 from torch.utils.model_zoo import tqdm
+
+
 def gen_bar_updater():
     pbar = tqdm(total=None)
+
     def bar_update(count, block_size, total_size):
         if pbar.total is None and total_size:
             pbar.total = total_size
         progress_bytes = count * block_size
         pbar.update(progress_bytes - pbar.n)
+
     return bar_update
+
+
 def check_integrity(fpath, md5=None):
     if md5 is None:
         return True
@@ -156,20 +160,23 @@ def download_file_from_google_drive(file_id, root, filename=None, md5=None):
             response = session.get(url, params=params, stream=True)
 
         _save_response_content(response, fpath)
+
+
 def _get_confirm_token(response):
     for key, value in response.cookies.items():
         if key.startswith('download_warning'):
             return value
+
     return None
+
+
 def _save_response_content(response, destination, chunk_size=32768):
     with open(destination, "wb") as f:
         pbar = tqdm(total=None)
         progress = 0
         for chunk in response.iter_content(chunk_size):
-            if chunk:
+            if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
                 progress += len(chunk)
                 pbar.update(progress - pbar.n)
         pbar.close()
-# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
-# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

@@ -1,16 +1,21 @@
-# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
-# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import numpy as np
 import math
 import functools
+
 import torch
 import torch.nn as nn
 from torch.nn import init
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.nn import Parameter as P
+
 import layers
 from sync_batchnorm import SynchronizedBatchNorm2d as SyncBatchNorm2d
+
+
+# Architectures for G
+# Attention is passed in in the format '32_64' to mean applying an attention
+# block at both resolution 32x32 and 64x64. Just '64' will apply at 64x64.
 def G_arch(ch=64, attention='64', ksize='333333', dilation='111111'):
     arch = {}
     arch[512] = {'in_channels':  [ch * item for item in [16, 16, 8, 8, 4, 2, 1]],
@@ -466,5 +471,3 @@ class G_D(nn.Module):
                     return D_out, G_z
                 else:
                     return D_out
-# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
-# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

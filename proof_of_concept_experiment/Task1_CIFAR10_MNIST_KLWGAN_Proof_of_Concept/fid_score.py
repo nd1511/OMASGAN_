@@ -24,38 +24,9 @@
                            'By default, uses pool3 features'))
  parser.add_argument('-c', '--gpu', default='0', type=str,
                      help='GPU to use (leave blank for CPU only)')
-
-
  def get_activations(path, model, batch_size=50, dims=2048,
                      cuda=False, verbose=False):
-     """Calculates the activations of the pool_3 layer for all images.
-
-     Params:
-     -- files       : List of image files paths
-     -- model       : Instance of inception model
-     -- batch_size  : Batch size of images for the model to process at once.
-                      Make sure that the number of samples is a multiple of
-                      the batch size, otherwise some samples are ignored. This
-                      behavior is retained to match the original FID score
-                      implementation.
-     -- dims        : Dimensionality of features returned by Inception
-     -- cuda        : If set to True, use GPU
-     -- verbose     : If set to True and parameter out_step is given, the number
-                      of calculated batches is reported.
-     Returns:
-     -- A numpy array of dimension (num images, dims) that contains the
-        activations of the given tensor when feeding inception with the
-        query tensor.
-     """
      model.eval()
-
-     ##if len(files) % batch_size != 0:
-     ##    print(('Warning: number of images is not a multiple of the '
-                #'batch size. Some samples are going to be ignored.'))
-     ##if batch_size > len(files):
-     ##    print(('Warning: batch size is bigger than the data size. '
-                #'Setting batch size to data size'))
-     ##    batch_size = len(files)
      if path.endswith("npy") :
          files = np.load(path)
      else :

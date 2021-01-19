@@ -47,7 +47,7 @@ In the Proof Of Concept Experiment for the Boundary and Retraining Tasks, accord
 
 Example usage: cd ./proof_of_concept_experiment/ and then python train_Task1_f-GAN_Proof_of_Concept.py, python -m train_Task1_f-GAN_Proof_of_Concept, python Task1_MNIST_f-GAN_Proof_of_Concept.py, or python Task1_MNIST2_f-GAN_Proof_of_Concept.py
 
-Also: Example usage: cd ./proof_of_concept_experiment/Task1_CIFAR10_MNIST_KLWGAN_Proof_of_Concept/ and then 
+Also: Example usage: cd ./proof_of_concept_experiment/Task1_CIFAR10_MNIST_KLWGAN_Proof_of_Concept/ and then python train_Task1_KLWGAN_Proof_of_Concept.py
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 

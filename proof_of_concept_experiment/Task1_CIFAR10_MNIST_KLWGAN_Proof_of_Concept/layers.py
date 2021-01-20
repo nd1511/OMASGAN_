@@ -1,3 +1,4 @@
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import numpy as np
@@ -19,31 +20,18 @@ def power_iteration(W, u_, update=True, eps=1e-12):
     for i, u in enumerate(u_):
         with torch.no_grad():
             v = torch.matmul(u, W)
-            # Run Gram-Schmidt to subtract components of all other singular vectors
             v = F.normalize(gram_schmidt(v, vs), eps=eps)
-            # Add to the list
             vs += [v]
-            # Update the other singular vector
             u = torch.matmul(v, W.t())
-            # Run Gram-Schmidt to subtract components of all other singular vectors
             u = F.normalize(gram_schmidt(u, us), eps=eps)
-            # Add to the list
             us += [u]
             if update:
                 u_[i][:] = u
-        # Compute this singular value and add it to the list
         svs += [torch.squeeze(torch.matmul(torch.matmul(v, W.t()), u.t()))]
-        #svs += [torch.sum(F.linear(u, W.transpose(0, 1)) * v)]
     return svs, us, vs
-
-
-# Convenience passthrough function
 class identity(nn.Module):
     def forward(self, input):
         return input
-
-
-# Spectral normalization base class
 class SN(object):
     def __init__(self, num_svs, num_itrs, num_outputs, transpose=False, eps=1e-12):
         # Number of power iterations per step
@@ -459,5 +447,6 @@ class DBlock(nn.Module):
             h = self.downsample(h)
 
         return h + self.shortcut(x)
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

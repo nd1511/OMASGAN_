@@ -1,3 +1,6 @@
+from __future__ import print_function
+# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
+# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"

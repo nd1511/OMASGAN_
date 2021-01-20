@@ -64,7 +64,7 @@ class FGANLearningObjective(nn.Module):
         self.conj = ConjugateDualFunction(divergence_name)
         self.gammahalf = 0.5 * gamma
     #def forward(self, xreal, zmodel, xreal2, xreal3, alpha=0.3, beta=1.0, gamma=0.7, delta=0.4, iota=0.1):
-    def forward(self, xreal, xmodel, xreal2, xreal3, zeta=0.5):
+    def forward(self, xreal, xmodel, xreal2, zeta=0.5):
         # xmodel is G'(z)
         vmodel = self.disc(xmodel)
         fstar_Tmodel = self.conj.fstarT(vmodel)

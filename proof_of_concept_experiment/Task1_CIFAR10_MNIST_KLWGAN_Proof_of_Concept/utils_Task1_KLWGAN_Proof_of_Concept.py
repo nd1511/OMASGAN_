@@ -1,3 +1,4 @@
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 from __future__ import print_function
@@ -26,8 +27,7 @@ def prepare_parser():
         help='Which Dataset to train on, out of I128, I256, C10, C100;'
         'Append "_hdf5" to use the hdf5 version for ISLVRC '
         '(default: %(default)s)')
-    parser.add_argument(
-        '--augment', action='store_true', default=False,
+    parser.add_argument('--augment', action='store_true', default=False,
         help='Augment with random crops and flips (default: %(default)s)')
     parser.add_argument(
         '--num_workers', type=int, default=8,
@@ -538,8 +538,7 @@ class ema(object):
             decay = self.decay
         with torch.no_grad():
             for key in self.source_dict:
-                self.target_dict[key].data.copy_(self.target_dict[key].data * decay
-                                                 + self.source_dict[key].data * (1 - decay))
+                self.target_dict[key].data.copy_(self.target_dict[key].data * decay + self.source_dict[key].data * (1 - decay))
 def ortho(model, strength=1e-4, blacklist=[]):
     with torch.no_grad():
         for param in model.parameters():
@@ -960,5 +959,6 @@ class Adam16(Optimizer):
                 state['fp32_p'].addcdiv_(-step_size, exp_avg, denom)
                 p.data = state['fp32_p'].half()
         return loss
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

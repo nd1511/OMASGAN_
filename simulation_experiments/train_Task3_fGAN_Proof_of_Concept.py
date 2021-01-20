@@ -51,6 +51,35 @@ trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=batchs
 writer = SummaryWriter(log_dir="runs/CIFAR10", comment="f-GAN-Pearson")
 nepochs = 500
 niter = 0
+#checkpoint = torch.load('./.pt')
+#fgan.gen.load_state_dict(checkpoint['gen_state_dict'])
+#optimizer_gen.load_state_dict(checkpoint['gen_opt_state_dict'])
+fgan.gen.train()
+fgan.disc.train()
+# xreal2 is B(z) and xreal3 is G(z)
+# 2 choices: Load xreal2 and xreal3 as models or as samples
+# Either load xreal2 and xreal3 as models or as samples
+# We choose to load xreal2 and xreal3 as models
+fgan2 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
+fgan2 = fgan2.to(device)
+checkpoint = torch.load('./.pt')
+fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+fgan2.gen.eval()
+fgan2.disc.eval()
+for param in fgan2.gen.parameters():
+    param.requires_grad = False
+for param in fgan2.disc.parameters():
+    param.requires_grad = False
+fgan3 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
+fgan3 = fgan3.to(device)
+checkpoint = torch.load('./.pt')
+fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+fgan3.gen.eval()
+fgan3.disc.eval()
+for param in fgan3.gen.parameters():
+    param.requires_grad = False
+for param in fgan3.disc.parameters():
+    param.requires_grad = False
 for epoch in range(nepochs):
     zmodel = Variable(torch.rand((batchsize,nrand), device=device))
     xmodel = fgan.gen(zmodel)
@@ -62,7 +91,14 @@ for epoch in range(nepochs):
         fgan.zero_grad()
         xreal = Variable(imgs.to(device), requires_grad=True)
         zmodel = Variable(torch.rand((batchsize,nrand), device=device))
-        loss_gen, loss_disc = fgan(xreal, zmodel)
+        # xreal2 is B(z) and xreal3 is G(z)
+        # 2 choices: Load xreal2 and xreal3 as models or as samples
+        # Either load xreal2 and xreal3 as models or as samples
+        #loss_gen, loss_disc = fgan(xreal, zmodel, xreal2, xreal3)
+        # xreal2 is B(z) and xreal3 is G(z)
+        # 2 choices: Load xreal2 and xreal3 as models or as samples
+        # We choose to load xreal2 and xreal3 as models
+        loss_gen, loss_disc = fgan(xreal, zmodel, fgan2.gen(zmodel), fgan3.gen(zmodel))
         writer.add_scalar('obj/disc', loss_disc, niter)
         writer.add_scalar('obj/gen', loss_gen, niter)
         if i == 0:

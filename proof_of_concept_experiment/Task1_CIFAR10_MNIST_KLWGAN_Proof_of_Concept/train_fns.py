@@ -1,3 +1,4 @@
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import os
@@ -135,11 +136,11 @@ def update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log):
             or (config['which_best'] == 'FID' and FID < state_dict['best_FID'])):
         print('%s improved over previous best, saving checkpoint...' % config['which_best'])
         utils_Task1_KLWGAN_Proof_of_Concept.save_weights(G, D, state_dict, config['weights_root'],
-                           experiment_name, 'best%d' % state_dict['save_best_num'],
-                           G_ema if config['ema'] else None)
+                           experiment_name, 'best%d' % state_dict['save_best_num'], G_ema if config['ema'] else None)
         state_dict['save_best_num'] = (
             state_dict['save_best_num'] + 1) % config['num_best_copies']
     state_dict['best_FID'] = min(state_dict['best_FID'], FID)
     test_log.log(itr=int(state_dict['itr']), IS_mean=float(0), IS_std=float(0), FID=float(FID))
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

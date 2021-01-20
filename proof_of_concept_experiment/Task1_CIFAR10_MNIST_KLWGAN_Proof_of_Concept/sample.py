@@ -1,3 +1,4 @@
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import functools
@@ -19,8 +20,7 @@ def run(config):
                   'best_IS': 0, 'best_FID': 999999, 'config': config}
     if config['config_from_name']:
         utils.load_weights(None, None, state_dict, config['weights_root'],
-                           config['experiment_name'], config['load_weights'], None,
-                           strict=False, load_optim=False)
+                           config['experiment_name'], config['load_weights'], None, strict=False, load_optim=False)
         for item in state_dict['config']:
             if item not in ['z_var', 'base_root', 'batch_size', 'G_batch_size', 'use_ema', 'G_eval_mode']:
                 config[item] = state_dict['config'][item]
@@ -32,25 +32,14 @@ def run(config):
     config['skip_init'] = True
     config['no_optim'] = True
     device = 'cuda'
-
-    # Seed RNG
-    # utils.seed_rng(config['seed'])  # config['seed'])
-
-    # Setup cudnn.benchmark for free speed
     torch.backends.cudnn.benchmark = True
-
-    # Import the model--this line allows us to dynamically select different files.
     model = __import__(config['model'])
     experiment_name = (config['experiment_name'] if config['experiment_name']
                        else utils.name_from_config(config))
     print('Experiment name is %s' % experiment_name)
-
     G = model.Generator(**config).cuda()
     utils.count_parameters(G)
-
-    # Load weights
     print('Loading weights...')
-    # Here is where we deal with the ema--load ema weights or load normal weights
     utils.load_weights(G if not (config['use_ema']) else None, None, state_dict,
                        config['weights_root'], experiment_name, config['load_weights'],
                        G if config['ema'] and config['use_ema'] else None,
@@ -154,8 +143,6 @@ def run(config):
     if config['sample_inception_metrics']:
         print('Calculating Inception metrics...')
         get_metrics()
-
-    # Sample truncation curve stuff. This is basically the same as the inception metrics code
     if config['sample_trunc_curves']:
         start, step, end = [
             float(item) for item in config['sample_trunc_curves'].split('_')]
@@ -163,8 +150,6 @@ def run(config):
             start, step, end))
         for var in np.arange(start, end + step, step):
             z_.var = var
-            # Optionally comment this out if you want to run with standing stats
-            # accumulated at one z variance setting
             if config['accumulate_stats']:
                 utils.accumulate_standing_stats(G, z_, y_, config['n_classes'],
                                                 config['num_standing_accumulations'])
@@ -177,5 +162,6 @@ def main():
     run(config)
 if __name__ == '__main__':
     main()
+# Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

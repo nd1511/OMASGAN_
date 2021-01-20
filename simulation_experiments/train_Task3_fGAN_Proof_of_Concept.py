@@ -60,6 +60,7 @@ fgan.disc.train()
 # 2 choices: Load xreal2 and xreal3 as models or as samples
 # Either load xreal2 and xreal3 as models or as samples
 # We choose to load xreal2 and xreal3 as models
+# xreal2 is B(z) and xreal3 is G(z)
 fgan2 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan2 = fgan2.to(device)
 checkpoint = torch.load('./.pt')
@@ -70,6 +71,7 @@ for param in fgan2.gen.parameters():
     param.requires_grad = False
 for param in fgan2.disc.parameters():
     param.requires_grad = False
+# xreal3 is G(z)
 fgan3 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan3 = fgan3.to(device)
 checkpoint = torch.load('./.pt')

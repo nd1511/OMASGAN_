@@ -482,7 +482,7 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
     train_idx_normal = get_target_label_idx(train_set.labels, [1, 2, 3, 4, 5, 6, 7, 8, 9])
     train_set = Subset(train_set, train_idx_normal)
     print(len(train_set))
-    from train_Task1_KLWGAN_Proof_of_Concept import select_dataset
+    from train_Task1_KLWGAN_Simulation_Experiment import select_dataset
     print(select_dataset)
     if select_dataset == "mnist":
         train_transform = transforms.Compose([transforms.Grayscale(3), train_transform])

@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
+# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 class ConjugateDualFunction:
     def __init__(self, divergence_name):
         self.divergence_name = divergence_name
@@ -49,23 +51,28 @@ class FGANLearningObjective(nn.Module):
         self.disc = disc
         self.conj = ConjugateDualFunction(divergence_name)
         self.gammahalf = 0.5*gamma
-    def forward(self, xreal, zmodel, mu, ni):
+    def forward(self, xreal, zmodel, mu, ni, select_dataset):
         vreal = self.disc(xreal)
         Treal = self.conj.T(vreal)
         xmodel = self.gen(zmodel)
         vmodel = self.disc(xmodel)
         fstar_Tmodel = self.conj.fstarT(vmodel)
-        D1 = torch.norm(xreal[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)
-        #D1 = torch.norm(xreal[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)**2
-        D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1))
-        #D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1)**2 / (1e-17 + torch.norm(xmodel[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)**2)
+        if select_dataset == "mnist":
+            D1 = torch.norm(xreal[None, :].view(-1, 1 * 32 * 32).expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 1 * 32 * 32)[:, None], dim=-1)
+            #D1 = torch.norm(xreal[None, :].view(-1, 1 * 32 * 32).expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 1 * 32 * 32)[:, None], dim=-1)**2
+            D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel.view(-1, 1 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 1 * 32 * 32)[:, None], dim=-1))
+            #D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1)**2 / (1e-17 + torch.norm(xmodel.view(-1, 1 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 1 * 32 * 32)[:, None], dim=-1)**2)
+        elif select_dataset == "mnist2" or select_dataset == "cifar10":
+            D1 = torch.norm(xreal[None, :].view(-1, 3 * 32 * 32).expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)
+            #D1 = torch.norm(xreal[None, :].view(-1, 3 * 32 * 32).expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)**2
+            D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1))
+            #D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1)**2 / (1e-17 + torch.norm(xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)**2)
         loss_gen = fstar_Tmodel.mean() + mu * torch.min(D1, dim=1)[0].mean() + ni * torch.mean(D2, dim=1)[0].mean()
         loss_disc = fstar_Tmodel.mean() - Treal.mean()
         # Gradient penalty
         if self.gammahalf > 0.0:
             batchsize = xreal.size(0)
-            grad_pd = torch.autograd.grad(Treal.sum(), xreal,
-                create_graph=True, only_inputs=True)[0]
+            grad_pd = torch.autograd.grad(Treal.sum(), xreal, create_graph=True, only_inputs=True)[0]
             grad_pd_norm2 = grad_pd.pow(2)
             grad_pd_norm2 = grad_pd_norm2.view(batchsize, -1).sum(1)
             gradient_penalty = self.gammahalf * grad_pd_norm2.mean()

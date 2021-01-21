@@ -2,10 +2,10 @@
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import os
-import utils_Task1_KLWGAN_Proof_of_Concept
-from utils_Task1_KLWGAN_Proof_of_Concept import *
-import losses_Task1_KLWGAN_Proof_of_Concept
-from losses_Task1_KLWGAN_Proof_of_Concept import *
+import utils_Task1_KLWGAN_Simulation_Experiment
+from utils_Task1_KLWGAN_Simulation_Experiment import *
+import losses_Task1_KLWGAN_Simulation_Experiment
+from losses_Task1_KLWGAN_Simulation_Experiment import *
 import torch
 import torch.nn as nn
 import torchvision

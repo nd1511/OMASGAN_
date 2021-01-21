@@ -1,8 +1,8 @@
+from __future__ import print_function
 # Use: python train_Task1_KLWGAN_Proof_of_Concept.py --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
-from __future__ import print_function
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -21,9 +21,9 @@ import torch.nn.functional as F
 from torch.nn import Parameter as P
 import torchvision
 import inception_utils
-import utils_Task1_KLWGAN_Proof_of_Concept
-from utils_Task1_KLWGAN_Proof_of_Concept import *
-import losses_Task1_KLWGAN_Proof_of_Concept
+import utils_Task1_KLWGAN_Simulation_Experiment
+from utils_Task1_KLWGAN_Simulation_Experiment import *
+import losses_Task1_KLWGAN_Simulation_Experiment
 import train_fns
 import fid_score
 from sync_batchnorm import patch_replication_callback

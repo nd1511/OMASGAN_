@@ -57,6 +57,7 @@ class FGANLearningObjective(nn.Module):
         xmodel = self.gen(zmodel)
         vmodel = self.disc(xmodel)
         fstar_Tmodel = self.conj.fstarT(vmodel)
+        # We have used: imgsize = 32
         if select_dataset == "mnist":
             D1 = torch.norm(xreal[None, :].view(-1, 1 * 32 * 32).expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 1 * 32 * 32)[:, None], dim=-1)
             #D1 = torch.norm(xreal[None, :].view(-1, 1 * 32 * 32).expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 1 * 32 * 32)[:, None], dim=-1)**2
@@ -77,6 +78,6 @@ class FGANLearningObjective(nn.Module):
             grad_pd_norm2 = grad_pd_norm2.view(batchsize, -1).sum(1)
             gradient_penalty = self.gammahalf * grad_pd_norm2.mean()
             loss_disc += gradient_penalty
-        return loss_gen, loss_disc
+        return loss_gen, loss_disc, fstar_Tmodel.mean(), torch.min(D1, dim=1)[0].mean(), torch.mean(D2, dim=1)[0].mean()
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

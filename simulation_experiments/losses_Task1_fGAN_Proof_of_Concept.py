@@ -60,8 +60,7 @@ class FGANLearningObjective(nn.Module):
         # Gradient penalty
         if self.gammahalf > 0.0:
             batchsize = xreal.size(0)
-            grad_pd = torch.autograd.grad(Treal.sum(), xreal,
-                create_graph=True, only_inputs=True)[0]
+            grad_pd = torch.autograd.grad(Treal.sum(), xreal, create_graph=True, only_inputs=True)[0]
             grad_pd_norm2 = grad_pd.pow(2)
             grad_pd_norm2 = grad_pd_norm2.view(batchsize, -1).sum(1)
             gradient_penalty = self.gammahalf * grad_pd_norm2.mean()

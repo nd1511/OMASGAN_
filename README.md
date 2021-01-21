@@ -46,6 +46,6 @@ Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.c
 
 Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 
-Additional acknowledgement: Thanks to the repositories: [Rumi-GAN](https://github.com/DarthSid95/RumiGANs), [GAN-Models](https://github.com/shayneobrien/generative-models), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), and [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py)
+Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GAN-Models](https://github.com/shayneobrien/generative-models), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)
 
 This website is best viewed in Chrome or Firefox.

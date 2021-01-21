@@ -8,15 +8,15 @@ Deep generative models trained in an unsupervised manner encounter the problem o
 
 Flowchart Diagram:
 
-![plot](./images/FlowchartOMASGAN.png)
+![plot](./Figures_Images/FlowchartOMASGAN.png)
 
 Diagram of OMASGAN:
 
-![plot](./images/Flowchart_OMASGAN.png)
+![plot](./Figures_Images/Flowchart_OMASGAN.png)
 
 Algorithm of OMASGAN:
 
-![plot](./images/Illustration_OMASGAN.png)
+![plot](./Figures_Images/Illustration_OMASGAN.png)
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 

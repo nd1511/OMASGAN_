@@ -34,6 +34,8 @@ Date: Monday 18 January 2021: Creation of the Folder Proof Of Concept Experiment
 
 The boundary algorithm (Task 2) and the retraining function (Task 3) of OMASGAN are new.
 
+In Task 2, the boundary model is trained to perform sample generation on the boundary of the data distribution by starting from within the data distribution (Task 1).
+
 In the Proof Of Concept Experiment for the Boundary and Retraining Tasks, according to Table 4 of the f-GAN paper, we use the Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 
 Example usage: "cd ./proof_of_concept_experiment/" and then "python train_Task1_fGAN_Proof_of_Concept.py", "python -m train_Task1_fGAN_Proof_of_Concept", "python Task1_MNIST_fGAN_Proof_of_Concept.py", or "python Task1_MNIST2_fGAN_Proof_of_Concept.py"

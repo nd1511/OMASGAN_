@@ -123,6 +123,7 @@ def evaluation_metrics(recReconstruction_MNIST, recReconstruction_FMNIST):
     sns.kdeplot(y_scores[len(recReconstruction_MNIST):], color='r')
     pyplot.xlim(-0.05, 1.05)
     pyplot.show()
+# Example:
 recReconstruction_FMNIST = [2.4520, 1.8081, 4.1148, 3.1931, 2.4217, 1.8216, 2.7750, 2.2767, 2.2954,
         3.0510, 3.0307, 2.7676, 2.9278, 2.8380, 2.8704, 3.0740, 3.2760, 2.7376,
         2.6221, 3.3810, 2.7875, 1.4959, 2.3500, 2.5449, 2.5495, 3.1200, 2.6172,

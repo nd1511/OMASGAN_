@@ -20,6 +20,11 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 import datasets as dset
+# We use the leave-one-out (LOO) evaluation methodology.
+# The LOO  methodology is setting K classes of a dataset with (K + 1) classes
+# as the normal class and the leave-out class as the abnormal class.
+#abnormal_class_LOO = abnormal_class_LOO
+abnormal_class_LOO = 0
 def prepare_parser():
     usage = 'Parser for all scripts.'
     parser = ArgumentParser(description=usage)
@@ -479,7 +484,11 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
     from torch.utils.data import Subset
     def get_target_label_idx(labels, targets):
         return np.argwhere(np.isin(labels, targets)).flatten().tolist()
-    train_idx_normal = get_target_label_idx(train_set.labels, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    train_idx_normal = get_target_label_idx(train_set.labels, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
+    #train_idx_normal = get_target_label_idx(train_set.labels, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    # Use the leave-one-out (LOO) evaluation methodology.
+    # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
+    # classes as the normal class and the leave-out class as the abnormal class.
     train_set = Subset(train_set, train_idx_normal)
     print(len(train_set))
     from train_Task1_KLWGAN_Simulation_Experiment import select_dataset

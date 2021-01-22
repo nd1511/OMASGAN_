@@ -196,8 +196,7 @@ class FGANLearningObjective(nn.Module):
         xmodel = self.gen(zmodel)
         vmodel = self.disc(xmodel)
         fstar_Tmodel = self.conj.fstarT(vmodel)
-        second_term_loss = torch.min(torch.norm(
-                xreal.view(-1, 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 32 * 32)[:, None],
+        second_term_loss = torch.min(torch.norm(xreal.view(-1, 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 32 * 32)[:, None],
                 dim=-1), dim=1)[0].mean()
         third_term_loss = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(
                 xmodel.view(-1, 32*32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 32*32)[:, None], dim=-1)), dim=1)[0].mean()
@@ -218,8 +217,8 @@ fgan2 = FGANLearningObjective(gen2, disc2, "pearson", gamma=10.0)
 fgan = fgan.to(device)
 fgan2 = fgan2.to(device)
 batchsize = 64
-optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=1.0e-3)
-optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=1.0e-3)
+optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
+optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=len(data_forTrainloader), shuffle=True)
 def makedirs(dirname):
     if not os.path.exists(dirname):
@@ -249,7 +248,7 @@ fgan2.disc.load_state_dict(checkpoint['disc_state_dict'])
 fgan2.gen.eval()
 fgan2.disc.eval()
 fgan2.eval()
-# In Task 2, the boundary model is trained to perform sample generation on the
+# In Task 2, our boundary model is trained to perform sample generation on the
 # boundary of the data distribution by starting from within the data distribution.
 checkpoint = torch.load('./.pt')
 fgan.gen.load_state_dict(checkpoint['gen_state_dict'])
@@ -296,6 +295,20 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
                        './/.pt')
 writer.export_scalars_to_json("./allscalars.json")
 writer.close()
+# Example:
+# 28.2624, 63.2094
+# 22.2601, 55.9449
+# 18.7974, 52.6207
+# 13.4253, 48.3857
+# 10.6811, 46.0604
+# 10.0998, 45.5906
+# 8.9341, 45.0204
+# 7.8191, 44.9111
+# 6.9433, 43.7151
+# (...)
+# -98.7344, 17.8231
+# -99.9210, 16.3712
+
 # Example:
 # 26.7841, 66.1683
 # 20.7029, 60.3265

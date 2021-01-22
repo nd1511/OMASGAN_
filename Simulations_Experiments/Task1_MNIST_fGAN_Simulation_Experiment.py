@@ -3,7 +3,7 @@ from __future__ import print_function
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Use the leave-one-out (LOO) evaluation methodology.
 # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
 # classes as the normal class and the leave-out class as the abnormal class.

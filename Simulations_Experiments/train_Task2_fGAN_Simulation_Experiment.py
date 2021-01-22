@@ -10,7 +10,11 @@ from losses_Task2_fGAN_Simulation_Experiment import *
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-abnormal_class_LOO = abnormal_class_LOO
+# We use the leave-one-out (LOO) evaluation methodology.
+# The LOO  methodology is setting K classes of a dataset with (K + 1) classes
+# as the normal class and the leave-out class as the abnormal class.
+#abnormal_class_LOO = abnormal_class_LOO
+abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 lr_select = lr_select
 #lr_select = 1.0e-3
@@ -57,6 +61,7 @@ from torch.utils.data import Subset
 def get_target_label_idx(labels, targets):
   return np.argwhere(np.isin(labels, targets)).flatten().tolist()
 train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 0))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 1))
 # Example 1:
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 0))
@@ -65,6 +70,9 @@ train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(n
 # Example 2:
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 1))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
+# Use the leave-one-out (LOO) evaluation methodology.
+# The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
+# classes as the normal class and the leave-out class as the abnormal class.
 data_forTrainloader = Subset(data_forTrainloader, train_idx_normal)
 print(len(data_forTrainloader))
 import torch.nn as nn

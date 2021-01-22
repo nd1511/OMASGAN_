@@ -42,6 +42,8 @@ The use of torch.nn.DataParallel(model) is recommended along with the use of tor
 
 After saving the trained model from Task 1: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task2_fGAN_Simulation_Experiment.py".
 
+After saving the trained models from Tasks 1 and 2: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_fGAN_Simulation_Experiment.py".
+
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.3

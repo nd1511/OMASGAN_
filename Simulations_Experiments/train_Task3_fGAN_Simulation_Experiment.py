@@ -8,6 +8,16 @@ from losses_Task3_fGAN_Simulation_Experiment import *
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# Use the leave-one-out (LOO) evaluation methodology.
+# The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
+# classes as the normal class and the leave-out class as the abnormal class.
+#abnormal_class_LOO = abnormal_class_LOO
+abnormal_class_LOO = 0
+#abnormal_class_LOO = 1
+lr_select = lr_select
+#lr_select = 1.0e-3
+lr_select_gen = lr_select
+lr_select_disc = lr_select
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -38,13 +48,18 @@ disc = DCGANDiscriminator(select_dataset)
 fgan = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan = fgan.to(device)
 batchsize = 64
-optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=1.0e-3)
-optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=1.0e-3)
+optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
+optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 data_forTrainloader = choose_dataset(select_dataset)
 from torch.utils.data import Subset
 def get_target_label_idx(labels, targets):
   return np.argwhere(np.isin(labels, targets)).flatten().tolist()
-train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
+# We use the leave-one-out (LOO) evaluation methodology.
+# The LOO methodology is setting K classes of a dataset with (K + 1) classes
+# as the normal class and the leave-out class as the abnormal class.
 data_forTrainloader = Subset(data_forTrainloader, train_idx_normal)
 print(len(data_forTrainloader))
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=batchsize, shuffle=True, num_workers=8, drop_last=True)

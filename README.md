@@ -20,7 +20,7 @@ Main Algorithm of OMASGAN:
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 
-Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the code, and make the code public.
+Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
 
 Date: Friday 22 January 2021: Creation of the Folder Simulations Experiments for the Boundary Task and the Retraining Task of OMASGAN.
 

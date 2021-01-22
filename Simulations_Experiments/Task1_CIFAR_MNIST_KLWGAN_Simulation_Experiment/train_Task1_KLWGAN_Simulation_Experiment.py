@@ -69,13 +69,10 @@ def run(config):
             patch_replication_callback(GD)
     test_metrics_fname = '%s/%s_log.jsonl' % (config['logs_root'], experiment_name)
     train_metrics_fname = '%s/%s' % (config['logs_root'], experiment_name)
-    print('Inception Metrics will be saved to {}'.format(test_metrics_fname))
     test_log = utils_Task1_KLWGAN_Simulation_Experiment.MetricsLogger(test_metrics_fname, reinitialize=(not config['resume']))
-    print('Training Metrics will be saved to {}'.format(train_metrics_fname))
     train_log = utils_Task1_KLWGAN_Simulation_Experiment.MyLogger(train_metrics_fname, reinitialize=(not config['resume']), logstyle=config['logstyle'])
     utils_Task1_KLWGAN_Simulation_Experiment.write_metadata(config['logs_root'], experiment_name, config, state_dict)
-    D_batch_size = (config['batch_size'] * config['num_D_steps']
-                    * config['num_D_accumulations'])
+    D_batch_size = (config['batch_size'] * config['num_D_steps'] * config['num_D_accumulations'])
     loaders = utils_Task1_KLWGAN_Simulation_Experiment.get_data_loaders(**{**config, 'batch_size': D_batch_size,
                                         'start_itr': state_dict['itr']})
     G_batch_size = max(config['G_batch_size'], config['batch_size'])
@@ -90,10 +87,7 @@ def run(config):
         train = train_fns.GAN_training_function(G, D, GD, z_, y_, ema, state_dict, config)
     else:
         train = train_fns.dummy_training_function()
-    sample = functools.partial(utils_Task1_KLWGAN_Simulation_Experiment.sample,
-                               G=(G_ema if config['ema'] and config['use_ema']
-                                   else G),
-                               z_=z_, y_=y_, config=config)
+    sample = functools.partial(utils_Task1_KLWGAN_Simulation_Experiment.sample, G=(G_ema if config['ema'] and config['use_ema'] else G), z_=z_, y_=y_, config=config)
     print('Beginning training at epoch %d...' % state_dict['epoch'])
     print('Total training epochs ',  config['num_epochs'])
     print("the dataset is ", config['dataset'], )

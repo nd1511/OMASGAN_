@@ -5,6 +5,8 @@ from __future__ import print_function
 from datasets_Task1_fGAN_Simulation_Experiment import *
 from networks_Task1_fGAN_Simulation_Experiment import *
 from losses_Task2_fGAN_Simulation_Experiment import *
+# The use of torch.nn.DataParallel(model) is recommended along with the use
+# of torch.save(model.module.state_dict(), "./.pt") instead of torch.save(model.state_dict(), "./.pt").
 # According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import os

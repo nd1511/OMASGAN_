@@ -44,7 +44,9 @@ Also, saving the best model is recommended by using "best_loss = float('inf')" a
 
 After saving the trained model from Task 1: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task2_fGAN_Simulation_Experiment.py".
 
-After saving the trained models from Tasks 1 and 2: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_fGAN_Simulation_Experiment.py".
+Then, after saving the trained models from Tasks 1 and 2: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_fGAN_Simulation_Experiment.py".
+
+Next, after saving the trained models from Tasks 1, 2, and 3: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_J_fGAN_Simulation_Experiment.py".
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 

@@ -51,7 +51,7 @@ def get_target_label_idx(labels, targets):
 train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 # We use the leave-one-out (LOO) evaluation methodology.
-# The LOO  methodology is setting K classes of a dataset with (K + 1) classes
+# The LOO methodology is setting K classes of a dataset with (K + 1) classes
 # as the normal class and the leave-out class as the abnormal class.
 data_forTrainloader = Subset(data_forTrainloader, train_idx_normal)
 print(len(data_forTrainloader))

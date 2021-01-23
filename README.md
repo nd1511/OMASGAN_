@@ -16,7 +16,7 @@ Diagram of OMASGAN:
 
 ![plot](./Figures_Images/Flowchart_OMASGAN.png)
 
-Figure 2: 
+Figure 2: Training of the proposed OMASGAN model using active negative sampling and training by creating strong abnormal samples.
 
 Main Algorithm of OMASGAN:
 

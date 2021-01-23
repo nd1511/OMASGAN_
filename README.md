@@ -16,8 +16,6 @@ Figure 1: Flowchart of the OMASGAN model for AD which generates minimum-anomaly-
 
 Figure 2: Training of the proposed OMASGAN model using active negative sampling and training by creating strong abnormal samples.
 
-Main Algorithm of OMASGAN:
-
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 
 Figure 3: Illustration and pictorial representation of the proposed OMASGAN algorithm for AD.

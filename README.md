@@ -10,13 +10,19 @@ Flowchart Diagram:
 
 ![plot](./Figures_Images/FlowchartOMASGAN.png)
 
+Figure 1: 
+
 Diagram of OMASGAN:
 
 ![plot](./Figures_Images/Flowchart_OMASGAN.png)
 
+Figure 2: 
+
 Main Algorithm of OMASGAN:
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
+
+Figure 3:
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 

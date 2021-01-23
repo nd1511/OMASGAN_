@@ -14,11 +14,11 @@ Figure 1: Flowchart of the OMASGAN model for AD which generates minimum-anomaly-
 
 ![plot](./Figures_Images/Flowchart_OMASGAN.png)
 
-Figure 2: Training of the proposed OMASGAN model using active negative sampling and training by creating strong abnormal samples.
+Figure 2: Training of the OMASGAN model using active negative sampling and training by creating strong abnormal samples.
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 
-Figure 3: Illustration of the proposed OMASGAN algorithm for AD where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>. The figure shows the OMASGAN Tasks and the data distribution, p<sub>**x**</sub>, the data model distribution, p<sub>g</sub>, the data model distribution after retraining, p<sub>g'</sub>, and the samples from the boundary of the support of the data distribution, B(**z**)~p<sub>b</sub>.
+Figure 3: Illustration of the OMASGAN algorithm for AD where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>. The figure shows the OMASGAN Tasks and the data distribution, p<sub>**x**</sub>, the data model distribution, p<sub>g</sub>, the data model distribution after retraining, p<sub>g'</sub>, and the samples from the boundary of the support of the data distribution, B(**z**)~p<sub>b</sub>.
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 

@@ -130,7 +130,7 @@ def save_and_sample(G, D, G_ema, z_, y_, fixed_z, fixed_y, state_dict, config, e
                            sheet_number=0,
                            fix_z=fix_z, fix_y=fix_y, device='cuda')
 def update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log):
-    print('Itr %d: PYTORCH UNOFFICIAL FID is %5.4f' % (state_dict['itr'], FID))
+    print('Itr %d: The FID is %5.4f' % (state_dict['itr'], FID))
     if ((config['which_best'] == 'IS' and IS_mean > state_dict['best_IS'])
             or (config['which_best'] == 'FID' and FID < state_dict['best_FID'])):
         print('%s improved over previous best, saving checkpoint...' % config['which_best'])

@@ -12,8 +12,6 @@ Flowchart Diagram:
 
 Figure 1: Flowchart of the OMASGAN model for AD which generates minimum-anomaly-score OoD samples on the boundary of the data distribution and subsequently uses these generated boundary samples to train a discriminative model for detecting abnormal data.
 
-Diagram of OMASGAN:
-
 ![plot](./Figures_Images/Flowchart_OMASGAN.png)
 
 Figure 2: Training of the proposed OMASGAN model using active negative sampling and training by creating strong abnormal samples.

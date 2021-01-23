@@ -22,7 +22,7 @@ Main Algorithm of OMASGAN:
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 
-Figure 3:
+Figure 3: Illustration and pictorial representation of the proposed OMASGAN algorithm for AD.
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 

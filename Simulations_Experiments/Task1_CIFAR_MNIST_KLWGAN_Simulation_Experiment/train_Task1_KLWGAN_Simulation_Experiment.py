@@ -147,6 +147,7 @@ def run(config):
                 # Save the lowest FID score
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
         state_dict['epoch'] += 1
+        # Save the last model
         utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % state_dict['save_last_num'], G_ema if config['ema'] else None)
         state_dict['save_last_num'] = (state_dict['save_last_num'] + 1) % config['num_last_copies']
 def main():

@@ -18,7 +18,7 @@ Figure 2: Training of the proposed OMASGAN model using active negative sampling 
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 
-Figure 3: Illustration of the proposed OMASGAN algorithm for AD and of the OMASGAN Tasks where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, G'(**z**)~p<sub>g'</sub>.
+Figure 3: Illustration of the proposed OMASGAN algorithm for AD and of the OMASGAN Tasks where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>.
 
 Date: Wednesday 13 January 2021: Creation of the Code Repository for OMASGAN.
 

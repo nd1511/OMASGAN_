@@ -131,8 +131,7 @@ def save_and_sample(G, D, G_ema, z_, y_, fixed_z, fixed_y, state_dict, config, e
                            fix_z=fix_z, fix_y=fix_y, device='cuda')
 def update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log):
     print('Itr %d: The FID is %5.4f' % (state_dict['itr'], FID))
-    if ((config['which_best'] == 'IS' and IS_mean > state_dict['best_IS'])
-            or (config['which_best'] == 'FID' and FID < state_dict['best_FID'])):
+    if ((config['which_best'] == 'IS' and IS_mean > state_dict['best_IS']) or (config['which_best'] == 'FID' and FID < state_dict['best_FID'])):
         print('%s improved over previous best, saving checkpoint...' % config['which_best'])
         utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'],
                            experiment_name, 'best%d' % state_dict['save_best_num'], G_ema if config['ema'] else None)

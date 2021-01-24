@@ -1,3 +1,4 @@
+# For all architectures: For f-GAN-based OMASGAN and for KLWGAN-based OMASGAN
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

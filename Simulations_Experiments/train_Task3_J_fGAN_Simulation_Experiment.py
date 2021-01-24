@@ -9,11 +9,18 @@ from losses_Task3_J_fGAN_Simulation_Experiment import *
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+import argparse
+parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+#parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
+parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
+opt = parser.parse_args()
+print(opt.abnormal_class)
 # Use the leave-one-out (LOO) evaluation methodology.
 # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
 # classes as the normal class and the leave-out class as the abnormal class.
 #abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = 0
+abnormal_class_LOO = opt.abnormal_class
+#abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
 # Select the learning rate.
@@ -26,6 +33,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import random
+#seed_value = seed_value
 seed_value = 2
 random.seed(seed_value)
 torch.manual_seed(seed_value)

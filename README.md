@@ -28,6 +28,12 @@ Simulations Experiments folder: Tasks of OMASGAN, including the Boundary Task an
 
 In the Simulations Experiments folder, for the Boundary and Retraining Tasks, according to Table 4 of the f-GAN paper, we use the Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 
+To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
+```
+cd ./Experiments/
+sh run_OMASGAN_fGAN_MNIST.sh
+```
+
 Example usage:
 ```
 cd ./Simulations_Experiments/
@@ -61,12 +67,6 @@ Next, after saving the trained models from Tasks 1, 2, and 3: Example usage:
 ```
 cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
-```
-
-To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
-```
-cd ./Experiments/
-sh run_OMASGAN_fGAN_MNIST.sh
 ```
 
 ## Acknowledgements:

@@ -1,4 +1,5 @@
 # Data for all Tasks
+# For all architectures: For f-GAN-based OMASGAN and for KLWGAN-based OMASGAN
 import torch
 import torchvision
 import torchvision.transforms as transforms

@@ -12,6 +12,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)
 #lr_select = lr_select
 lr_select = 1.0e-3
+#lr_select = 1.0e-4
 lr_select_gen = lr_select
 lr_select_disc = lr_select
 # Use the leave-one-out (LOO) evaluation methodology.

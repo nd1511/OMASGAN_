@@ -69,6 +69,12 @@ cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
 ```
 
+For synthetic data: Example usage:
+```
+cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
+python train_Toy_Data_fGAN_Simulation_Experiment.py
+```
+
 ## Acknowledgements:
 
 Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation).

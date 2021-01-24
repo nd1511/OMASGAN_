@@ -42,7 +42,17 @@ For the evaluation of the proposed OMASGAN model, we use the leave-one-out (LOO)
 
 To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO = 0 (train_Task1_fGAN_Simulation_Experiment.py), run “sh run_all_OMASGAN_Tasks.sh”.
 
+## Information:
+
+Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
+
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
+
+This Code Repository contains a PyTorch implementation for the OMASGAN model.
+
+Environments - Requirements: Python 3.7 and PyTorch 1.3
+
+This website is best viewed in Chrome or Firefox.
 
 ## Acknowledgements:
 
@@ -51,11 +61,3 @@ Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.c
 Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 
 Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)
-
-This Code Repository contains a PyTorch implementation for the OMASGAN model.
-
-Environments - Requirements: Python 3.7 and PyTorch 1.3
-
-Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
-
-This website is best viewed in Chrome or Firefox.

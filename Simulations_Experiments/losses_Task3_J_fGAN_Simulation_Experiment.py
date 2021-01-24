@@ -1,8 +1,9 @@
-# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
-# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
+# For all architectures: For f-GAN-based OMASGAN and for KLWGAN-based OMASGAN
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
+# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 class ConjugateDualFunction:
     def __init__(self, divergence_name):
         self.divergence_name = divergence_name

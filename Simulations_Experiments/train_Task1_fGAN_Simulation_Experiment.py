@@ -10,6 +10,12 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 # Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)
+import argparse
+parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+#parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
+parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
+opt = parser.parse_args()
+print(opt.abnormal_class)
 # Select and set the learning rate.
 # Double the learning rate if you double the batch size.
 #lr_select = lr_select
@@ -22,7 +28,8 @@ lr_select_disc = lr_select
 # classes as the normal class and the leave-out class as the abnormal class.
 # The LOO methodology leads to a multimodal distribution with disconnected components for the normal class.
 #abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = 0
+abnormal_class_LOO = opt.abnormal_class
+#abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
 import math

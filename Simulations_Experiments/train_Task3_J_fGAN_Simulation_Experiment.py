@@ -19,7 +19,8 @@ abnormal_class_LOO = 0
 # Select the learning rate.
 # Double the learning rate if you double the batch size.
 #lr_select_disc = lr_select_disc
-lr_select_disc = 1.0e-3
+lr_select_disc = 1.0e-4
+#lr_select_disc = 1.0e-3
 import math
 import numpy as np
 import matplotlib.pyplot as plt

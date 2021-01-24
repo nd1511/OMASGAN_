@@ -113,9 +113,9 @@ for epoch in range(nepochs):
         loss_disc.backward()
         optimizer_disc.step()
     # Save the images and use visualization.
-    if epoch % 10 == 0:
+    if epoch % 50 == 0:
         visualize(epoch, fgan.gen, i, xreal)
-    # Save the models G and D.
+    # Save the two models G and D.
     if epoch >= 100:
         if epoch % 50 == 0:
             #torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
@@ -124,6 +124,13 @@ for epoch in range(nepochs):
                         'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task1_fGAN_Simulation_Experiment.pt')
     #torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
     #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task1_fGAN_Simulation_Experiment.pt')
+    # if epoch >= 20:
+    #     if epoch % 10 == 0:
+    #         # torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+    #         #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+    #         torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+    #                     'gen_opt_state_dict': optimizer_gen.state_dict(),
+    #                     'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task1_fGAN_Simulation_Experiment.pt')
 #torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
 #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
 torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),

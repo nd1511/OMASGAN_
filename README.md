@@ -82,10 +82,12 @@ This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.3
 
+We use a virtual environment to run the code and the versions of the libraries we use can be found in the requirements.txt file.
+
 Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 
-We use a virtual environment to run the code and the versions of the libraries we use can be found in the requirements.txt file.
+For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [CINIC-10](https://www.kaggle.com/mengcius/cinic10), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [SVHN](http://ufldl.stanford.edu/housenumbers/), [STL-10](https://cs.stanford.edu/~acoates/stl10/), and [CIFAR-10](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html).
 
 This website is best viewed in Chrome or Firefox.

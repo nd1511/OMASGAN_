@@ -82,7 +82,7 @@ Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](ht
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
-Environments - Requirements: Python 3.7 and PyTorch 1.3
+Environments - Requirements: Python 3.7 and PyTorch 1.2
 
 We use a virtual environment (and conda) to run the code and the versions of the libraries we use can be found in the requirements.txt file.
 

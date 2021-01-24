@@ -7,36 +7,41 @@ from networks_Task1_fGAN_Simulation_Experiment import *
 from losses_Task2_fGAN_Simulation_Experiment import *
 # The use of torch.nn.DataParallel(model) is recommended along with the use
 # of torch.save(model.module.state_dict(), "./.pt") instead of torch.save(model.state_dict(), "./.pt").
-# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
-# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
+# Also, saving the best model is recommended by using "best_loss = float('inf')" and
+# "if loss.item()<best_loss: best_loss=loss.item(); torch.save(model.module.state_dict(), "./.pt")".
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-# We use the leave-one-out (LOO) evaluation methodology.
-# The LOO  methodology is setting K classes of a dataset with (K + 1) classes
-# as the normal class and the leave-out class as the abnormal class.
-#abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = 0
-#abnormal_class_LOO = 1
-lr_select = lr_select
-#lr_select = 1.0e-3
-lr_select_gen = lr_select
-lr_select_disc = lr_select
-mu_select = mu_select
-#mu_select = 0.2
-ni_select = ni_select
-#ni_select = 0.3
-import math
-import numpy as np
-import matplotlib.pyplot as plt
+# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
+# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import torch
+import math
 import random
+import numpy as np
+#seed_value = seed_value
 seed_value = 2
 random.seed(seed_value)
 torch.manual_seed(seed_value)
 torch.cuda.manual_seed_all(seed_value)
 np.random.seed(seed_value)
 torch.backends.cudnn.deterministic = True
+#lr_select = lr_select
+lr_select = 1.0e-3
+lr_select_gen = lr_select
+lr_select_disc = lr_select
+# We use the leave-one-out (LOO) evaluation methodology.
+# The LOO  methodology is setting K classes of a dataset with (K + 1) classes
+# as the normal class and the leave-out class as the abnormal class.
+# The LOO methodology leads to a multimodal distribution with disconnected components for the normal class.
+#abnormal_class_LOO = abnormal_class_LOO
+abnormal_class_LOO = 0
+#abnormal_class_LOO = 1
+#abnormal_class_LOO = 2
+#mu_select = mu_select
+mu_select = 0.2
+#ni_select = ni_select
+ni_select = 0.3
+import matplotlib.pyplot as plt
 from tensorboardX import SummaryWriter
 from torchvision.utils import save_image
 import torch.nn as nn
@@ -63,6 +68,8 @@ from torch.utils.data import Subset
 def get_target_label_idx(labels, targets):
   return np.argwhere(np.isin(labels, targets)).flatten().tolist()
 train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
+# The data must fit in the GPU memory. If out-of-memory error, then use more GPUs.
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))[::10]
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 0))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 1))
 # Example 1:
@@ -72,6 +79,9 @@ train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(n
 # Example 2:
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 1))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
+# Example 3:
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 2))
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
 # Use the leave-one-out (LOO) evaluation methodology.
 # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
 # classes as the normal class and the leave-out class as the abnormal class.
@@ -124,9 +134,10 @@ class ConjugateDualFunction:
         else:
             raise ValueError("Unknown f-divergence name.")
 ngpu = 1
-nz = 128
-nc = 1
+#nz = 128
+nz = 100
 nrand = nz
+nc = 1
 ngf = 64
 ndf = 64
 def weights_init(m):
@@ -237,12 +248,14 @@ def visualize(epoch, model, itr, real_imgs):
         print(filename)
         save_image(imgs.cpu().float(), filename, nrow=16, padding=2)
     model.train()
-writer = SummaryWriter(log_dir="runs/CIFAR10", comment="f-GAN-Pearson")
+writer = SummaryWriter(log_dir="runs/DataMNIST", comment="f-GAN-Pearson")
 niter = 0
 nepochs = 1000
+# Use Task 1 and start from within the data distribution.
 # In Task 2, the boundary model is trained to perform sample generation on the boundary
 # of the data distribution by starting from within the data distribution (Task 1).
-checkpoint = torch.load('./.pt')
+#checkpoint = torch.load('./.pt')
+checkpoint = torch.load('./Task1_fGAN_Simulation_Experiment.pt')
 fgan2.gen.load_state_dict(checkpoint['gen_state_dict'])
 fgan2.disc.load_state_dict(checkpoint['disc_state_dict'])
 fgan2.gen.eval()
@@ -250,7 +263,9 @@ fgan2.disc.eval()
 fgan2.eval()
 # In Task 2, our boundary model is trained to perform sample generation on the
 # boundary of the data distribution by starting from within the data distribution.
-checkpoint = torch.load('./.pt')
+# Use Task 1 and start from within the data distribution.
+#checkpoint = torch.load('./.pt')
+checkpoint = torch.load('./Task1_fGAN_Simulation_Experiment.pt')
 fgan.gen.load_state_dict(checkpoint['gen_state_dict'])
 fgan.disc.load_state_dict(checkpoint['disc_state_dict'])
 fgan.gen.train()
@@ -265,9 +280,10 @@ for epoch in range(nepochs):
         niter += 1
         imgs, _ = data
         fgan.zero_grad()
+        xreal = Variable(imgs.to(device), requires_grad=True)
+        #if i == 0 and epoch == 0:
+        #    xreal = Variable(fgan2.gen(Variable(torch.rand((imgs.shape[0], nrand), device=device))), requires_grad=True)
         zmodel = Variable(torch.rand((batchsize, nrand), device=device))
-        if i == 0 and epoch == 0:
-            xreal = Variable(fgan2.gen(Variable(torch.rand((imgs.shape[0], nrand), device=device))), requires_grad=True)
         loss_gen, loss_disc, fiTe, seTe, thTe = fgan(xreal, zmodel)
         writer.add_scalar('obj/disc', loss_disc, niter)
         writer.add_scalar('obj/gen', loss_gen, niter)
@@ -279,20 +295,16 @@ for epoch in range(nepochs):
         fgan.disc.zero_grad()
         loss_disc.backward()
         optimizer_disc.step()
-    if epoch % 10 == 0:
+    if epoch==0 and i==0:
         visualize(epoch, fgan.gen, i, xreal)
     if epoch >= 100:
-        if epoch % 100 == 0:
-            torch.save({'gen_state_dict': fgan.gen.state_dict(),
-                        'disc_state_dict': fgan.disc.state_dict(),
-                        'gen_opt_state_dict': optimizer_gen.state_dict(),
-                        'disc_opt_state_dict': optimizer_disc.state_dict()},
-                       './/.pt')
-torch.save({'gen_state_dict': fgan.gen.state_dict(),
-                        'disc_state_dict': fgan.disc.state_dict(),
-                        'gen_opt_state_dict': optimizer_gen.state_dict(),
-                        'disc_opt_state_dict': optimizer_disc.state_dict()},
-                       './/.pt')
+        if epoch % 50 == 0:
+            torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+                        'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()},
+                       './Task2_fGAN_Simulation_Experiment.pt')
+torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+                        'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()},
+                       './Task2_fGAN_Simulation_Experiment.pt')
 writer.export_scalars_to_json("./allscalars.json")
 writer.close()
 # Example:

@@ -6,7 +6,7 @@ Code Repository for 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for 
 ## Abstract of Paper:
 Deep generative models trained in an unsupervised manner encounter the problem of setting high likelihood and low reconstruction loss to Out-of-Distribution (OoD) samples. This increases the Type II errors (false negatives, misses of anomalies) and decreases the Anomaly Detection (AD) performance. Also, deep generative models for AD suffer from the rarity of anomalies. To address these limitations, we propose a new model to perform active negative sampling and training. Our OoD Minimum Anomaly Score GAN (OMASGAN) uses data only from the normal class. Our model generates samples on the boundary of the support of the data distribution. These boundary samples are abnormal data and we perform retraining for AD using normal and the generated minimum-anomaly-score OoD samples. We can use any f-divergence distribution metric. Likelihood and invertibility are not needed. We use a discriminator for inference and the evaluation of OMASGAN on images using the leave-one-out methodology shows that it outperforms state-of-the-art benchmarks. Using the Area Under the Receiver Operating Characteristics curve (AUROC), OMASGAN yields an improvement of at least 0.24 and 0.07 points on average on MNIST and CIFAR-10 respectively over recent benchmarks.
 
-Flowchart Diagram:
+## Flowchart Diagram:
 
 ![plot](./Figures_Images/FlowchartOMASGAN.png)
 

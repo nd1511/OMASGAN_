@@ -82,7 +82,7 @@ This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.3
 
-We use a virtual environment to run the code and the versions of the libraries we use can be found in the requirements.txt file.
+We use a virtual environment (and conda) to run the code and the versions of the libraries we use can be found in the requirements.txt file.
 
 Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
 

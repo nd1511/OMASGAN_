@@ -25,6 +25,8 @@ torch.manual_seed(seed_value)
 torch.cuda.manual_seed_all(seed_value)
 np.random.seed(seed_value)
 torch.backends.cudnn.deterministic = True
+# Choose and set the learning rate.
+# Double the learning rate if you double the batch size.
 #lr_select = lr_select
 lr_select = 1.0e-3
 lr_select_gen = lr_select

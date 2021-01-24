@@ -63,7 +63,7 @@ cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
 ```
 
-To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO = 0 (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
+To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```
 cd ./Experiments/
 sh run_OMASGAN_fGAN_MNIST.sh

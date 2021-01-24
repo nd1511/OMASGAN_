@@ -15,10 +15,10 @@ python train_Task3_J_fGAN_Simulation_Experiment.py
 exit 0
 #for m in $(seq 0 2)
 #do
-#    echo "Seed: $m"
+#    echo "Set the Random Seed: $m"
 #    for i in $(seq 0 9)
 #    do
-#        echo "Running MNIST, Abnormal Digit: $i"
+#        echo "Run Abnormal Digit: $i"
 #        python train.py --dataset mnist --isize 32 --nc 1 --niter 15 --abnormal_class $i #--manualseed $m
 #    done
 #done

@@ -11,6 +11,7 @@ import time
 import datetime
 import json
 import pickle
+import argparse
 from argparse import ArgumentParser
 from tqdm import tqdm, trange
 import torch
@@ -25,9 +26,13 @@ import datasets as dset
 # as the normal class and the leave-out class as the abnormal class.
 #abnormal_class_LOO = abnormal_class_LOO
 abnormal_class_LOO = 0
+#abnormal_class_LOO = 1
 def prepare_parser():
     usage = 'Parser for all scripts.'
     parser = ArgumentParser(description=usage)
+    parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
+    #opt = parser.parse_args()
+    #print(opt.abnormal_class)
     parser.add_argument('--dataset', type=str, default='I128_hdf5',
         help='Which Dataset to train on, out of I128, I256, C10, C100;'
         'Append "_hdf5" to use the hdf5 version for ISLVRC '

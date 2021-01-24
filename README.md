@@ -28,8 +28,6 @@ Date: Friday 22 January 2021: Creation of the Simulations Experiments folder for
 
 In the Simulations Experiments folder, for the Boundary and Retraining Tasks, according to Table 4 of the f-GAN paper, we use the Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 
-For the evaluation of the proposed OMASGAN model, we use the leave-one-out (LOO) evaluation methodology and the image data sets [MNIST](http://yann.lecun.com/exdb/mnist/) and [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html).
-
 Example usage: "cd ./Simulations_Experiments/" and then "python train_Task1_fGAN_Simulation_Experiment.py", "python -m train_Task1_fGAN_Simulation_Experiment", "python Task1_MNIST_fGAN_Simulation_Experiment.py", or "python Task1_MNIST2_fGAN_Simulation_Experiment.py"
 
 Also: Example usage: "cd ./Simulations_Experiments/Task1_CIFAR10_MNIST_KLWGAN_Simulation_Experiment/" and then "python train_Task1_KLWGAN_Simulation_Experiment.py --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5"
@@ -41,6 +39,10 @@ After saving the trained model from Task 1: Example usage: "cd ./Simulations_Exp
 Then, after saving the trained models from Tasks 1 and 2: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_fGAN_Simulation_Experiment.py".
 
 Next, after saving the trained models from Tasks 1, 2, and 3: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_J_fGAN_Simulation_Experiment.py".
+
+For the evaluation of the proposed OMASGAN model, we use the leave-one-out (LOO) evaluation methodology and the image data sets [MNIST](http://yann.lecun.com/exdb/mnist/) and [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html).
+
+To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO = 0 (train_Task1_fGAN_Simulation_Experiment.py), run “sh run_all_OMASGAN_Tasks.sh”.
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 

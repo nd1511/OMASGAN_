@@ -45,7 +45,11 @@ python train_Task1_KLWGAN_Simulation_Experiment.py --shuffle --batch_size 64 --p
 
 The use of torch.nn.DataParallel(model) is recommended along with the use of torch.save(model.module.state_dict(), "./.pt") instead of torch.save(model.state_dict(), "./.pt"). Also, saving the best model is recommended by using "best_loss = float('inf')" and "if loss.item()<best_loss: best_loss=loss.item(); torch.save(model.module.state_dict(), "./.pt")".
 
-After saving the trained model from Task 1: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task2_fGAN_Simulation_Experiment.py".
+After saving the trained model from Task 1: Example usage:
+```
+cd ./Simulations_Experiments/
+python train_Task2_fGAN_Simulation_Experiment.py
+```
 
 Then, after saving the trained models from Tasks 1 and 2: Example usage: "cd ./Simulations_Experiments/" and then "python train_Task3_fGAN_Simulation_Experiment.py".
 

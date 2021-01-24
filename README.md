@@ -86,4 +86,6 @@ Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository 
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 
+We use a virtual environment to run the code and the versions of the libraries we use can be found in the requirements.txt file.
+
 This website is best viewed in Chrome or Firefox.

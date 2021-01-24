@@ -9,6 +9,12 @@ from losses_Task3_fGAN_Simulation_Experiment import *
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+import argparse
+parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+#parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
+parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
+opt = parser.parse_args()
+print(opt.abnormal_class)
 # According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import torch
@@ -27,13 +33,15 @@ torch.backends.cudnn.deterministic = True
 # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
 # classes as the normal class and the leave-out class as the abnormal class.
 #abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = 0
+abnormal_class_LOO = opt.abnormal_class
+#abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
 # Choose and set the learning rate.
 # Double the learning rate if you double the batch size.
 #lr_select = lr_select
 lr_select = 1.0e-3
+#lr_select = 1.0e-4
 lr_select_gen = lr_select
 lr_select_disc = lr_select
 import matplotlib.pyplot as plt

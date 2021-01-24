@@ -9,10 +9,10 @@ do
   cd ../Simulations_Experiments/
   python train_Task1_fGAN_Simulation_Experiment.py --abnormal_class $i
   echo "Run Task 2"
-  python train_Task2_fGAN_Simulation_Experiment.py
+  python train_Task2_fGAN_Simulation_Experiment.py --abnormal_class $i
   echo "Run Task 3"
-  python train_Task3_fGAN_Simulation_Experiment.py
+  python train_Task3_fGAN_Simulation_Experiment.py --abnormal_class $i
   echo "Run Task 3 J"
-  python train_Task3_J_fGAN_Simulation_Experiment.py
+  python train_Task3_J_fGAN_Simulation_Experiment.py --abnormal_class $i
 done
 exit 0

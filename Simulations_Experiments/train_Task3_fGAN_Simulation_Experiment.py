@@ -3,33 +3,42 @@ from datasets_Task1_fGAN_Simulation_Experiment import *
 from networks_Task1_fGAN_Simulation_Experiment import *
 #from losses_Task1_fGAN_Simulation_Experiment import *
 from losses_Task3_fGAN_Simulation_Experiment import *
-# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
-# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
+# Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
+# Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
+# Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-# Use the leave-one-out (LOO) evaluation methodology.
-# The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
-# classes as the normal class and the leave-out class as the abnormal class.
-#abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = 0
-#abnormal_class_LOO = 1
-lr_select = lr_select
-#lr_select = 1.0e-3
-lr_select_gen = lr_select
-lr_select_disc = lr_select
-import math
-import numpy as np
-import matplotlib.pyplot as plt
+# According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
+# After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import torch
+import numpy as np
+import math
 import random
+#seed_value = seed_value
 seed_value = 2
 random.seed(seed_value)
 torch.manual_seed(seed_value)
 torch.cuda.manual_seed_all(seed_value)
 np.random.seed(seed_value)
 torch.backends.cudnn.deterministic = True
+# Use the leave-one-out (LOO) evaluation methodology.
+# The LOO methodology leads to a multimodal distribution with disconnected components for the normal class.
+# The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
+# classes as the normal class and the leave-out class as the abnormal class.
+#abnormal_class_LOO = abnormal_class_LOO
+abnormal_class_LOO = 0
+#abnormal_class_LOO = 1
+#abnormal_class_LOO = 2
+# Choose and set the learning rate.
+# Double the learning rate if you double the batch size.
+#lr_select = lr_select
+lr_select = 1.0e-3
+lr_select_gen = lr_select
+lr_select_disc = lr_select
+import matplotlib.pyplot as plt
 from tensorboardX import SummaryWriter
+from torchvision.utils import save_image
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -47,6 +56,9 @@ disc = DCGANDiscriminator(select_dataset)
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 fgan = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan = fgan.to(device)
+# Choose and set the batch size.
+# Double the learning rate if you double the batch size.
+#batchsize = batchsize
 batchsize = 64
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
@@ -57,13 +69,15 @@ def get_target_label_idx(labels, targets):
 train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
 # We use the leave-one-out (LOO) evaluation methodology.
 # The LOO methodology is setting K classes of a dataset with (K + 1) classes
 # as the normal class and the leave-out class as the abnormal class.
+# The LOO methodology leads to a multimodal distribution with disconnected components for the normal class.
 data_forTrainloader = Subset(data_forTrainloader, train_idx_normal)
 print(len(data_forTrainloader))
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=batchsize, shuffle=True, num_workers=8, drop_last=True)
-writer = SummaryWriter(log_dir="runs/CIFAR10", comment="f-GAN-Pearson")
+writer = SummaryWriter(log_dir="run/MNIST", comment="f-GAN-Pearson")
 nepochs = 500
 niter = 0
 #checkpoint = torch.load('./.pt')
@@ -78,8 +92,9 @@ fgan.disc.train()
 # xreal2 is B(z)
 fgan2 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan2 = fgan2.to(device)
-checkpoint = torch.load('./.pt')
-fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+# Load from Task 2 because xreal2 is B(z)
+checkpoint = torch.load('./Task2_fGAN_Simulation_Experiment.pt')
+fgan2.gen.load_state_dict(checkpoint['gen_state_dict'])
 fgan2.gen.eval()
 fgan2.disc.eval()
 for param in fgan2.gen.parameters():
@@ -89,14 +104,32 @@ for param in fgan2.disc.parameters():
 # xreal3 is G(z)
 fgan3 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan3 = fgan3.to(device)
-checkpoint = torch.load('./.pt')
-fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+# Load from Task 1 because xreal3 is G(z)
+checkpoint = torch.load('./Task1_fGAN_Simulation_Experiment.pt')
+fgan2.gen.load_state_dict(checkpoint['gen_state_dict'])
 fgan3.gen.eval()
 fgan3.disc.eval()
 for param in fgan3.gen.parameters():
     param.requires_grad = False
 for param in fgan3.disc.parameters():
     param.requires_grad = False
+def makedirs(dirname):
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+def visualize(epoch, model, itr, real_imgs):
+    model.eval()
+    makedirs(os.path.join('exprm', 'images'))
+    real_imgs = real_imgs[:32]
+    _real_imgs = real_imgs
+    nvals = 256
+    with torch.no_grad():
+        fake_imgs = model(Variable(torch.rand((batchsize, nrand), device=device)))
+        fake_imgs = fake_imgs.view(-1, 1, 32, 32)
+        imgs = torch.cat([_real_imgs, fake_imgs], 0)
+        filename = os.path.join('exprm', 'images', 'e{:03d}_i{:06d}.png'.format(epoch, itr))
+        print(filename)
+        save_image(imgs.cpu().float(), filename, nrow=16, padding=2)
+    model.train()
 for epoch in range(nepochs):
     zmodel = Variable(torch.rand((batchsize,nrand), device=device))
     xmodel = fgan.gen(zmodel)
@@ -126,7 +159,30 @@ for epoch in range(nepochs):
         fgan.disc.zero_grad()
         loss_disc.backward()
         optimizer_disc.step()
+        # Save the images and save the models.
+        if i == 0:
+            # Save the images and use visualization.
+            if epoch % 50 == 0:
+                visualize(epoch, fgan.gen, i, xreal)
+            # Save the models G' and C.
+            if epoch >= 100:
+                if epoch % 50 == 0:
+                    # torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+                    #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+                    torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+                                'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_fGAN_Simulation_Experiment.pt')
+            #if epoch >= 20:
+            #    if epoch % 10 == 0:
+            #        torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+            #                    'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_fGAN_Simulation_Experiment.pt')
+        #torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+        #           'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_fGAN_Simulation_Experiment.pt')
+# torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+#            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
+            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_fGAN_Simulation_Experiment.pt')
 writer.export_scalars_to_json("./allscalars.json")
 writer.close()
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
+# Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)

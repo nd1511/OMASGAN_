@@ -10,6 +10,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 # Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)
+# Select and set the learning rate.
+# Double the learning rate if you double the batch size.
 #lr_select = lr_select
 lr_select = 1.0e-3
 #lr_select = 1.0e-4
@@ -44,6 +46,7 @@ import torch.nn.init as init
 from torch.autograd import Variable
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 nrand = 100
+#nrand = 128
 #select_dataset = "select_dataset"
 select_dataset = "mnist"
 #select_dataset = "mnist2"
@@ -54,6 +57,8 @@ disc = DCGANDiscriminator(select_dataset)
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 fgan = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan = fgan.to(device)
+# Choose and set the batch size.
+# Double the learning rate if you double the batch size.
 batchsize = 64
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
@@ -138,6 +143,22 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.dis
             'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task1_fGAN_Simulation_Experiment.pt')
 writer.export_scalars_to_json("./allscalars.json")
 writer.close()
+for epoch in range(nepochs):
+    zmodel = Variable(torch.rand((batchsize,nrand), device=device))
+    xmodel = fgan.gen(zmodel)
+    xmodelimg = vutils.make_grid(xmodel, normalize=True, scale_each=True)
+    writer.add_image('Generated', xmodelimg, global_step=niter)
+    for i, data in enumerate(trainloader, 0):
+        niter += 1
+        imgs, labels = data
+        fgan.zero_grad()
+        xreal = Variable(imgs.to(device), requires_grad=True)
+        checkpoint = torch.load('./Task1_fGAN_Simulation_Experiment.pt')
+        fgan.gen.load_state_dict(checkpoint['gen_state_dict'])
+        fgan.disc.load_state_dict(checkpoint['disc_state_dict'])
+        visualize(epoch, fgan.gen, i, xreal)
+        break
+    break
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 # Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)

@@ -15,8 +15,11 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 #abnormal_class_LOO = abnormal_class_LOO
 abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
-lr_select_disc = lr_select_disc
-#lr_select_disc = 1.0e-3
+#abnormal_class_LOO = 2
+# Select the learning rate.
+# Double the learning rate if you double the batch size.
+#lr_select_disc = lr_select_disc
+lr_select_disc = 1.0e-3
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -36,6 +39,7 @@ import torch.nn.init as init
 from torch.autograd import Variable
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 nrand = 100
+#nrand = 128
 #select_dataset = "select_dataset"
 select_dataset = "mnist"
 #select_dataset = "mnist2"
@@ -46,6 +50,9 @@ disc = DCGANDiscriminator(select_dataset)
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 fgan = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan = fgan.to(device)
+# Choose and select the batch size.
+# Double the learning rate if you double the batch size.
+#batchsize = batchsize
 batchsize = 64
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 data_forTrainloader = choose_dataset(select_dataset)
@@ -55,13 +62,14 @@ def get_target_label_idx(labels, targets):
 train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
 # We use the leave-one-out (LOO) evaluation methodology.
 # The LOO methodology is setting K classes of a dataset with (K + 1) classes
 # as the normal class and the leave-out class as the abnormal class.
 data_forTrainloader = Subset(data_forTrainloader, train_idx_normal)
 print(len(data_forTrainloader))
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=batchsize, shuffle=True, num_workers=8, drop_last=True)
-writer = SummaryWriter(log_dir="runs/CIFAR10", comment="f-GAN-Pearson")
+writer = SummaryWriter(log_dir="runModel/MNIST", comment="f-GAN-Pearson")
 nepochs = 500
 niter = 0
 #checkpoint = torch.load('./.pt')
@@ -79,8 +87,11 @@ for param in fgan.gen.parameters():
 # Load xmodel: Load G'(z)
 fgan2 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan2 = fgan2.to(device)
-checkpoint = torch.load('./.pt')
-fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+# Load Task 3 because xmodel is G'(z)
+#checkpoint = torch.load('./.pt')
+checkpoint = torch.load('./Task3_fGAN_Simulation_Experiment.pt')
+#fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+fgan2.gen.load_state_dict(checkpoint['gen_state_dict'])
 fgan2.gen.eval()
 fgan2.disc.eval()
 for param in fgan2.gen.parameters():
@@ -91,8 +102,11 @@ for param in fgan2.disc.parameters():
 # Load xreal2: Load B(z)
 fgan3 = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan3 = fgan3.to(device)
-checkpoint = torch.load('./.pt')
-fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+# Load Task 2 because xreal2 is B(z)
+#checkpoint = torch.load('./.pt')
+checkpoint = torch.load('./Task2_fGAN_Simulation_Experiment.pt')
+#fgan2.gen.load_state_dict(checkpoint['gen_model_state_dict'])
+fgan2.gen.load_state_dict(checkpoint['gen_state_dict'])
 fgan3.gen.eval()
 fgan3.disc.eval()
 for param in fgan3.gen.parameters():

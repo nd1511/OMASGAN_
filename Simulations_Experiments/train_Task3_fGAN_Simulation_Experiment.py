@@ -9,12 +9,6 @@ from losses_Task3_fGAN_Simulation_Experiment import *
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-import argparse
-parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-#parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
-parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
-opt = parser.parse_args()
-print(opt.abnormal_class)
 # According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 import torch
@@ -33,15 +27,13 @@ torch.backends.cudnn.deterministic = True
 # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
 # classes as the normal class and the leave-out class as the abnormal class.
 #abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = opt.abnormal_class
-#abnormal_class_LOO = 0
+abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
 # Choose and set the learning rate.
 # Double the learning rate if you double the batch size.
 #lr_select = lr_select
 lr_select = 1.0e-3
-#lr_select = 1.0e-4
 lr_select_gen = lr_select
 lr_select_disc = lr_select
 import matplotlib.pyplot as plt
@@ -191,6 +183,22 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.dis
             'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_fGAN_Simulation_Experiment.pt')
 writer.export_scalars_to_json("./allscalars.json")
 writer.close()
+for epoch in range(nepochs):
+    zmodel = Variable(torch.rand((batchsize, nrand), device=device))
+    xmodel = fgan.gen(zmodel)
+    xmodelimg = vutils.make_grid(xmodel, normalize=True, scale_each=True)
+    writer.add_image('Generated', xmodelimg, global_step=niter)
+    for i, data in enumerate(trainloader, 0):
+        niter += 1
+        imgs, labels = data
+        fgan.zero_grad()
+        xreal = Variable(imgs.to(device), requires_grad=True)
+        checkpoint = torch.load('./Task3_fGAN_Simulation_Experiment.pt')
+        fgan.gen.load_state_dict(checkpoint['gen_state_dict'])
+        fgan.disc.load_state_dict(checkpoint['disc_state_dict'])
+        visualize(epoch, fgan.gen, i, xreal)
+        break
+    break
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 # Additional acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs)

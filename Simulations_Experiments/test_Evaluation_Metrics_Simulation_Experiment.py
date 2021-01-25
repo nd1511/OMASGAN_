@@ -18,6 +18,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 #abnormal_class_LOO = abnormal_class_LOO
 abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
+#abnormal_class_LOO = 2
 #lr_select = lr_select
 lr_select = 1.0e-3
 lr_select_gen = lr_select
@@ -110,19 +111,15 @@ def evaluation_metrics(recReconstruction_MNIST, recReconstruction_FMNIST):
     print(metrics)
     print(metric_values)
     f1_score = metric_values[0]
-    pyplot.hist([], color='w', label="AUROC: {:.3f}, AUPRC: {:.3f}, F1: {:.3f}".format(roc_auc_score(y_true, y_scores),
-                                                                                      average_precision_score(y_true,
-                                                                                                              y_scores),
-                                                                                      f1_score))
-    pyplot.hist([], color='w', label="Prec.: {:.3f}, Rec.: {:.3f}, Acc.: {:.3f}".format(metric_values[1],
-                                                                                       metric_values[2],
-                                                                                       metric_values[-1]))
+    pyplot.hist([], color='w', label="AUROC: {:.3f}, AUPRC: {:.3f}, F1: {:.3f}".format(roc_auc_score(y_true, y_scores), average_precision_score(y_true, y_scores), f1_score))
+    pyplot.hist([], color='w', label="Prec.: {:.3f}, Rec.: {:.3f}, Acc.: {:.3f}".format(metric_values[1], metric_values[2], metric_values[-1]))
     pyplot.xlabel('Anomaly Score')
     pyplot.legend(loc='upper right')
     sns.kdeplot(y_scores[:len(recReconstruction_MNIST)], color='g')
     sns.kdeplot(y_scores[len(recReconstruction_MNIST):], color='r')
     pyplot.xlim(-0.05, 1.05)
     pyplot.show()
+# For example
 # Example:
 recReconstruction_FMNIST = [2.4520, 1.8081, 4.1148, 3.1931, 2.4217, 1.8216, 2.7750, 2.2767, 2.2954,
         3.0510, 3.0307, 2.7676, 2.9278, 2.8380, 2.8704, 3.0740, 3.2760, 2.7376,
@@ -678,6 +675,10 @@ recReconstruction_MNIST = [6.1745e-04, 2.7322e-02, 9.0615e-03, 1.1019e-02, 2.160
         3.4795e-02, 2.8161e-01, 2.1755e-03, 9.2123e-03, 7.8097e-03, 4.2780e-02,
         3.8587e-03, 2.4601e-02, 5.3142e-03, 8.6165e-03, 4.8601e-03, 1.3628e-02,
         6.8852e-02, 2.0806e-02, 1.8073e-02, 1.7788e-02]
+#evaluation_metrics(recReconstruction_MNIST, recReconstruction_FMNIST)
+print(np.squeeze(recReconstruction_MNIST).tolist())
+print(np.squeeze(recReconstruction_FMNIST).tolist())
+print('')
 evaluation_metrics(recReconstruction_MNIST, recReconstruction_FMNIST)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

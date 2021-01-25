@@ -109,6 +109,14 @@ Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](ht
 All the acknowledgements, references, and citations can be found in the paper ``OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary''.
 
 ## References:
+Asokan, S. and Seelamantula, C., “Teaching a GAN What Not to Learn,” in Proceedings 34th Conference on Neural Information Processing Systems (NeurIPS 2020), Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H. (eds), Vancouver, Canada, December 2020.
+
+Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., and Bengio, Y., “Generative Adversarial Nets,” in Proceedings Advances in Neural Information Processing Systems (NIPS), pp. 2672–2680, Montréal, Canada, December 2014.
+
+Nalisnick, E.,  Matsukawa, A., Teh, Y., Gorur, D., and Lakshminarayanan, B., “Do Deep Generative Models Know What They Don’t Know?,” in Proceedings International Conference on Learning Representations (ICLR), New Orleans, USA, May 2019.
+
 Nowozin, S., Cseke, B., and Tomioka, R., “f-GAN: Training Generative Neural Samplers using Variational Divergence Minimization,” in Proceedings Thirtieth Conference on Neural Information Processing Systems (NIPS), Barcelona, Spain, December 2016.
 
 Song, J. and Ermon, S., “Bridging the Gap Between f-GANs and Wasserstein GANs,” in Proceedings International Conference on Machine Learning (ICML), pp. 9078-9087, vol. 119, Daumé III, H. and Singh, A. (eds), July 2020.
+
+Zaheer, M., Lee, J., Astrid, M., and Lee, S., “Old is Gold: Redefining the Adversarially Learned One-Class Classifier Training Paradigm,” in Proceedings IEEE/CVF Conference Computer Vision and Pattern Recognition (CVPR), pp. 14171-14181, Seattle, Washington, USA, June 2020. DOI: 10.1109/CVPR42600.2020.01419

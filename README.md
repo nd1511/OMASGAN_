@@ -69,7 +69,7 @@ cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
 ```
 
-For multimodal distributions with disconnected components, for synthetic data, OMASGAN forms the boundary of the support of the data distribution in [OMASGAN-Task2](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image1_Task2.pdf).
+For multimodal distributions with disconnected components, for synthetic data, OMASGAN forms the boundary of the support of the data distribution in [OMASGAN-Task2](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image1_Task2.pdf) and [Task2-Boundary](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image11_Task2.pdf).
 
 For synthetic data: Example usage:
 ```

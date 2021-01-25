@@ -93,6 +93,11 @@ Environments - Requirements: Python 3.7 and PyTorch 1.2
 
 To run the code, we use a virtual environment and conda. For the versions of the libraries we use, see the requirements.txt file and use "pip install -r requirements.txt".
 
+To clone the Code Repository, run:
+```
+git clone https://github.com/Anonymous-Author-2021/OMASGAN.git
+```
+
 Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).

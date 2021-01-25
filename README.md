@@ -106,7 +106,7 @@ For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIS
 
 This website is best viewed in Chrome or Firefox.
 
-## References
+## References:
 Nowozin, S., Cseke, B., and Tomioka, R., “f-GAN: Training Generative Neural Samplers using Variational Divergence Minimization,” in Proceedings Thirtieth Conference on Neural Information Processing Systems (NIPS), Barcelona, Spain, December 2016.
 
 Song, J. and Ermon, S., “Bridging the Gap Between f-GANs and Wasserstein GANs,” in Proceedings International Conference on Machine Learning (ICML), pp. 9078-9087, vol. 119, Daumé III, H. and Singh, A. (eds), July 2020.

@@ -106,6 +106,8 @@ Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous
 
 Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](https://anonymous.4open.science/repository/99219ca9-ff6a-49e5-a525-c954080de8a7/losses.py), [DeepSAD](https://github.com/lukasruff/Deep-SAD-PyTorch), and [GANomaly](https://github.com/samet-akcay/ganomaly).
 
+All the acknowledgements, references, and citations can be found in the paper ``OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary''.
+
 ## References:
 Nowozin, S., Cseke, B., and Tomioka, R., “f-GAN: Training Generative Neural Samplers using Variational Divergence Minimization,” in Proceedings Thirtieth Conference on Neural Information Processing Systems (NIPS), Barcelona, Spain, December 2016.
 

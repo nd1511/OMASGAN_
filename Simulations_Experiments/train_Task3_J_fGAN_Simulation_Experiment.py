@@ -16,16 +16,19 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
+#abnormal_class_LOO = 3
 # Select the learning rate.
 # Double the learning rate if you double the batch size.
 #lr_select_disc = lr_select_disc
 lr_select_disc = 1.0e-4
 #lr_select_disc = 1.0e-3
+#lr_select_disc = 1.0e-5
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import random
+#seed_value = seed_value
 seed_value = 2
 random.seed(seed_value)
 torch.manual_seed(seed_value)
@@ -64,6 +67,7 @@ train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(n
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 2, 4, 5, 6, 7, 8, 9])
 # We use the leave-one-out (LOO) evaluation methodology.
 # The LOO methodology is setting K classes of a dataset with (K + 1) classes
 # as the normal class and the leave-out class as the abnormal class.

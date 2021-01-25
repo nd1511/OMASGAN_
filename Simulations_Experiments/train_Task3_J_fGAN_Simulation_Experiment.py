@@ -17,6 +17,7 @@ abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
 #abnormal_class_LOO = 3
+#abnormal_class_LOO = 9
 # Select the learning rate.
 # Double the learning rate if you double the batch size.
 #lr_select_disc = lr_select_disc
@@ -36,6 +37,7 @@ torch.cuda.manual_seed_all(seed_value)
 np.random.seed(seed_value)
 torch.backends.cudnn.deterministic = True
 from tensorboardX import SummaryWriter
+#from torchvision.utils import save_image
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -68,6 +70,7 @@ train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(n
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 2, 4, 5, 6, 7, 8, 9])
+#train_idx_normal = get_target_label_idx(data_forTrainloader.targets, [0, 1, 2, 3, 4, 5, 6, 7, 8])
 # We use the leave-one-out (LOO) evaluation methodology.
 # The LOO methodology is setting K classes of a dataset with (K + 1) classes
 # as the normal class and the leave-out class as the abnormal class.

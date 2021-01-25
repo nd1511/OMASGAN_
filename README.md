@@ -14,7 +14,7 @@ Figure 1: Flowchart of the OMASGAN model for AD which generates minimum-anomaly-
 
 ![plot](./Figures_Images/Flowchart_OMASGAN.png)
 
-Figure 2: Training of the OMASGAN model for AD in images using active negative sampling and training by creating strong abnormal samples.
+Figure 2: Training of the OMASGAN model for AD in images using active negative sampling and training by generating strong abnormal OoD samples.
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 

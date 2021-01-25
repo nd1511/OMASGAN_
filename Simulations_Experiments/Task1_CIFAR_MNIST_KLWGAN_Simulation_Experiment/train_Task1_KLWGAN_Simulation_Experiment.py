@@ -74,6 +74,7 @@ def run(config):
     train_log = utils_Task1_KLWGAN_Simulation_Experiment.MyLogger(train_metrics_fname, reinitialize=(not config['resume']), logstyle=config['logstyle'])
     utils_Task1_KLWGAN_Simulation_Experiment.write_metadata(config['logs_root'], experiment_name, config, state_dict)
     D_batch_size = (config['batch_size'] * config['num_D_steps'] * config['num_D_accumulations'])
+    # Use: config['abnormal_class']
     #print(config['abnormal_class'])
     abnormal_class = config['abnormal_class']
     loaders = utils_Task1_KLWGAN_Simulation_Experiment.get_data_loaders(**{**config, 'batch_size': D_batch_size, 'start_itr': state_dict['itr'], 'abnormal_class': abnormal_class})

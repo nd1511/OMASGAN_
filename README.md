@@ -87,7 +87,7 @@ Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](ht
 
 ## Further Information:
 
-To run the code, we use a virtual environment and conda. For the versions of the libraries we use, see the requirements.txt file and use "pip install -r requirements.txt".
+To run the code, we use a virtual environment and conda. For the versions of the libraries we use, see the requirements.txt file which was created by using "pip freeze > requirements.txt". For installing the versions of the libraries we use, run "pip install -r requirements.txt".
 
 To clone the Code Repository, run:
 ```

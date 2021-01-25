@@ -25,8 +25,9 @@ import datasets as dset
 # The LOO  methodology is setting K classes of a dataset with (K + 1) classes
 # as the normal class and the leave-out class as the abnormal class.
 #abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = 0
+#abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
+#abnormal_class_LOO = 2
 def prepare_parser():
     usage = 'Parser for all scripts.'
     parser = ArgumentParser(description=usage)
@@ -447,7 +448,7 @@ class MultiEpochSampler(torch.utils.data.Sampler):
 def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
                      num_workers=8, shuffle=True, load_in_mem=False, hdf5=False,
                      pin_memory=True, drop_last=True, start_itr=0,
-                     num_epochs=500, use_multiepoch_sampler=False, **kwargs):
+                     num_epochs=500, use_multiepoch_sampler=False, abnormal_class=0, **kwargs):
     data_root += '/%s' % root_dict[dataset]
     print('Using dataset root location %s' % data_root)
     which_dataset = dset_dict[dataset]
@@ -489,7 +490,10 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
     from torch.utils.data import Subset
     def get_target_label_idx(labels, targets):
         return np.argwhere(np.isin(labels, targets)).flatten().tolist()
-    train_idx_normal = get_target_label_idx(train_set.labels, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
+    # Use: abnormal_class
+    print(abnormal_class)
+    train_idx_normal = get_target_label_idx(train_set.labels, np.delete(np.array(list(range(0, 10))), abnormal_class))
+    #train_idx_normal = get_target_label_idx(train_set.labels, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
     #train_idx_normal = get_target_label_idx(train_set.labels, [1, 2, 3, 4, 5, 6, 7, 8, 9])
     # Use the leave-one-out (LOO) evaluation methodology.
     # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)

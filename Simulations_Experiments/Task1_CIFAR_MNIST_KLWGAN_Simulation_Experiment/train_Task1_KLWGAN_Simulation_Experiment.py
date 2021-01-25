@@ -7,6 +7,8 @@ from __future__ import print_function
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# Implicit generative models and GANs generate sharp, low-FID, realistic, and high-quality images.
+# We use implicit generative models and GANs for the challenging task of anomaly detection in high-dimensional spaces.
 #select_dataset = "select_dataset"
 select_dataset = "cifar10"
 #select_dataset = "mnist"

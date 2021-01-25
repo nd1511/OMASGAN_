@@ -9,18 +9,11 @@ from losses_Task3_J_fGAN_Simulation_Experiment import *
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-import argparse
-parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-#parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
-parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
-opt = parser.parse_args()
-print(opt.abnormal_class)
 # Use the leave-one-out (LOO) evaluation methodology.
 # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
 # classes as the normal class and the leave-out class as the abnormal class.
 #abnormal_class_LOO = abnormal_class_LOO
-abnormal_class_LOO = opt.abnormal_class
-#abnormal_class_LOO = 0
+abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
 # Select the learning rate.
@@ -33,7 +26,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import random
-#seed_value = seed_value
 seed_value = 2
 random.seed(seed_value)
 torch.manual_seed(seed_value)
@@ -150,22 +142,16 @@ for epoch in range(nepochs):
         # Save the trained model J.
         if epoch >= 100:
             if epoch % 50 == 0:
-                # torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
-                #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
-                torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
-                            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
+                # torch.save({'disc_state_dict': fgan.disc.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+                torch.save({'disc_state_dict': fgan.disc.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
         # torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
         #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
         # if epoch >= 20:
         #     if epoch % 10 == 0:
-        #         # torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
-        #         #            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
-        #         torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
-        #                     'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
-# torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
-#            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
-torch.save({'gen_state_dict': fgan.gen.state_dict(), 'disc_state_dict': fgan.disc.state_dict(),
-            'gen_opt_state_dict': optimizer_gen.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
+        #         # torch.save({'disc_state_dict': fgan.disc.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+        #         torch.save({'disc_state_dict': fgan.disc.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
+# torch.save({'disc_state_dict': fgan.disc.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+torch.save({'disc_state_dict': fgan.disc.state_dict(), 'disc_opt_state_dict': optimizer_disc.state_dict()}, './Task3_J_fGAN_Simulation_Experiment.pt')
 writer.export_scalars_to_json("./allscalars.json")
 writer.close()
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)

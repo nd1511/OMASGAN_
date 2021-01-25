@@ -105,3 +105,8 @@ Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a5
 For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [SVHN](http://ufldl.stanford.edu/housenumbers/), [CINIC-10](https://www.kaggle.com/mengcius/cinic10), [STL-10](https://cs.stanford.edu/~acoates/stl10/), [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html), and data from the Outlier Detection Data Sets (ODDS) repository ([ODDS](http://odds.cs.stonybrook.edu/)).
 
 This website is best viewed in Chrome or Firefox.
+
+## References
+Nowozin, S., Cseke, B., and Tomioka, R., “f-GAN: Training Generative Neural Samplers using Variational Divergence Minimization,” in Proceedings Thirtieth Conference on Neural Information Processing Systems (NIPS), Barcelona, Spain, December 2016.
+
+Song, J. and Ermon, S., “Bridging the Gap Between f-GANs and Wasserstein GANs,” in Proceedings International Conference on Machine Learning (ICML), pp. 9078-9087, vol. 119, Daumé III, H. and Singh, A. (eds), July 2020.

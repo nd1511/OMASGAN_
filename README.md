@@ -43,7 +43,7 @@ python Task1_MNIST_fGAN_Simulation_Experiment.py
 python Task1_MNIST2_fGAN_Simulation_Experiment.py
 ```
 
-Also: Example usage:
+Also, example usage:
 ```
 cd ./Simulations_Experiments/Task1_CIFAR10_MNIST_KLWGAN_Simulation_Experiment/
 python train_Task1_KLWGAN_Simulation_Experiment.py --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
@@ -71,7 +71,7 @@ python train_Task3_J_fGAN_Simulation_Experiment.py
 
 For multimodal distributions with disconnected components, for synthetic data, OMASGAN successfully forms the boundary of the support of the data distribution in [OMASGAN-Task2](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image1_Task2.pdf), [Task2-Boundary](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image11_Task2.pdf), [Boundary-Formation](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image14_Task2.pdf), and [OMASGAN-AUROC](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image19_AUROC.pdf).
 
-For synthetic data: Example usage:
+For synthetic data, example usage:
 ```
 cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
 python train_Toy_Data_fGAN_Simulation_Experiment.py

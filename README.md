@@ -88,7 +88,7 @@ git clone https://github.com/Anonymous-Author-2021/OMASGAN.git
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
-Environments - Requirements: Python 3.7 and PyTorch 1.2
+Environments - Requirements: Python 3.7 and PyTorch 1.2 (requirements.txt)
 
 Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
 

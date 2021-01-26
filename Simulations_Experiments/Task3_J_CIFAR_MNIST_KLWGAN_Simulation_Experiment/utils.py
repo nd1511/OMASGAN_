@@ -574,12 +574,9 @@ def load_weights(G, D, state_dict, weights_root, experiment_name, name_suffix=No
         print('Loading weights from %s...' % root)
     if G is not None:
         G.load_state_dict(
-            torch.load('%s/%s.pth' %
-                       (root, join_strings('_', ['G', name_suffix]))),
-            strict=strict)
+            torch.load('%s/%s.pth' % (root, join_strings('_', ['G', name_suffix]))), strict=strict)
         if load_optim:
-            G.optim.load_state_dict(
-                torch.load('%s/%s.pth' % (root, join_strings('_', ['G_optim', name_suffix]))))
+            G.optim.load_state_dict(torch.load('%s/%s.pth' % (root, join_strings('_', ['G_optim', name_suffix]))))
     if D is not None:
         D.load_state_dict(
             torch.load('%s/%s.pth' %
@@ -764,17 +761,9 @@ def sample_sheet(G, classes_per_sheet, num_classes, samples_per_class, parallel,
                                                      folder_number, i)
         torchvision.utils.save_image(out_ims, image_filename,
                                      nrow=samples_per_class, normalize=True)
-
-
-# Interp function; expects x0 and x1 to be of shape (shape0, 1, rest_of_shape..)
 def interp(x0, x1, num_midpoints):
-    lerp = torch.linspace(0, 1.0, num_midpoints + 2,
-                          device='cuda').to(x0.dtype)
+    lerp = torch.linspace(0, 1.0, num_midpoints + 2, device='cuda').to(x0.dtype)
     return ((x0 * (1 - lerp.view(1, -1, 1))) + (x1 * lerp.view(1, -1, 1)))
-
-
-# interp sheet function
-# Supports full, class-wise and intra-class interpolation
 def interp_sheet(G, num_per_sheet, num_midpoints, num_classes, parallel,
                  samples_root, experiment_name, folder_number, sheet_number=0,
                  fix_z=False, fix_y=False, device='cuda'):
@@ -961,22 +950,13 @@ def accumulate_standing_stats(net, z, y, nclasses, num_accumulations=16):
         with torch.no_grad():
             z.normal_()
             y.random_(0, nclasses)
-            # No need to parallelize here unless using syncbn
             x = net(z, net.shared(y))
-    # Set to eval mode
     net.eval()
-
-
-# fairness discrepancy metric
 def fairness_discrepancy(data, n_classes):
-    """
-    computes fairness discrepancy metric for single or multi-attribute
-    """
     if n_classes == 2:
-        props = data.sum() / 10000  # assume 10K samples
+        props = data.sum() / 10000
         fair_d = abs(.5 - props)
     else: 
-        # multi-attribute
         unique, freq = np.unique(data, return_counts=True)
         props = freq / 10000  # assumes 10K samples
         fair_d = np.sqrt((abs(props - 0.25)**2).sum())

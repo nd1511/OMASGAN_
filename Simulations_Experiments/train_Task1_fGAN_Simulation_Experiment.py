@@ -69,6 +69,9 @@ fgan = fgan.to(device)
 batchsize = 64
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
+# To boost the AD performance, a scheduler to decrease the learning rate is recommended, i.e. “scheduler
+# = optim.lr_scheduler.MultiStepLR(optimizer_gen” and “scheduler.step()”. Also, AE-based pretraining
+# using a dictionary for the NN decoder parameters, e.g. “ae_net_dict = {k: v for k, v in”, is recommended.
 data_forTrainloader = choose_dataset(select_dataset)
 from torch.utils.data import Subset
 def get_target_label_idx(labels, targets):

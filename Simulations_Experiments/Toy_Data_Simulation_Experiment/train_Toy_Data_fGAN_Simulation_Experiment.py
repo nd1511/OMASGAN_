@@ -132,7 +132,8 @@ fgan2 = fgan2.to(device)
 batchsize = 64
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
-niter = 350000
+# Using a scheduler, i.e. “scheduler = optim.lr_scheduler.MultiStepLR(optimizer_gen” and “scheduler.step()” is recommended.
+niter = 50000
 xreal = Variable(torch.Tensor(np.reshape(tdist.rvs(4096), (4096,1))), requires_grad=True)
 xreal = torch.cat((xreal, Variable(torch.Tensor(np.reshape(tdist.rvs(4096), (4096,1))), requires_grad=True)), dim=1)
 #checkpoint = torch.load('./.pt')

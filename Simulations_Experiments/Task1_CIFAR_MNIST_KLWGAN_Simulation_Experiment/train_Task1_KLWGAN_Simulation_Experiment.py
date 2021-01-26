@@ -1,4 +1,5 @@
 from __future__ import print_function
+# Use: --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: python train_Task1_KLWGAN_Proof_of_Concept.py --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
@@ -6,12 +7,9 @@ from __future__ import print_function
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 # Implicit generative models and GANs generate sharp, low-FID, realistic, and high-quality images.
 # We use implicit generative models and GANs for the challenging task of anomaly detection in high-dimensional spaces.
-#select_dataset = "select_dataset"
-select_dataset = "cifar10"
-#select_dataset = "mnist"
 import functools
 import math
 import numpy as np
@@ -29,8 +27,12 @@ from utils_Task1_KLWGAN_Simulation_Experiment import *
 import losses_Task1_KLWGAN_Simulation_Experiment
 import train_fns
 import fid_score
-from sync_batchnorm import patch_replication_callback
 import sys
+from sync_batchnorm import patch_replication_callback
+# Choose and select dataset.
+#select_dataset = "select_dataset"
+select_dataset = "cifar10"
+#select_dataset = "mnist"
 def run(config):
     config['resolution'] = imsize_dict[config['dataset']]
     config['n_classes'] = nclass_dict[config['dataset']]
@@ -46,11 +48,9 @@ def run(config):
     model = __import__(config['model'])
     experiment_name = (config['experiment_name'] if config['experiment_name']
                        else utils_Task1_KLWGAN_Simulation_Experiment.name_from_config(config))
-    print('Experiment name is %s' % experiment_name)
     G = model.Generator(**config).to(device)
     D = model.Discriminator(**config).to(device)
     if config['ema']:
-        print('Preparing EMA for G with decay of {}'.format(config['ema_decay']))
         G_ema = model.Generator(**{**config, 'skip_init': True, 'no_optim': True}).to(device)
         ema = utils_Task1_KLWGAN_Simulation_Experiment.ema(G, G_ema, config['ema_decay'], config['ema_start'])
     else:
@@ -62,7 +62,6 @@ def run(config):
     if config['D_fp16']:
         D = D.half()
     GD = model.G_D(G, D, config['conditional'])
-    print('Number of params in G: {} D: {}'.format(*[sum([p.data.nelement() for p in net.parameters()]) for net in [G, D]]))
     state_dict = {'itr': 0, 'epoch': 0, 'save_num': 0, 'save_best_num': 0, 'best_IS': 0, 'best_FID': 999999, 'config': config}
     if config['resume']:
         utils_Task1_KLWGAN_Simulation_Experiment.load_weights(G, D, state_dict, config['weights_root'], experiment_name, config['load_weights'] if config['load_weights'] else None, G_ema if config['ema'] else None)
@@ -93,15 +92,11 @@ def run(config):
     else:
         train = train_fns.dummy_training_function()
     sample = functools.partial(utils_Task1_KLWGAN_Simulation_Experiment.sample, G=(G_ema if config['ema'] and config['use_ema'] else G), z_=z_, y_=y_, config=config)
-    print('Beginning training at epoch %d...' % state_dict['epoch'])
-    print('Total training epochs ',  config['num_epochs'])
-    print("the dataset is ", config['dataset'], )
     if config['dataset'] == 'C10U' or config['dataset'] == 'C10':
         data_moments = 'fid_stats_cifar10_train.npz'
     else:
-        print("cannot find the dataset")
+        print("Cannot find the dataset.")
         sys.exit()
-    print("the data moments is ", data_moments)
     for epoch in range(state_dict['epoch'], config['num_epochs']):
         if config['pbar'] == 'mine':
             pbar = utils_Task1_KLWGAN_Simulation_Experiment.progress(
@@ -145,11 +140,12 @@ def run(config):
                     G_ema if config['ema'] and config['use_ema'] else G, config, str(epoch))
                 folder_number = str(epoch)
                 sample_moments = '%s/%s/%s/samples.npz' % (config['samples_root'], experiment_name, folder_number)
-                FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
+                #FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 #train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
                 # Use the files train_fns.py and utils_Task1_KLWGAN_Simulation_Experiment.py
                 # Use the functions update_FID() and save_weights()
                 # Save the lowest FID score
+                FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
         state_dict['epoch'] += 1
     # Save the last model

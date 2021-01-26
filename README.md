@@ -36,6 +36,8 @@ cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
 python train_Toy_Data_fGAN_Simulation_Experiment.py
 ```
 
+The Toy Data Simulation Experiment folder, which is within the Simulations Experiments folder, includes figures and results for OMASGAN evaluated on synthetic data.
+
 To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```
 cd ./Experiments/

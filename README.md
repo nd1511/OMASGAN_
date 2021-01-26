@@ -94,7 +94,7 @@ Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository 
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 
-For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [SVHN](http://ufldl.stanford.edu/housenumbers/), [CINIC-10](https://www.kaggle.com/mengcius/cinic10), [STL-10](https://cs.stanford.edu/~acoates/stl10/), [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html), and data from the Outlier Detection Data Sets (ODDS) repository ([ODDS](http://odds.cs.stonybrook.edu/)).
+For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 
 This website is best viewed in Chrome or Firefox.
 

@@ -28,6 +28,14 @@ Simulations Experiments folder: The Tasks of OMASGAN, including the Boundary Tas
 
 In the Simulations Experiments folder, for the Boundary and Retraining Tasks, according to Table 4 of the f-GAN paper, we use the Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
 
+For multimodal distributions with disconnected components, for synthetic data, the OMASGAN model successfully forms the boundary of the support of the data distribution in [OMASGAN-Task2](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image1_Task2.pdf), [Task2-Boundary](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image11_Task2.pdf), [Boundary-Formation](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image14_Task2.pdf), and [OMASGAN-AUROC](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image19_AUROC.pdf).
+
+For synthetic data, example usage:
+```
+cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
+python train_Toy_Data_fGAN_Simulation_Experiment.py
+```
+
 To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```
 cd ./Experiments/
@@ -67,14 +75,6 @@ Next, after saving the trained models from Tasks 1, 2, and 3: Example usage:
 ```
 cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
-```
-
-For multimodal distributions with disconnected components, for synthetic data, the OMASGAN model successfully forms the boundary of the support of the data distribution in [OMASGAN-Task2](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image1_Task2.pdf), [Task2-Boundary](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image11_Task2.pdf), [Boundary-Formation](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image14_Task2.pdf), and [OMASGAN-AUROC](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Toy_Data_Simulation_Experiment/Toy_Data_Image19_AUROC.pdf).
-
-For synthetic data, example usage:
-```
-cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
-python train_Toy_Data_fGAN_Simulation_Experiment.py
 ```
 
 ## Further Usage Information:

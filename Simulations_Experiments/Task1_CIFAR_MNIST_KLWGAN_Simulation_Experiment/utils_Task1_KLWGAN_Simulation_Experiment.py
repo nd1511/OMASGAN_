@@ -409,8 +409,7 @@ classes_per_sheet_dict = {'I32': 50, 'I32_hdf5': 50,'CAHQ_64': 1, 'CAHQ_128' : 1
                           'I256': 20, 'I256_hdf5': 20, 'C100U': 1, 'CINIC10U': 1,
                           'C10': 10, 'C100': 100, 'CINIC10': 10, 'STL10': 1, 'C10U': 1, 'CelebA': 1, 'CA64': 1, 'Art': 34}
 activation_dict = {'inplace_relu': nn.ReLU(inplace=True),
-                   'relu': nn.ReLU(inplace=False),
-                   'ir': nn.ReLU(inplace=True), }
+                   'relu': nn.ReLU(inplace=False), 'ir': nn.ReLU(inplace=True), }
 class CenterCropLongEdge(object):
     def __call__(self, img):
         return transforms.functional.center_crop(img, min(img.size))
@@ -481,14 +480,14 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
                 train_transform = [transforms.CenterCrop(140),
                                    transforms.Resize(image_size)]
             elif dataset in ['CA64']:
-                train_transform = [transforms.CenterCrop(140),
-                                   transforms.Resize(image_size)]
+                train_transform = [transforms.CenterCrop(140), transforms.Resize(image_size)]
             elif dataset in ['CAHQ_64', 'CAHQ_128'] :
                 train_transform = [transforms.Resize(image_size)]
             else:
                 train_transform = [CenterCropLongEdge(), transforms.Resize(image_size)]
         train_transform = transforms.Compose(train_transform + [transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
     train_set = which_dataset(root=data_root, transform=train_transform, load_in_mem=load_in_mem, **dataset_kwargs)
+    #print(len(train_set))
     from torch.utils.data import Subset
     def get_target_label_idx(labels, targets):
         return np.argwhere(np.isin(labels, targets)).flatten().tolist()

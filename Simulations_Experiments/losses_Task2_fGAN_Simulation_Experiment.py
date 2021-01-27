@@ -4,6 +4,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 # According to Table 4 of the f-GAN paper, we use Pearson Chi-Squared.
 # After Pearson Chi-Squared, the next best are KL and then Jensen-Shannon.
+#mu_select = mu_select
+#mu_select = 0.2
+#ni_select = ni_select
+#ni_select = 0.3
 class ConjugateDualFunction:
     def __init__(self, divergence_name):
         self.divergence_name = divergence_name

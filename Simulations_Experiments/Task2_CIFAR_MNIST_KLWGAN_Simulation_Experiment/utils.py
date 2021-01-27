@@ -33,14 +33,12 @@ def prepare_parser():
     parser.add_argument('--augment', action='store_true', default=False,
         help='Augment with random crops and flips (default: %(default)s)')
     parser.add_argument(
-        '--num_workers', type=int, default=8,
-        help='Number of dataloader workers; consider using less for HDF5 '
+        '--num_workers', type=int, default=8, help='Number of dataloader workers; consider using less for HDF5 '
              '(default: %(default)s)')
     parser.add_argument(
         '--no_pin_memory', action='store_false', dest='pin_memory', default=True,
         help='Pin data into memory through dataloader? (default: %(default)s)')
-    parser.add_argument(
-        '--shuffle', action='store_true', default=False,
+    parser.add_argument('--shuffle', action='store_true', default=False,
         help='Shuffle the data (strongly recommended)? (default: %(default)s)')
     parser.add_argument(
         '--load_in_mem', action='store_true', default=False,
@@ -431,10 +429,8 @@ class MultiEpochSampler(torch.utils.data.Sampler):
                              "value, but got num_samples={}".format(self.num_samples))
     def __iter__(self):
         n = len(self.data_source)
-        num_epochs = int(np.ceil((n * self.num_epochs
-                                  - (self.start_itr * self.batch_size)) / float(n)))
-        out = [torch.randperm(n)
-               for epoch in range(self.num_epochs)][-num_epochs:]
+        num_epochs = int(np.ceil((n * self.num_epochs - (self.start_itr * self.batch_size)) / float(n)))
+        out = [torch.randperm(n) for epoch in range(self.num_epochs)][-num_epochs:]
         out[0] = out[0][(self.start_itr * self.batch_size % n):]
         output = torch.cat(out).tolist()
         print('Length dataset output is %d' % len(output))
@@ -471,28 +467,24 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
             if dataset in ['C10', 'C100', 'CINIC10', 'STL10', 'C10U']:
                 train_transform = [transforms.Resize(image_size)]
             elif dataset in ['CelebA']:
-                train_transform = [transforms.CenterCrop(140),
-                                   transforms.Resize(image_size)]
+                train_transform = [transforms.CenterCrop(140), transforms.Resize(image_size)]
             elif dataset in ['CA64']:
                 train_transform = [transforms.CenterCrop(140),
                                    transforms.Resize(image_size)]
             elif dataset in ['CAHQ_64', 'CAHQ_128']:
                 train_transform = [transforms.Resize(image_size)]
             else:
-                train_transform = [
-                    CenterCropLongEdge(), transforms.Resize(image_size)]
-        train_transform = transforms.Compose(train_transform + [
-            transforms.ToTensor(),
-            transforms.Normalize(norm_mean, norm_std)])
-    train_set = which_dataset(root=data_root, transform=train_transform,
-                              load_in_mem=load_in_mem, **dataset_kwargs)
+                train_transform = [CenterCropLongEdge(), transforms.Resize(image_size)]
+        train_transform = transforms.Compose(train_transform + [transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
+        #train_transform = transforms.Compose(train_transform + [transforms.Grayscale(3), transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
+    train_set = which_dataset(root=data_root, transform=train_transform, load_in_mem=load_in_mem, **dataset_kwargs)
+    #train_set = torchvision.datasets.MNIST(data_root, train=True, download=True, transform=train_transform)
     loaders = []
     if use_multiepoch_sampler:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory}
         sampler = MultiEpochSampler(
             train_set, num_epochs, start_itr, batch_size)
-        train_loader = DataLoader(train_set, batch_size=batch_size,
-                                  sampler=sampler, **loader_kwargs)
+        train_loader = DataLoader(train_set, batch_size=batch_size, sampler=sampler, **loader_kwargs)
     else:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory, 'drop_last': drop_last}
         from torch.utils.data import Subset

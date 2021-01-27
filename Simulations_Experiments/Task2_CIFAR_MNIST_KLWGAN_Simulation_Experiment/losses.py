@@ -7,6 +7,10 @@ from __future__ import print_function
 # All the acknowledgements, references, and citations can be found in the paper "OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary".
 import torch
 import torch.nn.functional as F
+#mu_select = mu_select
+#mu_select = 0.2
+#ni_select = ni_select
+#ni_select = 0.3
 def loss_dcgan_dis(dis_fake, dis_real):
     L1 = torch.mean(F.softplus(-dis_real))
     L2 = torch.mean(F.softplus(dis_fake))

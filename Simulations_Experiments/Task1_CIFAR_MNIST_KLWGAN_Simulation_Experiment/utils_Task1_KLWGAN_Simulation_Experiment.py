@@ -486,8 +486,10 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
             else:
                 train_transform = [CenterCropLongEdge(), transforms.Resize(image_size)]
         train_transform = transforms.Compose(train_transform + [transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
+        #train_transform = transforms.Compose(train_transform + [transforms.Grayscale(3), transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
     train_set = which_dataset(root=data_root, transform=train_transform, load_in_mem=load_in_mem, **dataset_kwargs)
-    #print(len(train_set))
+    #train_set = torchvision.datasets.MNIST(data_root, train=True, download=True, transform=train_transform)
+    #print(len(train_set))    
     from torch.utils.data import Subset
     def get_target_label_idx(labels, targets):
         return np.argwhere(np.isin(labels, targets)).flatten().tolist()

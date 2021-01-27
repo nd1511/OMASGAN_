@@ -142,7 +142,7 @@ def run(config):
                 FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
         state_dict['epoch'] += 1
-    # Save the last model
+    # Save and keep the last model
     utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % 0, G_ema if config['ema'] else None)
 def main():
     parser = utils_Task1_KLWGAN_Simulation_Experiment.prepare_parser()

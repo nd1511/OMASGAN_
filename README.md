@@ -92,7 +92,7 @@ This Code Repository contains a PyTorch implementation for the OMASGAN model.
 
 Environments - Requirements: Python 3.7 and PyTorch 1.2 (requirements.txt)
 
-Future Date: Saturday 8 May 2021: Author Notification: Make the Code Repository non-anonymous, release the source code, and make the source code public.
+Future Date: Saturday 8 May 2021: Author Notification: Release the source code, make the source code public, and make the Code Repository non-anonymous.
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
 

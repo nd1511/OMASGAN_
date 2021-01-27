@@ -79,6 +79,7 @@ def get_target_label_idx(labels, targets):
   return np.argwhere(np.isin(labels, targets)).flatten().tolist()
 train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
 # The data must fit in the GPU memory. If out-of-memory error, then use more GPUs.
+# Using more GPUs is recommended in addition to finding the boundary of the model of the data.
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))[::10]
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 0))
 #train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(np.array(list(range(0, 10))), 1))

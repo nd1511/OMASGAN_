@@ -94,7 +94,7 @@ Environments - Requirements: Python 3.7 and PyTorch 1.2 (requirements.txt)
 
 Future Date: Saturday 8 May 2021: Author Notification: Release the source code, make the source code public, and make the Code Repository non-anonymous.
 
-## Discussion:
+## Discussion about the Model:
 
 The proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs. The model proposed in (Zaheer et al., 2020) uses old points to do retraining, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are limited in supply. OMASGAN on the other hand generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD.
 

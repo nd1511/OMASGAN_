@@ -98,8 +98,7 @@ def run(config):
         sys.exit()
     for epoch in range(state_dict['epoch'], config['num_epochs']):
         if config['pbar'] == 'mine':
-            pbar = utils_Task1_KLWGAN_Simulation_Experiment.progress(
-                loaders[0], displaytype='s1k' if config['use_multiepoch_sampler'] else 'eta')
+            pbar = utils_Task1_KLWGAN_Simulation_Experiment.progress(loaders[0], displaytype='s1k' if config['use_multiepoch_sampler'] else 'eta')
         else:
             pbar = tqdm(loaders[0])
         for i, (x, y) in enumerate(pbar):

@@ -98,6 +98,8 @@ Future Date: Saturday 8 May 2021: Author Notification: Release the source code, 
 
 The proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs. The model proposed in (Zaheer et al., 2020) uses old points to do retraining, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are limited in supply. On the contrary, OMASGAN generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD. OMASGAN first produces minimum anomaly score OoD samples around the data by using a decreasing function of a distribution metric between the boundary samples and the data and then retrains by including the generated OoD samples.
 
+Anomalies far from the boundary are also created by the AD models proposed in (Pourreza et al., 2021) and in (Bian et al., 2019).
+
 For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).

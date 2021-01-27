@@ -130,10 +130,11 @@ def run(config):
                 FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
         state_dict['epoch'] += 1
+    # Save the last model
+    utils.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % 0, G_ema if config['ema'] else None)
 def main():
     parser = utils.prepare_parser()
     config = vars(parser.parse_args())
-    print(config)
     run(config)
 if __name__ == '__main__':
     main()

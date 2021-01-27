@@ -389,13 +389,11 @@ root_dict = {'I32': 'ImageNet', 'I32_hdf5': 'ILSVRC32.hdf5', 'CAHQ_64': 'train',
              'C10': 'cifar', 'C100': 'cifar', 'CINIC10': 'cinic10/train', 'STL10': 'stl10', 'C10U': 'cifar',
              'CelebA': 'celeba', 'CA64': 'celeba', 'Art': 'devi_art'}
 nclass_dict = {'I32': 1000, 'I32_hdf5': 1000, 'CAHQ_64': 1, 'CAHQ_128': 1,
-               'I64': 1000, 'I64_hdf5': 1000,
-               'I128': 1000, 'I128_hdf5': 1000,
+               'I64': 1000, 'I64_hdf5': 1000, 'I128': 1000, 'I128_hdf5': 1000,
                'I256': 1000, 'I256_hdf5': 1000, 'C100U': 1, 'CINIC10U': 1,
                'C10': 10, 'C100': 100, 'CINIC10': 10, 'STL10': 1, 'C10U': 1, 'CelebA': 1, 'CA64': 1, 'Art': 34}
 classes_per_sheet_dict = {'I32': 50, 'I32_hdf5': 50, 'CAHQ_64': 1, 'CAHQ_128': 1,
-                          'I64': 50, 'I64_hdf5': 50,
-                          'I128': 20, 'I128_hdf5': 20,
+                          'I64': 50, 'I64_hdf5': 50, 'I128': 20, 'I128_hdf5': 20,
                           'I256': 20, 'I256_hdf5': 20, 'C100U': 1, 'CINIC10U': 1,
                           'C10': 10, 'C100': 100, 'CINIC10': 10, 'STL10': 1, 'C10U': 1, 'CelebA': 1, 'CA64': 1,
                           'Art': 34}
@@ -479,11 +477,11 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
         #train_transform = transforms.Compose(train_transform + [transforms.Grayscale(3), transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
     train_set = which_dataset(root=data_root, transform=train_transform, load_in_mem=load_in_mem, **dataset_kwargs)
     #train_set = torchvision.datasets.MNIST(data_root, train=True, download=True, transform=train_transform)
+    #print(len(train_set))
     loaders = []
     if use_multiepoch_sampler:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory}
-        sampler = MultiEpochSampler(
-            train_set, num_epochs, start_itr, batch_size)
+        sampler = MultiEpochSampler(train_set, num_epochs, start_itr, batch_size)
         train_loader = DataLoader(train_set, batch_size=batch_size, sampler=sampler, **loader_kwargs)
     else:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory, 'drop_last': drop_last}

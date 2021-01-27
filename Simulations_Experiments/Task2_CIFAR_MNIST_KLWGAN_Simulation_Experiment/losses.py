@@ -45,7 +45,6 @@ def loss_kl_gen(dis_fake, dis_fake2, dis_real, dis_real2, xreal, zmodel, xmodel,
     second_term_loss = torch.min(torch.norm(xreal.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1), dim=1)[0].mean()
     third_term_loss = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)), dim=1)[0].mean()
     loss_gen = torch.mean(dis_fake) + mu * second_term_loss2 + ni * third_term_loss
-    print("%.4f kg = %.4f lb = %.4f gal = %.4f l" % (loss_gen, torch.mean(dis_fake), second_term_loss, third_term_loss))
     return loss_gen
 def loss_dcgan_dis(dis_fake, dis_real):
     L1 = torch.mean(F.softplus(-dis_real))

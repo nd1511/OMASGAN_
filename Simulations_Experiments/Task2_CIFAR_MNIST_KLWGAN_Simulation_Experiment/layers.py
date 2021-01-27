@@ -1,6 +1,3 @@
-''' Layers
-    This file contains various layers for the BigGAN models.
-'''
 import numpy as np
 import torch
 import torch.nn as nn
@@ -8,35 +5,21 @@ from torch.nn import init
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.nn import Parameter as P
-
 from sync_batchnorm import SynchronizedBatchNorm2d as SyncBN2d
-
-
-# Projection of x onto y
 def proj(x, y):
     return torch.mm(y, x.t()) * y / torch.mm(y, y.t())
-
-
-# Orthogonalize x wrt list of vectors ys
 def gram_schmidt(x, ys):
     for y in ys:
         x = x - proj(x, y)
     return x
-
-
-# Apply num_itrs steps of the power method to estimate top N singular values.
 def power_iteration(W, u_, update=True, eps=1e-12):
-    # Lists holding singular vectors and values
     us, vs, svs = [], [], []
     for i, u in enumerate(u_):
-        # Run one step of the power iteration
         with torch.no_grad():
             v = torch.matmul(u, W)
-            # Run Gram-Schmidt to subtract components of all other singular vectors
             v = F.normalize(gram_schmidt(v, vs), eps=eps)
             # Add to the list
             vs += [v]
-            # Update the other singular vector
             u = torch.matmul(v, W.t())
             # Run Gram-Schmidt to subtract components of all other singular vectors
             u = F.normalize(gram_schmidt(u, us), eps=eps)
@@ -470,7 +453,4 @@ class DBlock(nn.Module):
         h = self.conv2(self.activation(h))
         if self.downsample:
             h = self.downsample(h)
-
         return h + self.shortcut(x)
-
-# dogball

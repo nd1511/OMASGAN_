@@ -18,7 +18,7 @@ Figure 2: Training of the OMASGAN model for AD in images using active negative s
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 
-Figure 3: Illustration of the OMASGAN algorithm for AD where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>. The figure shows the OMASGAN Tasks and the data distribution, p<sub>**x**</sub>, the data model distribution, p<sub>g</sub>, the data model distribution after retraining, p<sub>g'</sub>, and the samples from the boundary of the support of the data distribution, B(**z**)~p<sub>b</sub>.
+Figure 3: Illustration of the OMASGAN algorithm for AD where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>. The figure shows the OMASGAN Tasks and the data distribution, p<sub>**x**</sub>, the data model distribution, p<sub>g</sub>, the data model distribution after retraining, p<sub>g'</sub>, and the samples from the boundary of the support of the data distribution, B(**z**)~p<sub>b</sub>. The proposed algorithm (iteratively) retrains generative models and GANs.
 
 ## Usage:
 

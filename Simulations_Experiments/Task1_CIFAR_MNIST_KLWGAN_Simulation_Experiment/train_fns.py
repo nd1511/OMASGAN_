@@ -81,13 +81,11 @@ def GAN_training_function(G, D, GD, z_, y_, ema, state_dict, config):
         G.optim.step()
         if config['ema']:
             ema.update(state_dict['itr'])
-        out = {'G_loss': float(G_loss.item()), 'D_loss_real': float(D_loss_real.item()),
-               'D_loss_fake': float(D_loss_fake.item())}
+        out = {'G_loss': float(G_loss.item()), 'D_loss_real': float(D_loss_real.item()), 'D_loss_fake': float(D_loss_fake.item())}
         return out
     return train
 def save_and_sample(G, D, G_ema, z_, y_, fixed_z, fixed_y, state_dict, config, experiment_name):
-    utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'],
-                       experiment_name, None, G_ema if config['ema'] else None)
+    utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'], experiment_name, None, G_ema if config['ema'] else None)
     if config['num_save_copies'] > 0:
         utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'],
                            experiment_name,

@@ -8,6 +8,10 @@ from __future__ import print_function
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+#mu_select = mu_select
+#mu_select = 0.2
+#ni_select = ni_select
+#ni_select = 0.3
 import functools
 import math
 import numpy as np

@@ -18,7 +18,7 @@ Figure 2: Training of the OMASGAN model for AD in images using active negative s
 
 ![plot](./Figures_Images/Illustration_OMASGAN.png)
 
-Figure 3: Illustration of the OMASGAN algorithm for AD where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>. The figure shows the OMASGAN Tasks and the data distribution, p<sub>**x**</sub>, the data model distribution, p<sub>g</sub>, the data model distribution after retraining, p<sub>g'</sub>, and the samples from the boundary of the support of the data distribution, B(**z**)~p<sub>b</sub>. The proposed algorithm (iteratively) retrains generative models and GANs.
+Figure 3: Illustration of the OMASGAN algorithm for AD where **x**~p<sub>**x**</sub>, G(**z**)~p<sub>g</sub>, and G'(**z**)~p<sub>g'</sub>. The figure shows the OMASGAN Tasks and the data distribution, p<sub>**x**</sub>, the data model distribution, p<sub>g</sub>, the data model distribution after retraining, p<sub>g'</sub>, and the samples from the boundary of the support of the data distribution, B(**z**)~p<sub>b</sub>.
 
 ## Usage:
 
@@ -96,7 +96,7 @@ Future Date: Saturday 8 May 2021: Author Notification: Release the source code, 
 
 ## Discussion:
 
-The OMASGAN algorithm performs (iterative) retraining of generative models and GANs and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs. The model proposed in (Zaheer et al., 2020) uses old points to do retraining, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are limited in supply. OMASGAN on the other hand generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD.
+The proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs. The model proposed in (Zaheer et al., 2020) uses old points to do retraining, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are limited in supply. OMASGAN on the other hand generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD.
 
 For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 

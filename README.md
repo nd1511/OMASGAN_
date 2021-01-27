@@ -125,6 +125,12 @@ Nalisnick, E.,  Matsukawa, A., Teh, Y., Gorur, D., and Lakshminarayanan, B., “
 
 Nowozin, S., Cseke, B., and Tomioka, R., “f-GAN: Training Generative Neural Samplers using Variational Divergence Minimization,” in Proceedings Thirtieth Conference on Neural Information Processing Systems (NIPS), Barcelona, Spain, December 2016.
 
+Pourreza, M., Mohammadi, B., Khaki, M., Bouindour, S., Snoussi, H., and Sabokrou, M., “G2D: Generate to Detect Anomaly,” in Proceedings IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), pp. 2003-2012, January 2021.
+
+Sabokrou, M., Khalooei, M., Fathy, M., and Adeli, E., “Adversarially Learned One-Class Classifier for Novelty Detection,” in Proceedings IEEE/CVF Conference Computer Vision and Pattern Recognition (CVPR), pp. 3379-3388, Salt Lake City, UT, USA, June 2018. DOI: 10.1109/CVPR.2018.00356
+
+Sinha, A., Ayush, K., Song, J., Uzkent, B., Jin, H., and Ermon, S., “Negative Data Augmentation,” in Proceedings International Conference on Learning Representations (ICLR), May 2021.
+
 Song, J. and Ermon, S., “Bridging the Gap Between f-GANs and Wasserstein GANs,” in Proceedings International Conference on Machine Learning (ICML), pp. 9078-9087, vol. 119, Daumé III, H. and Singh, A. (eds), July 2020.
 
 Zaheer, M., Lee, J., Astrid, M., and Lee, S., “Old is Gold: Redefining the Adversarially Learned One-Class Classifier Training Paradigm,” in Proceedings IEEE/CVF Conference Computer Vision and Pattern Recognition (CVPR), pp. 14171-14181, Seattle, Washington, USA, June 2020. DOI: 10.1109/CVPR42600.2020.01419

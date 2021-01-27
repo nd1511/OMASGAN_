@@ -44,6 +44,31 @@ def loss_kl_gen(dis_fake, dis_fake2, dis_real, dis_real2, temp=1.0):
     dis_fake = dis_fake * dis_fake_ratio
     loss_gen = -torch.mean(dis_fake)
     return loss_gen
+def loss_chi_dis(dis_fake, dis_real):
+    dis_fake = torch.clamp(dis_fake, -1.0, 1.0)
+    dis_real = torch.clamp(dis_real, -1.0, 1.0)
+    loss_real = torch.mean(- dis_real)
+    dis_fake_mean = torch.mean(dis_fake)
+    loss_fake = torch.mean(dis_fake * (dis_fake - dis_fake_mean + 2)) / 2.0
+    return loss_real, loss_fake
+def loss_chi_gen(dis_fake):
+    dis_fake = torch.clamp(dis_fake, -1.0, 1.0)
+    dis_fake_mean = torch.mean(dis_fake)
+    loss_fake = -torch.mean(dis_fake * (dis_fake - dis_fake_mean + 2)) / 2.0
+    return loss_fake
+def loss_dv_dis(dis_fake, dis_real):
+    loss_real = torch.mean(F.relu(1. - dis_real))
+    dis_fake_norm = torch.exp(dis_fake).mean() + 1e-8
+    dis_fake_ratio = (torch.exp(dis_fake) + 1e-8) / dis_fake_norm
+    dis_fake = dis_fake * dis_fake_ratio
+    loss_fake = torch.mean(F.relu(1. + dis_fake)) + torch.mean(dis_fake_ratio * torch.log(dis_fake_ratio))
+    return loss_real, loss_fake
+def loss_dv_gen(dis_fake):
+    dis_fake_norm = torch.exp(dis_fake).mean() + 1e-8
+    dis_fake_ratio = (torch.exp(dis_fake) + 1e-8) / dis_fake_norm
+    dis_fake = dis_fake * dis_fake_ratio
+    loss = -torch.mean(dis_fake) - torch.mean(dis_fake_ratio * torch.log(dis_fake_ratio))
+    return loss
 generator_loss = loss_hinge_gen
 discriminator_loss = loss_hinge_dis
 # Acknowledgements: Thanks to the repositories: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)

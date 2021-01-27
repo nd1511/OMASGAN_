@@ -46,8 +46,7 @@ def run(config):
     utils_Task1_KLWGAN_Simulation_Experiment.prepare_root(config)
     torch.backends.cudnn.benchmark = True
     model = __import__(config['model'])
-    experiment_name = (config['experiment_name'] if config['experiment_name']
-                       else utils_Task1_KLWGAN_Simulation_Experiment.name_from_config(config))
+    experiment_name = (config['experiment_name'] if config['experiment_name'] else utils_Task1_KLWGAN_Simulation_Experiment.name_from_config(config))
     G = model.Generator(**config).to(device)
     D = model.Discriminator(**config).to(device)
     if config['ema']:
@@ -116,12 +115,9 @@ def run(config):
             metrics = train(x, y)
             train_log.log(itr=int(state_dict['itr']), **metrics)
             if (config['sv_log_interval'] > 0) and (not (state_dict['itr'] % config['sv_log_interval'])):
-                train_log.log(itr=int(state_dict['itr']),
-                              **{**utils_Task1_KLWGAN_Simulation_Experiment.get_SVs(G, 'G'), **utils_Task1_KLWGAN_Simulation_Experiment.get_SVs(D, 'D')})
+                train_log.log(itr=int(state_dict['itr']), **{**utils_Task1_KLWGAN_Simulation_Experiment.get_SVs(G, 'G'), **utils_Task1_KLWGAN_Simulation_Experiment.get_SVs(D, 'D')})
             if config['pbar'] == 'mine':
-                print(', '.join(['itr: %d' % state_dict['itr']]
-                                + ['%s : %+4.3f' % (key, metrics[key])
-                                    for key in metrics]), end=' ')
+                print(', '.join(['itr: %d' % state_dict['itr']] + ['%s : %+4.3f' % (key, metrics[key]) for key in metrics]), end=' ')
             if not (state_dict['itr'] % config['save_every']):
                 if config['G_eval_mode']:
                     print('Switchin G to eval mode...')
@@ -129,8 +125,7 @@ def run(config):
                     if config['ema']:
                         G_ema.eval()
                 train_fns.save_and_sample(G, D, G_ema, z_, y_, fixed_z, fixed_y, state_dict, config, experiment_name)
-            experiment_name = (config['experiment_name'] if config['experiment_name']
-                               else utils_Task1_KLWGAN_Simulation_Experiment.name_from_config(config))
+            experiment_name = (config['experiment_name'] if config['experiment_name'] else utils_Task1_KLWGAN_Simulation_Experiment.name_from_config(config))
             if (not (state_dict['itr'] % config['test_every'])) and (epoch >= config['start_eval']):
                 if config['G_eval_mode']:
                     G.eval()

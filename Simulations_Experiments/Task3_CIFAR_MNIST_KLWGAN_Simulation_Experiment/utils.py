@@ -83,9 +83,7 @@ def prepare_parser():
     parser.add_argument(
         '--dim_z', type=int, default=128,
         help='Noise dimensionality: %(default)s)')
-    parser.add_argument(
-        '--z_var', type=float, default=1.0,
-        help='Noise variance: %(default)s)')
+    parser.add_argument('--z_var', type=float, default=1.0, help='Noise variance: %(default)s)')
     parser.add_argument(
         '--hier', action='store_true', default=False,
         help='Use hierarchical z in G? (default: %(default)s)')
@@ -461,21 +459,19 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64, num_
             if dataset in ['C10', 'C100', 'CINIC10', 'STL10', 'C10U']:
                 train_transform = [transforms.Resize(image_size)]
             elif dataset in ['CelebA']:
-                train_transform = [transforms.CenterCrop(140),
-                                   transforms.Resize(image_size)]
+                train_transform = [transforms.CenterCrop(140), transforms.Resize(image_size)]
             elif dataset in ['CA64']:
-                train_transform = [transforms.CenterCrop(140),
-                                   transforms.Resize(image_size)]
+                train_transform = [transforms.CenterCrop(140), transforms.Resize(image_size)]
             elif dataset in ['CAHQ_64', 'CAHQ_128'] :
                 train_transform = [transforms.Resize(image_size)]
             else:
-                train_transform = [
-                    CenterCropLongEdge(), transforms.Resize(image_size)]
-        train_transform = transforms.Compose(train_transform + [
-            transforms.ToTensor(),
-            transforms.Normalize(norm_mean, norm_std)])
-    train_set = which_dataset(root=data_root, transform=train_transform,
-                              load_in_mem=load_in_mem, **dataset_kwargs)
+                train_transform = [CenterCropLongEdge(), transforms.Resize(image_size)]
+        train_transform = transforms.Compose(train_transform + [transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
+        #train_transform = transforms.Compose(train_transform + [transforms.Grayscale(3), transforms.ToTensor(), transforms.Normalize(norm_mean, norm_std)])
+    train_set = which_dataset(root=data_root, transform=train_transform, load_in_mem=load_in_mem, **dataset_kwargs)
+    # For MNIST, use:
+    #train_set = torchvision.datasets.MNIST(data_root, train=True, download=True, transform=train_transform)
+    #print(len(train_set))
     loaders = []
     if use_multiepoch_sampler:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory}

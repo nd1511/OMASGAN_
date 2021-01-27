@@ -15,6 +15,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import random
+#random.seed(2019)
+#np.random.seed(2019)
 seed_value = 2
 random.seed(seed_value)
 torch.manual_seed(seed_value)

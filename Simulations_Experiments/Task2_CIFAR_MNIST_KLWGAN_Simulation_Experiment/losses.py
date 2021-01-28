@@ -92,6 +92,9 @@ def loss_kl_gen(dis_fake, xreal, zmodel, xmodel, temp=1.0):
             dim=-1)), dim=1)[0].mean()
     loss2 = 2.5 * loss + 50 * third_term_loss12 + 20 * second_term_loss2
     return loss2
+# Pearson Chi-Squared: According to Table 4 of the f-GAN paper, we use the
+# Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson
+# Chi-Squared, the next best are KL and then Jensen-Shannon (Nowozin et al., 2016).
 def loss_chi_dis(dis_fake, dis_real):
     dis_fake = torch.clamp(dis_fake, -1.0, 1.0)
     dis_real = torch.clamp(dis_real, -1.0, 1.0)

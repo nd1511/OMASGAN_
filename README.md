@@ -101,7 +101,7 @@ To address the problem of deep generative models knowing what they do not know (
 
 For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 
-Project Website: [OMASGAN Project](https://anonymous.4open.science/r/e4fa0e37-6eb2-449e-9731-16c25f9909ea/).
+Project Website: [OMASGAN Project](https://anonymous.4open.science/r/af2d9ea2-67d4-4784-aca9-24578f8724b2/).
 
 This website is best viewed in Chrome or Firefox.
 

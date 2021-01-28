@@ -1,4 +1,6 @@
 from __future__ import print_function
+# Usage: --select_dataset cifar10 --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
+# Usage: --select_dataset mnist --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: python train_Task1_KLWGAN_Proof_of_Concept.py --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
@@ -10,6 +12,12 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Implicit generative models and GANs generate sharp, low-FID, realistic, and high-quality images.
 # We use implicit generative models and GANs for the challenging task of anomaly detection in high-dimensional spaces.
+# Example simulation run:
+# [00:22<00:00,  8.86it/s]Itr 20000: The FID is 30.2599
+# [00:22<00:00,  8.79it/s]Itr 30000: The FID is 28.4710
+# [00:22<00:00,  8.73it/s]Itr 25000: The FID is 28.2533
+# [00:22<00:00,  8.83it/s]Itr 35000: The FID is 29.2380
+# [00:22<00:00,  8.89it/s]Itr 40000: The FID is 30.5190
 import functools
 import math
 import numpy as np
@@ -22,12 +30,10 @@ import torch.nn.functional as F
 from torch.nn import Parameter as P
 import torchvision
 import inception_utils
-# Example simulation run:
-# [00:22<00:00,  8.86it/s]Itr 20000: The FID is 30.2599
-# [00:22<00:00,  8.79it/s]Itr 30000: The FID is 28.4710
-# [00:22<00:00,  8.73it/s]Itr 25000: The FID is 28.2533
-# [00:22<00:00,  8.83it/s]Itr 35000: The FID is 29.2380
-# [00:22<00:00,  8.89it/s]Itr 40000: The FID is 30.5190
+# Choose and select dataset.
+#select_dataset = "select_dataset"
+select_dataset = "cifar10"
+#select_dataset = "mnist"
 import utils_Task1_KLWGAN_Simulation_Experiment
 from utils_Task1_KLWGAN_Simulation_Experiment import *
 import losses_Task1_KLWGAN_Simulation_Experiment
@@ -35,10 +41,6 @@ import train_fns
 import fid_score
 import sys
 from sync_batchnorm import patch_replication_callback
-# Choose and select dataset.
-#select_dataset = "select_dataset"
-select_dataset = "cifar10"
-#select_dataset = "mnist"
 def run(config):
     config['resolution'] = imsize_dict[config['dataset']]
     config['n_classes'] = nclass_dict[config['dataset']]
@@ -83,7 +85,10 @@ def run(config):
     # Use: config['abnormal_class']
     #print(config['abnormal_class'])
     abnormal_class = config['abnormal_class']
-    loaders = utils_Task1_KLWGAN_Simulation_Experiment.get_data_loaders(**{**config, 'batch_size': D_batch_size, 'start_itr': state_dict['itr'], 'abnormal_class': abnormal_class})
+    select_dataset = config['select_dataset']
+    #print(config['select_dataset'])
+    #print(select_dataset)
+    loaders = utils_Task1_KLWGAN_Simulation_Experiment.get_data_loaders(**{**config, 'batch_size': D_batch_size, 'start_itr': state_dict['itr'], 'abnormal_class': abnormal_class, 'select_dataset': select_dataset})
     G_batch_size = max(config['G_batch_size'], config['batch_size'])
     z_, y_ = utils_Task1_KLWGAN_Simulation_Experiment.prepare_z_y(G_batch_size, G.dim_z, config['n_classes'], device=device, fp16=config['G_fp16'])
     fixed_z, fixed_y = utils_Task1_KLWGAN_Simulation_Experiment.prepare_z_y(G_batch_size, G.dim_z, config['n_classes'], device=device, fp16=config['G_fp16'])
@@ -145,13 +150,15 @@ def run(config):
                 # Save the lowest FID score
                 FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
+                # Implicit generative models and GANs generate sharp, low-FID, realistic, and high-quality images.
+                # We use implicit generative models and GANs for the challenging task of anomaly detection in high-dimensional spaces.
         state_dict['epoch'] += 1
     # Save the last model
     utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % 0, G_ema if config['ema'] else None)
 def main():
     parser = utils_Task1_KLWGAN_Simulation_Experiment.prepare_parser()
     config = vars(parser.parse_args())
-    print(config)
+    #print(config)
     run(config)
 if __name__ == '__main__':
     main()
@@ -161,6 +168,8 @@ if __name__ == '__main__':
 # [00:22<00:00,  8.73it/s]Itr 25000: The FID is 28.2533
 # [00:22<00:00,  8.83it/s]Itr 35000: The FID is 29.2380
 # [00:22<00:00,  8.89it/s]Itr 40000: The FID is 30.5190
+# Usage: --select_dataset cifar10 --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
+# To run, use: --select_dataset mnist --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

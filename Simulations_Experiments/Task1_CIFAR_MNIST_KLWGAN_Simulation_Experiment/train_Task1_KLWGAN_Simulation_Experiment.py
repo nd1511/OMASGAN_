@@ -7,7 +7,7 @@ from __future__ import print_function
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 # Implicit generative models and GANs generate sharp, low-FID, realistic, and high-quality images.
 # We use implicit generative models and GANs for the challenging task of anomaly detection in high-dimensional spaces.
 import functools
@@ -22,6 +22,12 @@ import torch.nn.functional as F
 from torch.nn import Parameter as P
 import torchvision
 import inception_utils
+# Example simulation run:
+# [00:22<00:00,  8.86it/s]Itr 20000: The FID is 30.2599
+# [00:22<00:00,  8.79it/s]Itr 30000: The FID is 28.4710
+# [00:22<00:00,  8.73it/s]Itr 25000: The FID is 28.2533
+# [00:22<00:00,  8.83it/s]Itr 35000: The FID is 29.2380
+# [00:22<00:00,  8.89it/s]Itr 40000: The FID is 30.5190
 import utils_Task1_KLWGAN_Simulation_Experiment
 from utils_Task1_KLWGAN_Simulation_Experiment import *
 import losses_Task1_KLWGAN_Simulation_Experiment
@@ -149,6 +155,12 @@ def main():
     run(config)
 if __name__ == '__main__':
     main()
+# Example simulation run:
+# [00:22<00:00,  8.86it/s]Itr 20000: The FID is 30.2599
+# [00:22<00:00,  8.79it/s]Itr 30000: The FID is 28.4710
+# [00:22<00:00,  8.73it/s]Itr 25000: The FID is 28.2533
+# [00:22<00:00,  8.83it/s]Itr 35000: The FID is 29.2380
+# [00:22<00:00,  8.89it/s]Itr 40000: The FID is 30.5190
 # Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

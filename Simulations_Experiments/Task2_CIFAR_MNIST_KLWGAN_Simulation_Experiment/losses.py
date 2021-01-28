@@ -89,6 +89,7 @@ def loss_kl_gen(dis_fake, xreal, zmodel, xmodel, temp=1.0, mu=20, ni=50):
     second_term_loss = torch.min(torch.norm(xreal.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1), dim=1)[0].mean()
     third_term_loss = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)), dim=1)[0].mean()
     loss2 = loss + mu * second_term_loss + ni * third_term_loss
+    # The first term in the loss function is a strictly decreasing function of a distribution metric.
     return loss2
 # Pearson Chi-Squared: According to Table 4 of the f-GAN paper, we use the
 # Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson

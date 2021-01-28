@@ -51,6 +51,9 @@ def loss_chi_gen(dis_fake):
     dis_fake_mean = torch.mean(dis_fake)
     loss_fake = -torch.mean(dis_fake * (dis_fake - dis_fake_mean + 2)) / 2.0
     return loss_fake
+# Pearson Chi-Squared: According to Table 4 of the f-GAN paper, we use the
+# Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson
+# Chi-Squared, the next best are KL and then Jensen-Shannon (Nowozin et al., 2016).
 def loss_dv_dis(dis_fake, dis_real):
     loss_real = torch.mean(F.relu(1. - dis_real))
     dis_fake_norm = torch.exp(dis_fake).mean() + 1e-8

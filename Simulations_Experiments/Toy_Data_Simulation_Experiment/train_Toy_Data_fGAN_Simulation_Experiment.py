@@ -78,6 +78,7 @@ class Generator(nn.Module):
         self.lin1 = nn.Linear(2, nhidden)
         self.lin2 = nn.Linear(nhidden, nhidden)
         self.lin3 = nn.Linear(nhidden, nhidden)
+        #self.lin4 = nn.Linear(nhidden, nhidden)
         self.lin4 = nn.Linear(nhidden, 2)
     def forward(self, z):
         h = F.relu(self.lin1(z))
@@ -219,6 +220,91 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
                        'disc_state_dict': fgan.disc.state_dict(),
                        'gen_opt_state_dict': optimizer_gen.state_dict(),
                        'disc_opt_state_dict': optimizer_disc.state_dict()}, './.pt')
+# # Candidate models
+# # Different architectures
+# # Model architectures
+# # Hyper-parameters: Width and depth
+# # Hyper-parameter: Model architecture
+# # (A)
+# # Feed-forward network
+# class Generator(nn.Module):
+#     def __init__(self, nhidden):
+#         super(Generator, self).__init__()
+#         self.lin1 = nn.Linear(2, nhidden)
+#         self.lin2 = nn.Linear(nhidden, 2)
+#     def forward(self, z):
+#         h = F.relu(self.lin1(z))
+#         x = self.lin2(h)
+#         return x
+# # (B)
+# # Residual network
+# class Generator(nn.Module):
+#     def __init__(self, nhidden):
+#         super(Generator, self).__init__()
+#         self.lin1 = nn.Linear(2, nhidden)
+#         self.lin2 = nn.Linear(nhidden, 2)
+#     def forward(self, z):
+#         h = F.relu(self.lin1(z))
+#         x = self.lin2(h)
+#         x2 = x + z
+#         return x2
+# # (C)
+# # Feed-forward with Batch Normalization
+# class Generator(nn.Module):
+#     def __init__(self, nhidden):
+#         super(Generator, self).__init__()
+#         self.lin1 = nn.Linear(2, nhidden)
+#         self.lin1bn = nn.BatchNorm1d(nhidden)
+#         self.lin2 = nn.Linear(nhidden, 2)
+#     def forward(self, z):
+#         h = F.relu(self.lin1bn(self.lin1(z)))
+#         x = self.lin2(h)
+#         return x
+# # (D)
+# # Residual with Batch Normalization
+# class Generator(nn.Module):
+#     def __init__(self, nhidden):
+#         super(Generator, self).__init__()
+#         self.lin1 = nn.Linear(2, nhidden)
+#         self.lin1bn = nn.BatchNorm1d(nhidden)
+#         self.lin2 = nn.Linear(nhidden, 2)
+#     def forward(self, z):
+#         h = F.relu(self.lin1bn(self.lin1(z)))
+#         x = self.lin2(h)
+#         x2 = x + z
+#         return x2
+# # (E)
+# # Feed-forward with weight initialization and Batch Normalization
+# class Generator(nn.Module):
+#     def __init__(self, nhidden):
+#         super(Generator, self).__init__()
+#         self.lin1 = nn.Linear(2, nhidden)
+#         init.xavier_uniform_(self.lin1.weight, gain=0.1)
+#         self.lin1bn = nn.BatchNorm1d(nhidden)
+#         self.lin2 = nn.Linear(nhidden, 2)
+#     def forward(self, z):
+#         h = F.relu(self.lin1bn(self.lin1(z)))
+#         x = self.lin2(h)
+#         return x
+# # (F)
+# # Residual with weight initialization and Batch Normalization
+# class Generator(nn.Module):
+#     def __init__(self, nhidden):
+#         super(Generator, self).__init__()
+#         self.lin1 = nn.Linear(2, nhidden)
+#         init.xavier_uniform_(self.lin1.weight, gain=0.1)
+#         self.lin1bn = nn.BatchNorm1d(nhidden)
+#         self.lin2 = nn.Linear(nhidden, 2)
+#     def forward(self, z):
+#         h = F.relu(self.lin1bn(self.lin1(z)))
+#         x = self.lin2(h)
+#         x2 = x + z
+#         return x2
+# # (G)
+# #F.relu(
+# #F.leaky_relu(
+# #F.tanh(
+# #F.elu(
 # Acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs).
 # Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation).
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch).

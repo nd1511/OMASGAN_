@@ -44,14 +44,14 @@ def loss_hinge_dis_new_fake(dis_fake, dis_real, dis_real_fake, dis_fake_fake):
 def get_kl_ratio(v):
     v_norm = torch.logsumexp(v[:, 0], dim=0) - torch.log(torch.tensor(v.size(0)).float())
     return torch.exp(v - v_norm)
-def loss_kl_dis(dis_fake, dis_real, dis_fake2, dis_real2, temp=1.0):
+def loss_kl_dis(dis_fake, dis_real, dis_fake2, dis_real2, temp=1.0, zeta=0.6):
     dis_fake_m = dis_fake / temp
     dis_fake_ratio = get_kl_ratio(dis_fake_m)
     dis_fake = dis_fake * dis_fake_ratio
     dis_fake_m2 = dis_fake2 / temp
     dis_fake_ratio2 = get_kl_ratio(dis_fake_m2)
     dis_fake2 = dis_fake2 * dis_fake_ratio2
-    loss_disc = torch.mean(F.relu(1. + dis_real)) + 0.7 * torch.mean(F.relu(1. + dis_fake)) + 0.7 * torch.mean(F.relu(1. - dis_fake2))
+    loss_disc = zeta * torch.mean(F.relu(1. + dis_real)) + (1-zeta) * torch.mean(F.relu(1. + dis_fake)) + torch.mean(F.relu(1. - dis_fake2))
     return loss_disc
 def loss_kl_gen(dis_fake, dis_fake2, dis_real, dis_real2, temp=1.0):
     dis_fake_m = dis_fake / temp

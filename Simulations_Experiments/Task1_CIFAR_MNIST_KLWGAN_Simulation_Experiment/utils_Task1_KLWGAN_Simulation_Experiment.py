@@ -2,6 +2,8 @@ from __future__ import print_function
 # Use: --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Usage: --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: python train_Task1_KLWGAN_Proof_of_Concept.py --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
+# Usage: --select_dataset cifar10 --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
+# Usage: --select_dataset mnist --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)
@@ -34,6 +36,11 @@ import datasets as dset
 def prepare_parser():
     usage = 'Parser for all scripts.'
     parser = ArgumentParser(description=usage)
+    #parser.add_argument('--select_dataset', required=True, type=str, default=0, help='Select and choose dataset.')
+    parser.add_argument('--select_dataset', type=str, default='cifar10', help='Select and choose dataset.')
+    #opt = parser.parse_args()
+    #print(opt.select_dataset)
+    #parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
     parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
     #opt = parser.parse_args()
     #print(opt.abnormal_class)
@@ -64,13 +71,10 @@ def prepare_parser():
     parser.add_argument('--D_param', type=str, default='SN',
         help='Parameterization style to use for D, spectral norm (SN) or SVD (SVD)'
         ' or None (default: %(default)s)')
-    parser.add_argument(
-        '--G_ch', type=int, default=64, help='Channel multiplier for G (default: %(default)s)')
-    parser.add_argument(
-        '--D_ch', type=int, default=64,
+    parser.add_argument('--G_ch', type=int, default=64, help='Channel multiplier for G (default: %(default)s)')
+    parser.add_argument('--D_ch', type=int, default=64,
         help='Channel multiplier for D (default: %(default)s)')
-    parser.add_argument(
-        '--G_depth', type=int, default=1,
+    parser.add_argument('--G_depth', type=int, default=1,
         help='Number of resblocks per stage in G? (default: %(default)s)')
     parser.add_argument(
         '--D_depth', type=int, default=1,
@@ -438,12 +442,9 @@ class MultiEpochSampler(torch.utils.data.Sampler):
         return iter(output)
     def __len__(self):
         return len(self.data_source) * self.num_epochs - self.start_itr * self.batch_size
-def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
-                     num_workers=8, shuffle=True, load_in_mem=False, hdf5=False,
-                     pin_memory=True, drop_last=True, start_itr=0,
-                     num_epochs=500, use_multiepoch_sampler=False, abnormal_class=0, **kwargs):
+def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64, num_workers=8, shuffle=True, load_in_mem=False, hdf5=False,
+                     pin_memory=True, drop_last=True, start_itr=0, num_epochs=500, use_multiepoch_sampler=False, abnormal_class=0, select_dataset='cifar10', **kwargs):
     data_root += '/%s' % root_dict[dataset]
-    print('Using dataset root location %s' % data_root)
     which_dataset = dset_dict[dataset]
     norm_mean = [0.5, 0.5, 0.5]
     norm_std = [0.5, 0.5, 0.5]
@@ -494,8 +495,8 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
     # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
     # classes as the normal class and the leave-out class as the abnormal class.
     train_set = Subset(train_set, train_idx_normal)
-    print(len(train_set))
-    from train_Task1_KLWGAN_Simulation_Experiment import select_dataset
+    #print(len(train_set))
+    #from train_Task1_KLWGAN_Simulation_Experiment import select_dataset
     print(select_dataset)
     if select_dataset == "mnist":
         train_transform = transforms.Compose([transforms.Grayscale(3), train_transform])
@@ -505,7 +506,8 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
             return np.argwhere(np.isin(labels, targets)).flatten().tolist()
         train_idx_normal = get_target_label_idx(train_set.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
         train_set = Subset(train_set, train_idx_normal)
-        print(len(train_set))
+        #print(len(train_set))
+    print(len(train_set))
     loaders = []
     if use_multiepoch_sampler:
         print('Using multiepoch sampler from start_itr %d...' % start_itr)

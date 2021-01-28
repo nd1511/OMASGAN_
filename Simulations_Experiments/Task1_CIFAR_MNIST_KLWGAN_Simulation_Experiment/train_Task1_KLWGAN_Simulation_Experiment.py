@@ -119,7 +119,6 @@ def run(config):
                 print(', '.join(['itr: %d' % state_dict['itr']] + ['%s : %+4.3f' % (key, metrics[key]) for key in metrics]), end=' ')
             if not (state_dict['itr'] % config['save_every']):
                 if config['G_eval_mode']:
-                    print('Switchin G to eval mode...')
                     G.eval()
                     if config['ema']:
                         G_ema.eval()
@@ -130,8 +129,7 @@ def run(config):
                     G.eval()
                     if config['ema']:
                         G_ema.eval()
-                utils_Task1_KLWGAN_Simulation_Experiment.sample_inception(
-                    G_ema if config['ema'] and config['use_ema'] else G, config, str(epoch))
+                utils_Task1_KLWGAN_Simulation_Experiment.sample_inception(G_ema if config['ema'] and config['use_ema'] else G, config, str(epoch))
                 folder_number = str(epoch)
                 sample_moments = '%s/%s/%s/samples.npz' % (config['samples_root'], experiment_name, folder_number)
                 #FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
@@ -142,7 +140,7 @@ def run(config):
                 FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
         state_dict['epoch'] += 1
-    # Save and keep the last model
+    # Save the last model
     utils_Task1_KLWGAN_Simulation_Experiment.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % 0, G_ema if config['ema'] else None)
 def main():
     parser = utils_Task1_KLWGAN_Simulation_Experiment.prepare_parser()

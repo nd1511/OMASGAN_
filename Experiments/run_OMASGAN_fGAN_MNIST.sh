@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run simulation: Experiment for every individual data set
+# Run simulation: Experiment for every individual image data set
 # For every abnormal class
 for i in $(seq 0 9)
 do

@@ -76,30 +76,22 @@ def prepare_parser():
         help='Channel multiplier for D (default: %(default)s)')
     parser.add_argument('--G_depth', type=int, default=1,
         help='Number of resblocks per stage in G? (default: %(default)s)')
-    parser.add_argument(
-        '--D_depth', type=int, default=1,
+    parser.add_argument('--D_depth', type=int, default=1,
         help='Number of resblocks per stage in D? (default: %(default)s)')
-    parser.add_argument(
-        '--D_thin', action='store_false', dest='D_wide', default=True,
+    parser.add_argument('--D_thin', action='store_false', dest='D_wide', default=True,
         help='Use the SN-GAN channel pattern for D? (default: %(default)s)')
-    parser.add_argument(
-        '--G_shared', action='store_true', default=False,
+    parser.add_argument('--G_shared', action='store_true', default=False,
         help='Use shared embeddings in G? (default: %(default)s)')
-    parser.add_argument(
-        '--shared_dim', type=int, default=0,
+    parser.add_argument('--shared_dim', type=int, default=0,
         help='G''s shared embedding dimensionality; if 0, will be equal to dim_z. '
         '(default: %(default)s)')
-    parser.add_argument(
-        '--dim_z', type=int, default=128,
+    parser.add_argument('--dim_z', type=int, default=128,
         help='Noise dimensionality: %(default)s)')
-    parser.add_argument(
-        '--z_var', type=float, default=1.0,
+    parser.add_argument('--z_var', type=float, default=1.0,
         help='Noise variance: %(default)s)')
-    parser.add_argument(
-        '--hier', action='store_true', default=False,
+    parser.add_argument('--hier', action='store_true', default=False,
         help='Use hierarchical z in G? (default: %(default)s)')
-    parser.add_argument(
-        '--cross_replica', action='store_true', default=False,
+    parser.add_argument('--cross_replica', action='store_true', default=False,
         help='Cross_replica batchnorm in G?(default: %(default)s)')
     parser.add_argument(
         '--mybn', action='store_true', default=False,

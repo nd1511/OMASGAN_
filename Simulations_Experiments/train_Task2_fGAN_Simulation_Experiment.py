@@ -302,6 +302,7 @@ for epoch in range(nepochs):
             print("%.4f, %.4f" % (loss_disc, loss_gen))
         fgan.gen.zero_grad()
         loss_gen.backward(retain_graph=True)
+        # The first term in the loss function is a strictly decreasing function of a distribution metric.
         optimizer_gen.step()
         fgan.disc.zero_grad()
         loss_disc.backward()

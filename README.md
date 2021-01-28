@@ -36,7 +36,7 @@ cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
 python train_Toy_Data_fGAN_Simulation_Experiment.py
 ```
 
-The Toy Data Simulation Experiment folder, which is within the Simulations Experiments folder, includes figures and results for OMASGAN evaluated on synthetic data. The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Section 5.1 and in Figure 3 presents the evaluation of OMASGAN on synthetic data for a multimodal distribution with disconnected components for p<sub>**x**</sub> (Author, 2021).
+The Toy Data Simulation Experiment folder, which is within the Simulations Experiments folder, includes figures and simulation results for OMASGAN evaluated on synthetic data. The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Section 5.1 and in Figure 3 presents the evaluation of OMASGAN on synthetic data for a multimodal distribution with disconnected components for p<sub>**x**</sub> (Author, 2021).
 
 To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```

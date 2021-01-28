@@ -80,17 +80,15 @@ def loss_kl_dis(dis_fake, dis_real, temp=1.0):
     loss_real = torch.mean(F.relu(1. - dis_real))
     loss_fake = torch.mean(F.relu(1. + dis_fake))
     return loss_real, loss_fake
-def loss_kl_gen(dis_fake, xreal, zmodel, xmodel, temp=1.0):
+def loss_kl_gen(dis_fake, xreal, zmodel, xmodel, temp=1.0, mu=20, ni=50):
     dis_fake_m = dis_fake / temp
     dis_fake_ratio = get_kl_ratio(dis_fake_m)
     dis_fake = dis_fake * dis_fake_ratio
     loss = torch.mean(dis_fake)
-    second_term_loss2 = torch.min(torch.norm(xreal.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None],
-            dim=-1), dim=1)[0].mean()
-    third_term_loss12 = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(
-            xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None],
-            dim=-1)), dim=1)[0].mean()
-    loss2 = 2.5 * loss + 50 * third_term_loss12 + 20 * second_term_loss2
+    second_term_loss = torch.min(torch.norm(xreal.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1), dim=1)[0].mean()
+    third_term_loss = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(
+            xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)), dim=1)[0].mean()
+    loss2 = loss + mu * second_term_loss + ni * third_term_loss
     return loss2
 # Pearson Chi-Squared: According to Table 4 of the f-GAN paper, we use the
 # Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson

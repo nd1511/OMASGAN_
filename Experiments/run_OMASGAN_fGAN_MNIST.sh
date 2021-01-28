@@ -1,6 +1,7 @@
 #!/bin/bash
 # Run simulation: Experiment for every individual image data set
 # For every abnormal class
+# i is the abnormal OoD leave-out class
 for i in $(seq 0 9)
 do
   # We first choose the abnormal class to be 0.

@@ -150,6 +150,7 @@ def run(config):
                 # Save the lowest FID score
                 FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
+                # FID also from: https://github.com/DarthSid95/RumiGANs/blob/main/gan_metrics.py
                 # Implicit generative models and GANs generate sharp, low-FID, realistic, and high-quality images.
                 # We use implicit generative models and GANs for the challenging task of anomaly detection in high-dimensional spaces.
         state_dict['epoch'] += 1

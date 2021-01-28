@@ -1,5 +1,6 @@
 from __future__ import print_function
-# Use: --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
+# Use: --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
+# Usage: --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Use: python train_Task1_KLWGAN_Proof_of_Concept.py --abnormal_class 1 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 # Acknowledgement: Thanks to the repository: [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
@@ -42,34 +43,25 @@ def prepare_parser():
         '(default: %(default)s)')
     parser.add_argument('--augment', action='store_true', default=False,
         help='Augment with random crops and flips (default: %(default)s)')
-    parser.add_argument(
-        '--num_workers', type=int, default=8,
+    parser.add_argument('--num_workers', type=int, default=8,
         help='Number of dataloader workers; consider using less for HDF5'
         '(default: %(default)s)')
-    parser.add_argument(
-        '--no_pin_memory', action='store_false', dest='pin_memory', default=True,
+    parser.add_argument('--no_pin_memory', action='store_false', dest='pin_memory', default=True,
         help='Pin data into memory through dataloader? (default: %(default)s)')
-    parser.add_argument(
-        '--shuffle', action='store_true', default=False,
+    parser.add_argument('--shuffle', action='store_true', default=False,
         help='Shuffle the data (strongly recommended)? (default: %(default)s)')
-    parser.add_argument(
-        '--load_in_mem', action='store_true', default=False,
+    parser.add_argument('--load_in_mem', action='store_true', default=False,
         help='Load all data into memory? (default: %(default)s)')
-    parser.add_argument(
-        '--use_multiepoch_sampler', action='store_true', default=False,
+    parser.add_argument('--use_multiepoch_sampler', action='store_true', default=False,
         help='Use the multi-epoch sampler for dataloader? (default: %(default)s)')
-    parser.add_argument(
-        '--loss_type', type=str, default='hinge',
+    parser.add_argument('--loss_type', type=str, default='hinge',
         help='use what type of loss')
-    parser.add_argument(
-        '--model', type=str, default='BigGAN',
+    parser.add_argument('--model', type=str, default='BigGAN',
         help='Name of the model module (default: %(default)s)')
-    parser.add_argument(
-        '--G_param', type=str, default='SN',
+    parser.add_argument('--G_param', type=str, default='SN',
         help='Parameterization style to use for G, spectral norm (SN) or SVD (SVD)'
         ' or None (default: %(default)s)')
-    parser.add_argument(
-        '--D_param', type=str, default='SN',
+    parser.add_argument('--D_param', type=str, default='SN',
         help='Parameterization style to use for D, spectral norm (SN) or SVD (SVD)'
         ' or None (default: %(default)s)')
     parser.add_argument(
@@ -830,8 +822,7 @@ def print_grad_norms(net):
                  float(torch.norm(param).item()), param.shape]
                 for param in net.parameters()]
     order = np.argsort([item[0] for item in gradsums])
-    print(['%3.3e,%3.3e, %s' % (gradsums[item_index][0],
-                                gradsums[item_index][1],
+    print(['%3.3e,%3.3e, %s' % (gradsums[item_index][0], gradsums[item_index][1],
                                 str(gradsums[item_index][2]))
            for item_index in order])
 def get_SVs(net, prefix):
@@ -841,8 +832,7 @@ def get_SVs(net, prefix):
             for key in d if 'sv' in key}
 def name_from_config(config):
     name = '_'.join([
-        item for item in [
-            'Big%s' % config['which_train_fn'],
+        item for item in ['Big%s' % config['which_train_fn'],
             config['dataset'],
             config['loss_type'],
             config['model'] if config['model'] != 'BigGAN' else None,
@@ -860,8 +850,7 @@ def name_from_config(config):
             'Glr%2.1e' % config['G_lr'],
             'Dlr%2.1e' % config['D_lr'],
             'GB%3.3f' % config['G_B1'] if config['G_B1'] != 0.0 else None,
-            'GBB%3.3f' % config['G_B2'] if config[
-              'G_B2'] != 0.999 else None,
+            'GBB%3.3f' % config['G_B2'] if config['G_B2'] != 0.999 else None,
             'DB%3.3f' % config['D_B1'] if config['D_B1'] != 0.0 else None,
             'DBB%3.3f' % config['D_B2'] if config['D_B2'] != 0.999 else None,
             'Gnl%s' % config['G_nl'],

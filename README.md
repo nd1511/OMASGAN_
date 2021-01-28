@@ -101,7 +101,7 @@ To address the problem of generative models knowing what they do not know (Nalis
 
 For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 
-Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2c122800-a538-4357-b452-a8d0e9a92bee/).
+Project Website: [OMASGAN Project](https://anonymous.4open.science/r/e4fa0e37-6eb2-449e-9731-16c25f9909ea/}{https://anonymous.4open.science/r/e4fa0e37-6eb2-449e-9731-16c25f9909ea/).
 
 This website is best viewed in Chrome or Firefox.
 

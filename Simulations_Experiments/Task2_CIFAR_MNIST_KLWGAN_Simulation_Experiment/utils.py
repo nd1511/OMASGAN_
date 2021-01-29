@@ -26,36 +26,37 @@ import datasets as dset
 def prepare_parser():
     usage = 'Parser for all scripts.'
     parser = ArgumentParser(description=usage)
+    # parser.add_argument('--select_dataset', required=True, type=str, default=0, help='Select and choose dataset.')
+    parser.add_argument('--select_dataset', type=str, default='cifar10', help='Select and choose dataset.')
+    # opt = parser.parse_args()
+    # print(opt.select_dataset)
+    # parser.add_argument('--abnormal_class', required=True, type=int, default=0, help='Select the abnormal class.')
+    parser.add_argument('--abnormal_class', type=int, default=0, help='Select the abnormal class.')
+    # opt = parser.parse_args()
+    # print(opt.abnormal_class)
     parser.add_argument('--dataset', type=str, default='I128_hdf5',
         help='Which Dataset to train on, out of I128, I256, C10, C100;'
              'Append "_hdf5" to use the hdf5 version for ISLVRC '
              '(default: %(default)s)')
     parser.add_argument('--augment', action='store_true', default=False,
         help='Augment with random crops and flips (default: %(default)s)')
-    parser.add_argument(
-        '--num_workers', type=int, default=8, help='Number of dataloader workers; consider using less for HDF5 '
+    parser.add_argument('--num_workers', type=int, default=8, help='Number of dataloader workers; consider using less for HDF5 '
              '(default: %(default)s)')
-    parser.add_argument(
-        '--no_pin_memory', action='store_false', dest='pin_memory', default=True,
+    parser.add_argument('--no_pin_memory', action='store_false', dest='pin_memory', default=True,
         help='Pin data into memory through dataloader? (default: %(default)s)')
     parser.add_argument('--shuffle', action='store_true', default=False,
         help='Shuffle the data (strongly recommended)? (default: %(default)s)')
-    parser.add_argument(
-        '--load_in_mem', action='store_true', default=False,
+    parser.add_argument('--load_in_mem', action='store_true', default=False,
         help='Load all data into memory? (default: %(default)s)')
-    parser.add_argument(
-        '--use_multiepoch_sampler', action='store_true', default=False,
+    parser.add_argument('--use_multiepoch_sampler', action='store_true', default=False,
         help='Use the multi-epoch sampler for dataloader? (default: %(default)s)')
     parser.add_argument('--loss_type', type=str, default='hinge', help='use what type of loss')
-    parser.add_argument(
-        '--model', type=str, default='BigGAN',
+    parser.add_argument('--model', type=str, default='BigGAN',
         help='Name of the model module (default: %(default)s)')
-    parser.add_argument(
-        '--G_param', type=str, default='SN',
+    parser.add_argument('--G_param', type=str, default='SN',
         help='Parameterization style to use for G, spectral norm (SN) or SVD (SVD)'
              ' or None (default: %(default)s)')
-    parser.add_argument(
-        '--D_param', type=str, default='SN',
+    parser.add_argument('--D_param', type=str, default='SN',
         help='Parameterization style to use for D, spectral norm (SN) or SVD (SVD)'
              ' or None (default: %(default)s)')
     parser.add_argument(
@@ -435,11 +436,8 @@ class MultiEpochSampler(torch.utils.data.Sampler):
         return iter(output)
     def __len__(self):
         return len(self.data_source) * self.num_epochs - self.start_itr * self.batch_size
-def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
-                     num_workers=8, shuffle=True, load_in_mem=False, hdf5=False,
-                     pin_memory=True, drop_last=False, start_itr=0,
-                     num_epochs=500, use_multiepoch_sampler=False,
-                     **kwargs):
+def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64, num_workers=8, shuffle=True, load_in_mem=False, hdf5=False,
+                     pin_memory=True, drop_last=False, start_itr=0, num_epochs=500, use_multiepoch_sampler=False, abnormal_class=0, select_dataset='cifar10', **kwargs):
     data_root += '/%s' % root_dict[dataset]
     print('Using dataset root location %s' % data_root)
     which_dataset = dset_dict[dataset]
@@ -478,6 +476,36 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
     train_set = which_dataset(root=data_root, transform=train_transform, load_in_mem=load_in_mem, **dataset_kwargs)
     #train_set = torchvision.datasets.MNIST(data_root, train=True, download=True, transform=train_transform)
     #print(len(train_set))
+    #print(abnormal_class)
+    print(select_dataset)
+    #print(len(train_set))
+    from torch.utils.data import Subset
+    def get_target_label_idx(labels, targets):
+        return np.argwhere(np.isin(labels, targets)).flatten().tolist()
+    # Use: abnormal_class
+    print(abnormal_class)
+    train_idx_normal = get_target_label_idx(train_set.labels, np.delete(np.array(list(range(0, 10))), abnormal_class))
+    # train_idx_normal = get_target_label_idx(train_set.labels, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
+    # train_idx_normal = get_target_label_idx(train_set.labels, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    # Use the leave-one-out (LOO) evaluation methodology.
+    # The LOO evaluation methodology is setting K classes of a dataset with (K + 1)
+    # classes as the normal class and the leave-out class as the abnormal class.
+    train_set = Subset(train_set, train_idx_normal)
+    # print(len(train_set))
+    # from train_Task1_KLWGAN_Simulation_Experiment import select_dataset
+    #print(select_dataset)
+    if select_dataset == "mnist":
+        train_transform = transforms.Compose([transforms.Grayscale(3), train_transform])
+        train_set = torchvision.datasets.MNIST(root=data_root, transform=train_transform, download=True)
+        from torch.utils.data import Subset
+        def get_target_label_idx(labels, targets):
+            return np.argwhere(np.isin(labels, targets)).flatten().tolist()
+        #train_idx_normal = get_target_label_idx(train_set.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+        train_idx_normal = get_target_label_idx(train_set.targets, np.delete(np.array(list(range(0, 10))), abnormal_class))
+        train_set = Subset(train_set, train_idx_normal)
+        #print(len(train_set))
+    print(len(train_set))
+    # 45000 or 54077 or 53258
     loaders = []
     if use_multiepoch_sampler:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory}
@@ -485,41 +513,42 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64,
         train_loader = DataLoader(train_set, batch_size=batch_size, sampler=sampler, **loader_kwargs)
     else:
         loader_kwargs = {'num_workers': num_workers, 'pin_memory': pin_memory, 'drop_last': drop_last}
-        from torch.utils.data import Subset
-        def get_target_label_idx(labels, targets):
-            return np.argwhere(np.isin(labels, targets)).flatten().tolist()
-        #abnormal_class_LOO = abnormal_class_LOO
-        #abnormal_class_LOO = 0
-        train_idx_normal = get_target_label_idx(train_set.labels, 1)
-        CCCIFAR10 = Subset(train_set, train_idx_normal)
-        datasets = []
-        datasets.append(CCCIFAR10)
-        train_idx_normal = get_target_label_idx(train_set.labels, 2)
-        CCCIFAR102 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR102)
-        train_idx_normal = get_target_label_idx(train_set.labels, 3)
-        CCCIFAR103 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR103)
-        train_idx_normal = get_target_label_idx(train_set.labels, 4)
-        CCCIFAR104 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR104)
-        train_idx_normal = get_target_label_idx(train_set.labels, 5)
-        CCCIFAR105 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR105)
-        train_idx_normal = get_target_label_idx(train_set.labels, 6)
-        CCCIFAR106 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR106)
-        train_idx_normal = get_target_label_idx(train_set.labels, 7)
-        CCCIFAR107 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR107)
-        train_idx_normal = get_target_label_idx(train_set.labels, 8)
-        CCCIFAR108 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR108)
-        train_idx_normal = get_target_label_idx(train_set.labels, 9)
-        CCCIFAR109 = Subset(train_set, train_idx_normal)
-        datasets.append(CCCIFAR109)
-        from torch.utils.data import ConcatDataset
-        train_set = ConcatDataset(datasets)
+        # from torch.utils.data import Subset
+        # def get_target_label_idx(labels, targets):
+        #     return np.argwhere(np.isin(labels, targets)).flatten().tolist()
+        # #abnormal_class_LOO = abnormal_class_LOO
+        # #abnormal_class_LOO = 0
+        # train_idx_normal = get_target_label_idx(train_set.labels, 1)
+        # CCCIFAR10 = Subset(train_set, train_idx_normal)
+        # datasets = []
+        # datasets.append(CCCIFAR10)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 2)
+        # CCCIFAR102 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR102)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 3)
+        # CCCIFAR103 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR103)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 4)
+        # CCCIFAR104 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR104)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 5)
+        # CCCIFAR105 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR105)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 6)
+        # CCCIFAR106 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR106)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 7)
+        # CCCIFAR107 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR107)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 8)
+        # CCCIFAR108 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR108)
+        # train_idx_normal = get_target_label_idx(train_set.labels, 9)
+        # CCCIFAR109 = Subset(train_set, train_idx_normal)
+        # datasets.append(CCCIFAR109)
+        # from torch.utils.data import ConcatDataset
+        # train_set = ConcatDataset(datasets)
+        # print(len(train_set))
         # Using more GPUs is recommended in addition to finding the boundary of the model of the data.
         # The data must fit in the GPU memory. If out-of-memory error, then use more GPUs.
         train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=shuffle, **loader_kwargs)

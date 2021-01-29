@@ -15,6 +15,9 @@ do
   python train_Task3_fGAN_Simulation_Experiment.py --abnormal_class $i
   echo "Run Task 3 J"
   python train_Task3_J_fGAN_Simulation_Experiment.py --abnormal_class $i
+  # The final step is to perform AD and detect anomalies.
+  # Inference: Use the functions in "test_Evaluation_Metrics_Simulation_Experiment.py".
+  #python test_Evaluation_Metrics_Simulation_Experiment.py
 done
 # End the bash script
 exit 0

@@ -16,4 +16,5 @@ do
   echo "Run Task 3 J"
   python train_Task3_J_fGAN_Simulation_Experiment.py --abnormal_class $i
 done
+# End the bash script
 exit 0

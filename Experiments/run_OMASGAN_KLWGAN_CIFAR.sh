@@ -1,4 +1,5 @@
 #!/bin/bash
+# Bash script for OMASGAN
 # Simulation: Run experiment for every individual image data set
 for i in $(seq 0 9)
 do

@@ -80,6 +80,12 @@ cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
 ```
 
+## Discussion about the Model:
+
+To address the problem of deep generative models knowing what they do not know (Nalisnick et al., 2019), the proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs for AD and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs, implicit distributions, and f-divergence distribution metrics expressed in their variational representation. The model proposed in (Zaheer et al., 2020) uses old points to perform model retraining for AD, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are very limited in supply. On the contrary, OMASGAN generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD. OMASGAN first produces minimum anomaly score OoD samples around the data, B(**z**)~p<sub>b</sub>, by using a decreasing function of a distribution metric between the boundary samples and the data and then retrains by including the generated OoD B(**z**) samples. The generated OoD minimum anomaly score B(**z**) samples lead to a generally looser definition of the boundary of the support of the data distribution and form a manifold. Abnormal OoD samples that lie far from the boundary of the data distribution are also created by the AD models proposed in (Pourreza et al., 2021) and (Bian et al., 2019).
+
+For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
+
 ## Further Usage Information:
 
 To run the code, we use a virtual environment and conda. For the versions of the libraries we use, see the requirements.txt file which has been created by using "pip freeze > requirements.txt". For installing the versions of the Python libraries we use, run "pip install -r requirements.txt".
@@ -94,12 +100,6 @@ This Code Repository contains a PyTorch implementation for the OMASGAN model.
 Environments - Requirements: Python 3.7 and PyTorch 1.2 (requirements.txt)
 
 Future Date: Saturday 8 May 2021: Author Notification: Release the source code, make the source code public, and make the Code Repository non-anonymous.
-
-## Discussion about the Model:
-
-To address the problem of deep generative models knowing what they do not know (Nalisnick et al., 2019), the proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs for AD and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs, implicit distributions, and f-divergence distribution metrics expressed in their variational representation. The model proposed in (Zaheer et al., 2020) uses old points to perform model retraining for AD, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are very limited in supply. On the contrary, OMASGAN generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD. OMASGAN first produces minimum anomaly score OoD samples around the data, B(**z**)~p<sub>b</sub>, by using a decreasing function of a distribution metric between the boundary samples and the data and then retrains by including the generated OoD B(**z**) samples. The generated OoD minimum anomaly score B(**z**) samples lead to a generally looser definition of the boundary of the support of the data distribution and form a manifold. Abnormal OoD samples that lie far from the boundary of the data distribution are also created by the AD models proposed in (Pourreza et al., 2021) and (Bian et al., 2019).
-
-For evaluation, we use [MNIST](http://yann.lecun.com/exdb/mnist/), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/5b986599-8bc8-4a67-9f0b-5ae51dfe7ae5/).
 

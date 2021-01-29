@@ -496,7 +496,8 @@ def get_data_loaders(dataset, data_root=None, augment=False, batch_size=64, num_
         from torch.utils.data import Subset
         def get_target_label_idx(labels, targets):
             return np.argwhere(np.isin(labels, targets)).flatten().tolist()
-        train_idx_normal = get_target_label_idx(train_set.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+        #train_idx_normal = get_target_label_idx(train_set.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+        train_idx_normal = get_target_label_idx(train_set.targets, np.delete(np.array(list(range(0, 10))), abnormal_class))
         train_set = Subset(train_set, train_idx_normal)
         #print(len(train_set))
     print(len(train_set))

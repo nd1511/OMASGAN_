@@ -8,7 +8,7 @@ Deep generative models trained in an unsupervised manner encounter the serious p
 
 ## Flowchart Diagram:
 
-![plot](./Figures_Images/FlowchartOMASGAN.png =100x20)
+![plot](./Figures_Images/FlowchartOMASGAN.png)
 
 Figure 1: Flowchart of the OMASGAN model for AD which generates minimum-anomaly-score OoD samples on the boundary of the support of the data distribution and subsequently uses these generated boundary samples to train a discriminative model for detecting abnormal samples.
 

@@ -101,7 +101,7 @@ Environments - Requirements: Python 3.7 and PyTorch 1.2 (requirements.txt)
 
 Future Date: Saturday 8 May 2021: Author Notification: Release the source code, make the source code public, and make the Code Repository non-anonymous.
 
-Project Website: [OMASGAN Project](https://anonymous.4open.science/r/5b986599-8bc8-4a67-9f0b-5ae51dfe7ae5/).
+Project Website: [OMASGAN Project](https://anonymous.4open.science/r/a2616215-480f-4cea-8f54-7135b5acda4f/).
 
 This website is best viewed in Chrome or Firefox.
 

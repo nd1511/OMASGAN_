@@ -84,6 +84,18 @@ python train_Task3_J_fGAN_Simulation_Experiment.py
 
 For the evaluation of OMASGAN on MNIST image data, we obtain [MNIST-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_MNIST_Task3_fGAN.pdf) and for the evaluation of OMASGAN on CIFAR-10 data, we obtain [CIFAR10-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_CIFAR-10_Task3_KLWGAN.pdf).
 
+To run the KLWGAN-based OMASGAN model using the LOO methodology on CIFAR-10 data, run the bash script:
+```
+cd ./Experiments/
+sh run_OMASGAN_KLWGAN_CIFAR.sh
+```
+
+Also, to run the KLWGAN-based OMASGAN model using the LOO methodology on MNIST image data, run the bash script:
+```
+cd ./Experiments/
+sh run_OMASGAN_KLWGAN_MNIST.sh
+```
+
 ## Discussion about the Model:
 
 To address the problem of deep generative models knowing what they do not know (Nalisnick et al., 2019), the proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs for AD and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs, implicit distributions, and f-divergence distribution metrics expressed in their variational representation. The model proposed in (Zaheer et al., 2020) uses old points to perform model retraining for AD, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data, and are very limited in supply. On the contrary, the proposed OMASGAN model generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD. OMASGAN first produces minimum anomaly score OoD samples around the data, B(**z**)~p<sub>b</sub>, by using a decreasing function of a distribution metric between the boundary samples and the data and then retrains by including the generated OoD B(**z**) samples. The generated OoD minimum anomaly score B(**z**) samples lead to a generally looser definition of the boundary of the support of the data distribution and form a surface in the high-dimensional space, i.e. manifold. Abnormal OoD samples that lie far from the boundary of the data distribution are also created by the AD models proposed in (Pourreza et al., 2021) and (Bian et al., 2019).

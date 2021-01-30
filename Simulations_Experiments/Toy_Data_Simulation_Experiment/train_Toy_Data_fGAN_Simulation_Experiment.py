@@ -312,6 +312,11 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 # #F.tanh(
 # #F.elu(
 # We achieve better boundary formation results than (https://arxiv.org/pdf/1711.09325.pdf) in Figure 3.
+# The use of torch.nn.DataParallel(model) is recommended along with the
+# use of torch.save(model.module.state_dict(), "./.pt") instead of
+# torch.save(model.state_dict(), "./.pt"). Also, saving the best model is
+# recommended by using "best_loss = float('inf')" and "if loss.item()<best_loss:
+# best_loss=loss.item(); torch.save(model.module.state_dict(), "./.pt")".
 # Acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan/blob/master/GAN%20-%20CIFAR.ipynb), [GANs](https://github.com/shayneobrien/generative-models), [Boundary-GAN](https://github.com/wiseodd/generative-models/blob/master/GAN/boundary_seeking_gan/bgan_pytorch.py), [fGAN](https://github.com/wiseodd/generative-models/blob/master/GAN/f_gan/f_gan_pytorch.py), and [Rumi-GAN](https://github.com/DarthSid95/RumiGANs).
 # Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation).
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch).

@@ -36,7 +36,7 @@ cd ./Simulations_Experiments/Toy_Data_Simulation_Experiment/
 python train_Toy_Data_fGAN_Simulation_Experiment.py
 ```
 
-The Toy Data Simulation Experiment folder, which is within the Simulations Experiments folder, includes figures and simulation results for OMASGAN evaluated on synthetic data. The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Section 5.1 and in Figure 3 presents the evaluation of OMASGAN on synthetic data for a multimodal distribution with disconnected components for p<sub>**x**</sub>.
+The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Section 5.1 and in Figure 3 presents the evaluation of OMASGAN on synthetic data for a multimodal distribution with disconnected components for p<sub>**x**</sub>. Our results are presented in [OMASGAN-Synthetic-Data](https://github.com/Anonymous-Author-2021/OMASGAN/tree/main/Simulations_Experiments/Toy_Data_Simulation_Experiment). The Toy Data Simulation Experiment folder, which is within the Simulations Experiments folder, includes figures and simulation results for OMASGAN evaluated on synthetic data.
 
 ## MNIST and CIFAR-10 Usage:
 

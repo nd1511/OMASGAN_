@@ -40,7 +40,7 @@ The Toy Data Simulation Experiment folder, which is within the Simulations Exper
 
 ## MNIST and CIFAR-10 Usage:
 
-To run f-GAN-based OMASGAN training using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
+To run the f-GAN-based OMASGAN model using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```
 cd ./Experiments/
 sh run_OMASGAN_fGAN_MNIST.sh

@@ -80,7 +80,7 @@ cd ./Simulations_Experiments/
 python train_Task3_J_fGAN_Simulation_Experiment.py
 ```
 
-For the evaluation of OMASGAN on MNIST image data, we obtain [MNIST-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_MNIST_Task3_fGAN.pdf) and for the evaluation of OMASGAN on CIFAR-10 data, we obtain [CIFAR-10-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_CIFAR-10_Task3_KLWGAN.pdf).
+For the evaluation of OMASGAN on MNIST image data, we obtain [MNIST-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_MNIST_Task3_fGAN.pdf) and for the evaluation of OMASGAN on CIFAR-10 data, we obtain [CIFAR10-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_CIFAR-10_Task3_KLWGAN.pdf).
 
 ## Discussion about the Model:
 

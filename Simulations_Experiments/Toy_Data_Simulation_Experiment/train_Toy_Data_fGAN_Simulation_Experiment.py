@@ -127,6 +127,12 @@ class FGANLearningObjective(nn.Module):
             gradient_penalty = self.gammahalf * grad_pd_norm2.mean()
             loss_disc += gradient_penalty
         return loss_gen, loss_disc
+# The first two terms of the proposed objective cost function, i.e. $- m( B, G)$ and $d( B, G )$,
+# are convex as functions of the underlying probability measures. Because of the neural architectures
+# used, the optimization problem is non-convex. Regarding the choice of loss function for the boundary
+# Task, we create dynamics by pushing the generated samples OoD. Taking into account results from
+# optimization theory and optimization results for non-linear architectures, we introduce a regularized
+# cost function in the optimization instead of attempting to solve a much harder constrained optimization.
 gen = Generator(64)
 disc = Discriminator(64)
 gen2 = Generator(64)

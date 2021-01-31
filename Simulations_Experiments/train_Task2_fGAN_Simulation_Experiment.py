@@ -303,6 +303,12 @@ for epoch in range(nepochs):
         fgan.gen.zero_grad()
         loss_gen.backward(retain_graph=True)
         # The first term in the loss function is a strictly decreasing function of a distribution metric.
+        # The first two terms of the proposed objective cost function, i.e. $- m( B, G)$ and $d( B, G )$,
+        # are convex as functions of the underlying probability measures. Because of the neural architectures
+        # used, the optimization problem is non-convex. Regarding the choice of loss function for the boundary
+        # Task, we create dynamics by pushing the generated samples OoD. Taking into account results from
+        # optimization theory and optimization results for non-linear architectures, we introduce a regularized
+        # cost function in the optimization instead of attempting to solve a much harder constrained optimization.
         optimizer_gen.step()
         fgan.disc.zero_grad()
         loss_disc.backward()

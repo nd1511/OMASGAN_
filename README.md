@@ -130,6 +130,7 @@ To run the code, we use a virtual environment and conda. For the versions of the
 To clone the Code Repository, run:
 ```
 git clone https://github.com/Anonymous-Author-2021/OMASGAN.git
+conda create -n OMASGAN python=3.7
 ```
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.

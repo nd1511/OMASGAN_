@@ -52,6 +52,12 @@ def loss_kl_gen(dis_fake, dis_fake2, dis_real, dis_real2, xreal, zmodel, xmodel,
     # The first term in the loss function is a strictly decreasing function of a distribution metric.
     # Create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
     return loss_gen
+# The first two terms of the proposed objective cost function, i.e. $- m( B, G)$ and $d( B, G )$,
+# are convex as functions of the underlying probability measures. Because of the neural architectures
+# used, the optimization problem is non-convex. Regarding the choice of loss function for the boundary
+# Task, we create dynamics by pushing the generated samples OoD. Taking into account results from
+# optimization theory and optimization results for non-linear architectures, we introduce a regularized
+# cost function in the optimization instead of attempting to solve a much harder constrained optimization.
 def loss_dcgan_dis(dis_fake, dis_real):
     L1 = torch.mean(F.softplus(-dis_real))
     L2 = torch.mean(F.softplus(dis_fake))

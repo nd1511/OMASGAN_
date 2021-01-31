@@ -142,15 +142,22 @@ def run(config):
                 FID = fid_score.calculate_fid_given_paths([data_moments, sample_moments], batch_size=50, cuda=True, dims=2048)
                 train_fns.update_FID(G, D, G_ema, state_dict, config, FID, experiment_name, test_log)
         state_dict['epoch'] += 1
-    # Save the last model
     utils.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % 0, G_ema if config['ema'] else None)
+    # Save the last model
+    #utils.save_weights(G, D, state_dict, config['weights_root'], experiment_name, 'last%d' % 0, G_ema if config['ema'] else None)
+# We create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
+# The first two terms of the proposed objective cost function, i.e. $- m( B, G)$ and $d( B, G )$,
+# are convex as functions of the underlying probability measures. Because of the neural architectures
+# used, the optimization problem is non-convex. Regarding the choice of loss function for the boundary
+# Task, we create dynamics by pushing the generated samples OoD. Taking into account results from
+# optimization theory and optimization results for non-linear architectures, we introduce a regularized
+# cost function in the optimization instead of attempting to solve a much harder constrained optimization.
 def main():
     parser = utils.prepare_parser()
     config = vars(parser.parse_args())
     run(config)
 if __name__ == '__main__':
     main()
-# We create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
 # The use of torch.nn.DataParallel(model) is recommended along
 # with the use of torch.save(model.module.state_dict(), "./.pt") instead
 # of torch.save(model.state_dict(), "./.pt"). Also, saving the best model

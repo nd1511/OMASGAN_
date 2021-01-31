@@ -237,8 +237,7 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 # # Model architectures
 # # Hyper-parameters: Width and depth
 # # Hyper-parameter: Model architecture
-# # (A)
-# # Feed-forward network
+# # (A) Feed-forward network
 # class Generator(nn.Module):
 #     def __init__(self, nhidden):
 #         super(Generator, self).__init__()
@@ -248,8 +247,7 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 #         h = F.relu(self.lin1(z))
 #         x = self.lin2(h)
 #         return x
-# # (B)
-# # Residual network
+# # (B) Residual network
 # class Generator(nn.Module):
 #     def __init__(self, nhidden):
 #         super(Generator, self).__init__()
@@ -260,8 +258,7 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 #         x = self.lin2(h)
 #         x2 = x + z
 #         return x2
-# # (C)
-# # Feed-forward with Batch Normalization
+# # (C) Feed-forward with Batch Normalization
 # class Generator(nn.Module):
 #     def __init__(self, nhidden):
 #         super(Generator, self).__init__()
@@ -272,8 +269,7 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 #         h = F.relu(self.lin1bn(self.lin1(z)))
 #         x = self.lin2(h)
 #         return x
-# # (D)
-# # Residual with Batch Normalization
+# # (D) Residual with Batch Normalization
 # class Generator(nn.Module):
 #     def __init__(self, nhidden):
 #         super(Generator, self).__init__()
@@ -285,8 +281,7 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 #         x = self.lin2(h)
 #         x2 = x + z
 #         return x2
-# # (E)
-# # Feed-forward with weight initialization and Batch Normalization
+# # (E) Feed-forward with weight initialization and Batch Normalization
 # class Generator(nn.Module):
 #     def __init__(self, nhidden):
 #         super(Generator, self).__init__()
@@ -298,8 +293,7 @@ torch.save({'gen_state_dict': fgan.gen.state_dict(),
 #         h = F.relu(self.lin1bn(self.lin1(z)))
 #         x = self.lin2(h)
 #         return x
-# # (F)
-# # Residual with weight initialization and Batch Normalization
+# # (F) Residual with weight initialization and Batch Normalization
 # class Generator(nn.Module):
 #     def __init__(self, nhidden):
 #         super(Generator, self).__init__()

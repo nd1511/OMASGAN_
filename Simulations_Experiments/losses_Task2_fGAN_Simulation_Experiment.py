@@ -86,5 +86,11 @@ class FGANLearningObjective(nn.Module):
             gradient_penalty = self.gammahalf * grad_pd_norm2.mean()
             loss_disc += gradient_penalty
         return loss_gen, loss_disc, fstar_Tmodel.mean(), torch.min(D1, dim=1)[0].mean(), torch.mean(D2, dim=1)[0].mean()
+# The first two terms of the proposed objective cost function, i.e. $- m( B, G)$ and $d( B, G )$,
+# are convex as functions of the underlying probability measures. Because of the neural architectures
+# used, the optimization problem is non-convex. Regarding the choice of loss function for the boundary
+# Task, we create dynamics by pushing the generated samples OoD. Taking into account results from
+# optimization theory and optimization results for non-linear architectures, we introduce a regularized
+# cost function in the optimization instead of attempting to solve a much harder constrained optimization.
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

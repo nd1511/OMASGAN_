@@ -132,6 +132,7 @@ To clone the Code Repository, run:
 git clone https://github.com/Anonymous-Author-2021/OMASGAN.git
 conda create -n OMASGAN python=3.7
 conda activate OMASGAN
+pip install --user --requirement requirements.txt
 ```
 
 This Code Repository contains a PyTorch implementation for the OMASGAN model.

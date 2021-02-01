@@ -43,8 +43,9 @@ import torch.nn.init as init
 from torch.autograd import Variable
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 nrand = 100
+select_dataset = "cifar10"
 #select_dataset = "select_dataset"
-select_dataset = "mnist"
+#select_dataset = "mnist"
 #select_dataset = "mnist2"
 #select_dataset = "cifar10"
 gen = DCGANGenerator(nrand, select_dataset)

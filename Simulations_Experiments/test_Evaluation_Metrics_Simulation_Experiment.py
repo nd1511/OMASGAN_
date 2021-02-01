@@ -80,6 +80,7 @@ def get_scores(y_pred, y_gt, beta=1):
     fpr = fp / float(fp + tn)
     fnr = fn / float(fn + tp)
     acc = float(tp + tn) / float(tp + tn + fp + fn)
+    # ('F1', 'Precision', 'Recall', 'False Positives', 'False Negatives', 'False Positive Rate', 'False Negative Rate', 'Accuracy')
     metrics = ('F' + str(beta), 'Precision', 'Recall', 'False Positives', 'False Negatives', 'False Positive Rate', 'False Negative Rate', 'Accuracy')
     metric_values = (fbeta, precision, recall, fp, fn, fpr, fnr, acc)
     return metrics, metric_values

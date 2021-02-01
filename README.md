@@ -38,6 +38,8 @@ Simulations Experiments folder: The Optimization Tasks of OMASGAN, including the
 
 ## MNIST and CIFAR-10 Usage:
 
+For the evaluation of OMASGAN, we use synthetic data, [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
+
 To run the f-GAN-based OMASGAN model using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```
 cd ./Experiments/
@@ -120,8 +122,6 @@ sh run_OMASGAN_KLWGAN_MNIST.sh
 To address the problem of deep generative models knowing what they do not know (Nalisnick et al., 2019), the proposed OMASGAN algorithm performs (iterative) retraining of generative models and GANs for AD and works with anomaly scores rather than with likelihood and probability density. Because it works with anomaly scores instead of probability, the OMASGAN algorithm avoids invertibility and works with GANs, implicit distributions, and f-divergence distribution metrics expressed in their variational representation. The model proposed in (Zaheer et al., 2020) uses old points to perform model retraining for AD, but these old points are chosen in an ad hoc way, do not cover the OoD part of the data space, and are very limited in supply. On the contrary, the proposed OMASGAN model generates any desired number of well scattered OoD points on the boundary of the data distribution for model retraining for AD. OMASGAN first produces minimum anomaly score OoD samples around the data, B(**z**)~p<sub>b</sub>, by using a decreasing function of a distribution metric between the boundary samples and the data and then retrains by including the generated OoD B(**z**) samples. The generated OoD minimum anomaly score B(**z**) samples lead to a generally looser definition of the boundary of the support of the data distribution and form a surface in the high-dimensional space, i.e. manifold. Abnormal OoD samples that lie far from the boundary of the data distribution are also created by the AD models proposed in (Pourreza et al., 2021) and (Bian et al., 2019).
 
 OMASGAN performs automatic negative data augmentation and model retraining for AD by combining negative and positive training and by eliminating the need for feature extraction, human intervention, dataset-dependent heuristic techniques, and ad hoc methods because they do not scale (aim of deep learning), and this strengthens the applicability and generalization of the proposed model. The negative data augmentation strategy introduced in (Sinha et al., 2021) is dataset-dependent and uses a restrictive and limiting definition of anomaly, creating OoD samples in an ad hoc way and not covering the OoD part of the data space. In addition, the methodology proposed in (Sinha et al., 2021) does not scale due to feature extraction and human intervention and we note that one of the main aims of deep learning is to eliminate feature engineering and feature extraction.
-
-For the evaluation of OMASGAN, we use synthetic data, [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
 
 ## Further Usage Information:
 

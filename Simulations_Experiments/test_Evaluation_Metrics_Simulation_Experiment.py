@@ -21,6 +21,7 @@ abnormal_class_LOO = 0
 #abnormal_class_LOO = 2
 #lr_select = lr_select
 lr_select = 1.0e-3
+#lr_select = 1.0e-4
 lr_select_gen = lr_select
 lr_select_disc = lr_select
 import matplotlib.pyplot as pyplot

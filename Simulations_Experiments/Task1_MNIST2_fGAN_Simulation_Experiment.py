@@ -10,6 +10,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 #abnormal_class_LOO = abnormal_class_LOO
 abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
+#abnormal_class_LOO = 2
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,6 +36,7 @@ def get_target_label_idx(labels, targets):
 train_idx_normal = get_target_label_idx(MNIST.targets, np.delete(np.array(list(range(0, 10))), abnormal_class_LOO))
 #train_idx_normal = get_target_label_idx(MNIST.targets, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 #train_idx_normal = get_target_label_idx(MNIST.targets, [0, 2, 3, 4, 5, 6, 7, 8, 9])
+#train_idx_normal = get_target_label_idx(MNIST.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
 MNIST = Subset(MNIST, train_idx_normal)
 print(len(MNIST))
 import torch.nn as nn

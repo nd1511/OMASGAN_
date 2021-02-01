@@ -38,7 +38,7 @@ Simulations Experiments folder: The Optimization Tasks of OMASGAN, including the
 
 ## MNIST and CIFAR-10 Usage:
 
-For the evaluation of OMASGAN, we use synthetic data, [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), and [SVHN](http://ufldl.stanford.edu/housenumbers/). The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Sections 5.2-5.5 and in Figures 4-11 presents the evaluation of OMASGAN on image data from the MNIST and CIFAR-10 datasets.
+For the evaluation of OMASGAN, we use synthetic data, [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), and [SVHN](http://ufldl.stanford.edu/housenumbers/). The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Sections 5.2-5.5 and in Figures 4-11 presents the evaluation of OMASGAN on image data from the MNIST and CIFAR-10 datasets. For the evaluation of OMASGAN on MNIST image data, we obtain [MNIST-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_MNIST_Task3_fGAN.pdf) and for the evaluation of OMASGAN on CIFAR-10 data, we obtain [CIFAR10-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_CIFAR-10_Task3_KLWGAN.pdf).
 
 To run the f-GAN-based OMASGAN model using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```
@@ -102,8 +102,6 @@ cd ./Simulations_Experiments/Task3_J_CIFAR_MNIST_KLWGAN_Simulation_Experiment/
 python train.py --select_dataset cifar10 --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 #python train.py --select_dataset mnist --abnormal_class 0 --shuffle --batch_size 64 --parallel --num_G_accumulations 1 --num_D_accumulations 1 --num_epochs 500 --num_D_steps 4 --G_lr 2e-4 --D_lr 2e-4 --dataset C10 --data_root ./data/ --G_ortho 0.0 --G_attn 0 --D_attn 0 --G_init N02 --D_init N02 --ema --use_ema --ema_start 1000 --start_eval 50 --test_every 5000 --save_every 2000 --num_best_copies 5 --num_save_copies 2 --loss_type kl_5 --seed 2 --which_best FID --model BigGAN --experiment_name C10Ukl5
 ```
-
-For the evaluation of OMASGAN on MNIST image data, we obtain [MNIST-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_MNIST_Task3_fGAN.pdf) and for the evaluation of OMASGAN on CIFAR-10 data, we obtain [CIFAR10-Task3](https://github.com/Anonymous-Author-2021/OMASGAN/blob/main/Simulations_Experiments/Images_Generated_CIFAR-10_Task3_KLWGAN.pdf).
 
 To run the KLWGAN-based OMASGAN model using the LOO methodology on CIFAR-10 data, run the bash script:
 ```

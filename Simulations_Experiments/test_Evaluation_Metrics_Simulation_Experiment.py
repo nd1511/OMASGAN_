@@ -64,7 +64,7 @@ testloader = torch.utils.data.DataLoader(data_forTestloader, batch_size=batchsiz
 # ('F1', 'Precision', 'Recall', 'False Positives', 'False Negatives', 'False Positive Rate', 'False Negative Rate', 'Accuracy')
 # (0.9995002498750626, 0.999000999000999, 1.0, 1, 0, 0.001, 0.0, 0.9995)
 def get_scores(y_pred, y_gt, beta=1):
-    import numpy as np
+    #import numpy as np
     if y_pred.ndim > 1 or y_gt.ndim > 1:
         raise ValueError('Expected 1D inputs')
     if not y_pred.size == y_gt.size:

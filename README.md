@@ -38,7 +38,7 @@ Simulations Experiments folder: The Optimization Tasks of OMASGAN, including the
 
 ## MNIST and CIFAR-10 Usage:
 
-For the evaluation of OMASGAN, we use synthetic data, [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), and [SVHN](http://ufldl.stanford.edu/housenumbers/).
+For the evaluation of OMASGAN, we use synthetic data, [MNIST](http://yann.lecun.com/exdb/mnist/), [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [Fashion-MNIST](https://www.kaggle.com/zalando-research/fashionmnist), [KMNIST](https://github.com/rois-codh/kmnist), and [SVHN](http://ufldl.stanford.edu/housenumbers/). The paper 'OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary' in Sections 5.2-5.5 and in Figures 4-11 presents the evaluation of OMASGAN on image data from the MNIST and CIFAR-10 datasets.
 
 To run the f-GAN-based OMASGAN model using the LOO methodology on MNIST data, for abnormal_class_LOO (train_Task1_fGAN_Simulation_Experiment.py), run the bash script:
 ```

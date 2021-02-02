@@ -43,6 +43,7 @@ import torch.nn.init as init
 from torch.autograd import Variable
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 nrand = 100
+#nrand = 128
 select_dataset = "cifar10"
 #select_dataset = "select_dataset"
 #select_dataset = "mnist"

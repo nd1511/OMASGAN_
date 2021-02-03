@@ -140,7 +140,7 @@ Future Date: Saturday 8 May 2021: Author Notification: Release the source code, 
 
 Future Date: Thursday 11 February 2021: Supplementary Materials Submission Deadline: This anonymous GitHub Repository will not be modified until Saturday 8 May 2021, Author Notification.
 
-Project Website: [OMASGAN Project](https://anonymous.4open.science/r/bfb42fa1-dbac-46d0-879c-cead16bcdd62/).
+Project Website: [OMASGAN Project](https://anonymous.4open.science/r/2a8c147f-8257-4164-834a-7aff37a7bfde/).
 
 This website is best viewed in Chrome or Firefox.
 

@@ -39,6 +39,8 @@ train_idx_normal = get_target_label_idx(MNIST.targets, np.delete(np.array(list(r
 #train_idx_normal = get_target_label_idx(MNIST.targets, [0, 1, 3, 4, 5, 6, 7, 8, 9])
 MNIST = Subset(MNIST, train_idx_normal)
 print(len(MNIST))
+# Data: x~p_x, LOO methodology, Normal class: K classes, Dataset: Total K+1 classes
+# Normal class has 45000 samples for CIFAR-10 and approximately 54000 samples for MNIST
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim

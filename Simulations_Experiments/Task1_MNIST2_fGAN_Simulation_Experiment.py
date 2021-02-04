@@ -44,6 +44,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.nn.init as init
 from torch.autograd import Variable
+# x~p_x, LOO methodology, Normal class: K classes, Dataset: Total K+1 classes
+# Normal class has approximately 54000 samples for MNIST and 45000 for CIFAR-10
 class ConjugateDualFunction:
    def __init__(self, divergence_name):
        self.divergence_name = divergence_name

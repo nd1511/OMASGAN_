@@ -88,6 +88,8 @@ train_idx_normal = get_target_label_idx(data_forTrainloader.targets, np.delete(n
 data_forTrainloader = Subset(data_forTrainloader, train_idx_normal)
 print(len(data_forTrainloader))
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=batchsize, shuffle=True, num_workers=8, drop_last=True)
+# Data: x~p_x, LOO methodology, Normal class: K classes, Dataset: Total K+1 classes
+# Normal class has 45000 samples for CIFAR-10 and approximately 54000 samples for MNIST
 def makedirs(dirname):
     if not os.path.exists(dirname):
         os.makedirs(dirname)

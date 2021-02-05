@@ -69,8 +69,10 @@ fgan = fgan.to(device)
 # Choose and set the batch size.
 # Double the learning rate if you double the batch size.
 batchsize = 64
+#batchsize = 128
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
+# Using a scheduler and “scheduler = optim.lr_scheduler.MultiStepLR(optimizer_gen, milestones=50, gamma=0.1)”, “scheduler.step()”, and “float(scheduler.get_lr()[0])” is recommended.
 # To boost the AD performance, a scheduler to decrease the learning rate is recommended, i.e. “scheduler
 # = optim.lr_scheduler.MultiStepLR(optimizer_gen” and “scheduler.step()”. Also, AE-based pretraining
 # using a dictionary for the NN decoder parameters, e.g. “ae_net_dict = {k: v for k, v in”, is recommended.

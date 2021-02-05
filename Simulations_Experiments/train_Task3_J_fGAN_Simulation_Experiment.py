@@ -60,6 +60,8 @@ fgan = fgan.to(device)
 # Double the learning rate if you double the batch size.
 #batchsize = batchsize
 batchsize = 64
+#batchsize = 128
+# Double the learning rate if you double the batch size.
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 data_forTrainloader = choose_dataset(select_dataset)
 from torch.utils.data import Subset
@@ -79,6 +81,7 @@ print(len(data_forTrainloader))
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=batchsize, shuffle=True, num_workers=8, drop_last=True)
 writer = SummaryWriter(log_dir="runModel/MNIST", comment="f-GAN-Pearson")
 nepochs = 500
+#nepochs = 1000
 niter = 0
 #checkpoint = torch.load('./.pt')
 #fgan.disc.load_state_dict(checkpoint['disc_state_dict'])

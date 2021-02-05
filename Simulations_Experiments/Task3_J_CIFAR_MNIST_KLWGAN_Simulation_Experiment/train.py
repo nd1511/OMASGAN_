@@ -124,6 +124,7 @@ def run(config):
             else:
                 x, y = x.to(device), y.to(device)
             metrics = train(x, y)
+            # We double the learning rate if we double the batch size.
             train_log.log(itr=int(state_dict['itr']), **metrics)
             if (config['sv_log_interval'] > 0) and (not (state_dict['itr'] % config['sv_log_interval'])):
                 train_log.log(itr=int(state_dict['itr']), **{**utils.get_SVs(G, 'G'), **utils.get_SVs(D, 'D')})

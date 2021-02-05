@@ -142,7 +142,7 @@ Future Date: Thursday 11 February 2021: Supplementary Materials Submission Deadl
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/5e66e0b0-3b52-441c-91d1-06cfb9e0cbb6/).
 
-OMASGAN retrains by including the generated points on the boundary and we note that in the paper “OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary”, in our ablation study, the baseline is the model without retraining.
+OMASGAN retrains by including the generated OoD samples on the boundary and we note that in the paper “OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary”, in our ablation study, the baseline is the model without retraining.
 
 ## Acknowledgements:
 

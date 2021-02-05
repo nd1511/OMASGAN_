@@ -118,8 +118,11 @@ class FGANLearningObjective(nn.Module):
         D2 = torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1)**2 / (1e-17 + torch.norm(xmodel[None, :].expand(xmodel.shape[0], -1, -1) - xmodel[:, None], dim=-1)**2)
         # The first term in the loss function is a strictly decreasing function of a distribution metric.
         # Create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
+        # We use -m(B, G), where m(B,G) is -fstar_Tmodel.mean().
         loss_gen = fstar_Tmodel.mean() + mu * torch.min(D1, dim=1)[0].mean() + ni * torch.mean(D2, dim=1)[0].mean()
         loss_disc = fstar_Tmodel.mean() - Treal.mean()
+        #loss_gen = fstar_Tmodel.mean() + distance + dispersion
+        #loss_disc = fstar_Tmodel.mean() - Treal.mean()
         if self.gammahalf > 0.0:
             batchsize = xreal.size(0)
             grad_pd = torch.autograd.grad(Treal.sum(), xreal, create_graph=True, only_inputs=True)[0]

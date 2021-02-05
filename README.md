@@ -142,7 +142,7 @@ Future Date: Thursday 11 February 2021: Supplementary Materials Submission Deadl
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/5e66e0b0-3b52-441c-91d1-06cfb9e0cbb6/).
 
-This website is best viewed in Chrome or Firefox.
+OMASGAN retrains by including the generated points on the boundary and we note that in the paper “OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary”, in our ablation study, the baseline is the model without retraining.
 
 ## Acknowledgements:
 
@@ -155,6 +155,8 @@ Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous
 Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](https://anonymous.4open.science/repository/99219ca9-ff6a-49e5-a525-c954080de8a7/losses.py), [DeepSAD](https://github.com/lukasruff/Deep-SAD-PyTorch), and [GANomaly](https://github.com/samet-akcay/ganomaly).
 
 All the acknowledgements, references, and citations can be found in the paper "OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary".
+
+This website is best viewed in Chrome or Firefox.
 
 ## References:
 Asokan, S. and Seelamantula, C., “Teaching a GAN What Not to Learn,” in Proceedings 34th Conference on Neural Information Processing Systems (NeurIPS 2020), Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H. (eds), Vancouver, Canada, December 2020.

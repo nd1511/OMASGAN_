@@ -61,6 +61,7 @@ import torch.nn.init as init
 from torch.autograd import Variable
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 nrand = 100
+#nrand = 128
 #select_dataset = "select_dataset"
 select_dataset = "mnist"
 #select_dataset = "mnist2"
@@ -239,6 +240,8 @@ fgan2 = FGANLearningObjective(gen2, disc2, "pearson", gamma=10.0)
 fgan = fgan.to(device)
 fgan2 = fgan2.to(device)
 batchsize = 64
+#batchsize = 128
+# Double the learning rate if you double the batch size.
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 trainloader = torch.utils.data.DataLoader(data_forTrainloader, batch_size=len(data_forTrainloader), shuffle=True)

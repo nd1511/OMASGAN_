@@ -162,8 +162,10 @@ disc = DCGANDiscriminator()
 fgan = FGANLearningObjective(gen, disc, "pearson", gamma=10.0)
 fgan = fgan.to(device)
 batchsize = 64
+#batchsize=128
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=1.0e-3)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=1.0e-3)
+# Using a scheduler and “scheduler = optim.lr_scheduler.MultiStepLR(optimizer_gen, milestones=50, gamma=0.1)”, “scheduler.step()”, and “float(scheduler.get_lr()[0])” is recommended.
 trainloader = torch.utils.data.DataLoader(MNIST, batch_size=batchsize, shuffle=True, num_workers=8, drop_last=True)
 writer = SummaryWriter(log_dir="runs/MNIST", comment="f-GAN-Pearson")
 nepochs = 500

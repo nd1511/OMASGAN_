@@ -26,6 +26,7 @@ df = 40.0
 tdist = scipy.stats.t(df, loc=1.5, scale=0.15)
 tdist2 = scipy.stats.t(df, loc=1.5, scale=0.15)
 ntrain = 5000
+#ntrain = 10000
 Xtrain = tdist.rvs(ntrain)
 import torch.nn as nn
 import torch.optim as optim
@@ -144,10 +145,12 @@ fgan2 = FGANLearningObjective(gen2, disc2, "pearson", gamma=1.0)
 fgan = fgan.to(device)
 fgan2 = fgan2.to(device)
 batchsize = 64
+#batchsize = 128
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 # Using a scheduler, i.e. “scheduler = optim.lr_scheduler.MultiStepLR(optimizer_gen” and “scheduler.step()” is recommended.
 niter = 50000
+#niter = 100000
 xreal = Variable(torch.Tensor(np.reshape(tdist.rvs(4096), (4096,1))), requires_grad=True)
 xreal = torch.cat((xreal, Variable(torch.Tensor(np.reshape(tdist.rvs(4096), (4096,1))), requires_grad=True)), dim=1)
 #checkpoint = torch.load('./.pt')

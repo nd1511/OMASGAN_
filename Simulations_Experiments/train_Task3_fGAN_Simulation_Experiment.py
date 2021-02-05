@@ -34,6 +34,7 @@ abnormal_class_LOO = 0
 # Double the learning rate if you double the batch size.
 #lr_select = lr_select
 lr_select = 1.0e-3
+#lr_select = 1.0e-4
 lr_select_gen = lr_select
 lr_select_disc = lr_select
 import matplotlib.pyplot as plt
@@ -46,6 +47,7 @@ import torch.nn.init as init
 from torch.autograd import Variable
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 nrand = 100
+#nrand = 128
 #select_dataset = "select_dataset"
 select_dataset = "mnist"
 #select_dataset = "mnist2"
@@ -60,6 +62,8 @@ fgan = fgan.to(device)
 # Double the learning rate if you double the batch size.
 #batchsize = batchsize
 batchsize = 64
+#batchsize = 128
+# Double the learning rate if you double the batch size.
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)
 optimizer_disc = optim.Adam(fgan.disc.parameters(), lr=lr_select_disc)
 data_forTrainloader = choose_dataset(select_dataset)

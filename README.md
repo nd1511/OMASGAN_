@@ -140,7 +140,7 @@ Future Date: Saturday 8 May 2021: Author Notification: Release the source code, 
 
 Future Date: Thursday 11 February 2021: Supplementary Materials Submission Deadline: This anonymous GitHub Repository will not be modified until Saturday 8 May 2021, Author Notification.
 
-Project Website: [OMASGAN Project](https://anonymous.4open.science/r/222e6302-eae9-4810-98c0-4d219970d96f/).
+Project Website: [OMASGAN Project](https://anonymous.4open.science/r/8d8d552f-e43a-49d9-b35e-3edf83c088ef/).
 
 OMASGAN retrains by including the generated samples on the boundary and we note that in the paper “OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary”, in our ablation study, the examined baseline is the model without retraining. Model retraining for AD by including negative samples uses strong and specifically adversarial anomalies. Strong anomalies are close to the boundary of the support of the data distribution, and strong anomalies subsume adversarial anomalies as a special case. Adversarial anomalies are anomalies close to high-probability normal samples, and a small perturbation makes adversarial anomalies cross the boundary of the data distribution to become high-probability normal points. In the reverse scenario, a small perturbation can make some high-probability normal samples cross the boundary to become adversarial anomalies. Anomalies can be close to high-probability normal samples because data reside in low-dimensional manifolds.
 

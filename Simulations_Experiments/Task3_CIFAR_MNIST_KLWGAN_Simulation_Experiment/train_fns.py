@@ -57,6 +57,7 @@ def GAN_training_function(G3, D3, GD3, G2, D2, GD2, G, D, GD, z_, y_, ema, state
                 D_fake, D_real = GD(z_[:config['batch_size']], y_[:config['batch_size']], real_samples, y_counter, train_G=False, split_D=config['split_D'])
                 #_, G1 = GD3(z_[:config['batch_size']], y_[:config['batch_size']], train_G=False, return_G_z=True, split_D=config['split_D'])
                 _, firstGgg1g1G1g1G1 = GD3(z_[:config['batch_size']], y_[:config['batch_size']], train_G=False, return_G_z=True, split_D=config['split_D'])
+                #D_loss = discriminator_loss(D_fake, D_real, firstG, secondG)
                 #D_loss = discriminator_loss(D_fake, D_real, G1, G2)
                 D_loss = discriminator_loss(D_fake, D_real, firstGgg1g1G1g1G1, firstGgg1g1G1g1G1)
                 D_loss.backward(retain_graph = True)

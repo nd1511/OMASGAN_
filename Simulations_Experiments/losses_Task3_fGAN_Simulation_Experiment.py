@@ -93,5 +93,9 @@ class FGANLearningObjective(nn.Module):
             gradient_penalty = self.gammahalf * grad_pd_norm2.mean()
             loss_disc += gradient_penalty
         return loss_gen, loss_disc
+# Optimization of original GAN: min_G max_D E_x log(D(x)) + E_z log(1 - D(G(z)))
+# L_G = E_z log(1 - D(G(z))) and L_D = -E_x log(D(x)) - E_z log(1 - D(G(z)))
+# loss_gen = -fstar_Tmodel.mean() # Generator loss (minimize)
+# loss_disc = fstar_Tmodel.mean() - Treal.mean() # Discriminator loss (minimize)
 # Acknowledgement: Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation)
 # Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch)

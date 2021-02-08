@@ -120,6 +120,7 @@ class FGANLearningObjective(nn.Module):
         # Create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
         # We use -m(B, G), where m(B,G) is -fstar_Tmodel.mean().
         loss_gen = fstar_Tmodel.mean() + mu * torch.min(D1, dim=1)[0].mean() + ni * torch.mean(D2, dim=1)[0].mean()
+        #loss_gen = first_term_loss + hyperparameter1*second_term_loss + hyperparameter2*third_term_loss
         loss_disc = fstar_Tmodel.mean() - Treal.mean()
         #loss_gen = fstar_Tmodel.mean() + distance + dispersion
         #loss_disc = fstar_Tmodel.mean() - Treal.mean()

@@ -76,6 +76,7 @@ class FGANLearningObjective(nn.Module):
         # The first term in the loss function is a strictly decreasing function of a distribution metric.
         # We create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
         loss_gen = fstar_Tmodel.mean() + mu * torch.min(D1, dim=1)[0].mean() + ni * torch.mean(D2, dim=1)[0].mean()
+        #loss_gen = first_term_loss + hyperparameter1*second_term_loss + hyperparameter2*third_term_loss
         loss_disc = fstar_Tmodel.mean() - Treal.mean()
         # Gradient penalty
         if self.gammahalf > 0.0:

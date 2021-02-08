@@ -164,6 +164,7 @@ def run(config):
 def main():
     parser = utils_Task1_KLWGAN_Simulation_Experiment.prepare_parser()
     config = vars(parser.parse_args())
+    # We now print the configuration.
     #print(config)
     run(config)
 if __name__ == '__main__':

@@ -120,6 +120,7 @@ def run(config):
                 x, y = x.to(device).half(), y.to(device)
             else:
                 x, y = x.to(device), y.to(device)
+            #metrics = train(x, y)
             print('')
             # Random seed
             print(config['seed'])

@@ -123,6 +123,9 @@ def run(config):
                 x, y = x.to(device).half(), y.to(device)
             else:
                 x, y = x.to(device), y.to(device)
+            print('')
+            # Random seed
+            print(config['seed'])
             metrics = train(x, y)
             # We double the learning rate if we double the batch size.
             train_log.log(itr=int(state_dict['itr']), **metrics)

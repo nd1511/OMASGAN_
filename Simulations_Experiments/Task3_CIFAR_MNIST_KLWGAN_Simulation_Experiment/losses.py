@@ -37,6 +37,7 @@ def loss_kl_dis(dis_fake, dis_real, dis_fake2, dis_real2, temp=1.0, alpha=0.7, g
     dis_fake_ratio2 = get_kl_ratio(dis_fake_m2)
     dis_fake2 = dis_fake2 * dis_fake_ratio2
     loss_disc = torch.mean(F.relu(1. + dis_fake)) + gamma * torch.mean(F.relu(1. + dis_fake2)) + alpha * torch.mean(F.relu(1. - dis_real))
+    #loss_disc = torch.mean(F.relu(1. + dis_fake)) + hyperparameter1*torch.mean(F.relu(1. + dis_fake2)) + hyperparameter2*torch.mean(F.relu(1. - dis_real))
     return loss_disc
 def loss_kl_gen(dis_fake, dis_fake2, dis_real, dis_real2, temp=1.0):
     dis_fake_m = dis_fake / temp

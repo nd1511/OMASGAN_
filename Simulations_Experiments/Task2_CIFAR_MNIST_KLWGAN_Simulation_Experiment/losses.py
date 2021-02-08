@@ -49,6 +49,7 @@ def loss_kl_gen(dis_fake, dis_fake2, dis_real, dis_real2, xreal, zmodel, xmodel,
     second_term_loss = torch.min(torch.norm(xreal.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1), dim=1)[0].mean()
     third_term_loss = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)), dim=1)[0].mean()
     loss_gen = torch.mean(dis_fake) + mu * second_term_loss2 + ni * third_term_loss
+    #loss_gen = first_term_loss + hyperparameter1*second_term_loss + hyperparameter2*third_term_loss
     # The first term in the loss function is a strictly decreasing function of a distribution metric.
     # Create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
     return loss_gen
@@ -95,10 +96,11 @@ def loss_kl_gen(dis_fake, xreal, zmodel, xmodel, temp=1.0, mu=20, ni=50):
     loss = torch.mean(dis_fake)
     second_term_loss = torch.min(torch.norm(xreal.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1), dim=1)[0].mean()
     third_term_loss = torch.mean(torch.norm(zmodel[None, :].expand(zmodel.shape[0], -1, -1) - zmodel[:, None], dim=-1) / (1e-17 + torch.norm(xmodel.view(-1, 3 * 32 * 32)[None, :].expand(xmodel.shape[0], -1, -1) - xmodel.view(-1, 3 * 32 * 32)[:, None], dim=-1)), dim=1)[0].mean()
-    loss2 = loss + mu * second_term_loss + ni * third_term_loss
+    #loss_gen = first_term_loss + hyperparameter1*second_term_loss + hyperparameter2*third_term_loss
+    loss_gen = loss + mu * second_term_loss + ni * third_term_loss
     # The first term in the loss function is a strictly decreasing function of a distribution metric.
     # We create dynamics by pushing the generated samples OoD: Likelihood-free boundary of data distribution
-    return loss2
+    return loss_gen
 # Pearson Chi-Squared: According to Table 4 of the f-GAN paper, we use the
 # Pearson Chi-Squared f-divergence distribution metric and we note that after Pearson
 # Chi-Squared, the next best are KL and then Jensen-Shannon (Nowozin et al., 2016).

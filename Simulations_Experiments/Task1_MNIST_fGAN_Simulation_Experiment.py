@@ -28,8 +28,12 @@ from tensorboardX import SummaryWriter
 import torchvision
 import torchvision.transforms as transforms
 import torchvision.utils as vutils
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+#transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+# Use transforms.Resize(32) because MNIST has 28*28=784 dimensions
+transform = transforms.Compose([transforms.Resize(32), transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 MNIST = torchvision.datasets.MNIST('data-mnist', train=True, download=True, transform=transform)
+#import torchvision.datasets as dset
+#MNIST = dset.MNIST('data-mnist', train=True, download=True, transform=transforms.Compose([transforms.Resize(32), transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,)),]))
 from torch.utils.data import Subset
 def get_target_label_idx(labels, targets):
   return np.argwhere(np.isin(labels, targets)).flatten().tolist()

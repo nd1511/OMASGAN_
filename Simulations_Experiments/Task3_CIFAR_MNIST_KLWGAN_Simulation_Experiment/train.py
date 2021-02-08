@@ -156,6 +156,8 @@ def run(config):
 def main():
     parser = utils.prepare_parser()
     config = vars(parser.parse_args())
+    # We print the configuration.
+    #print(config)
     run(config)
 if __name__ == '__main__':
     main()

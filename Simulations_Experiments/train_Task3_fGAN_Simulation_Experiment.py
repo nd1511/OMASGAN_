@@ -163,6 +163,10 @@ for epoch in range(nepochs):
         fgan.disc.zero_grad()
         loss_disc.backward()
         optimizer_disc.step()
+        # Original GAN optimization: min_G max_D E_x log(D(x)) + E_z log(1 - D(G(z)))
+        # L_G = E_z log(1 - D(G(z))) and L_D = -E_x log(D(x)) - E_z log(1 - D(G(z)))
+        # loss_gen = -fstar_Tmodel.mean() # Generator loss (minimize)
+        # loss_disc = fstar_Tmodel.mean() - Treal.mean() # Discriminator loss (minimize)
         # Save the images and save the models.
         if i == 0:
             # Save the images and use visualization.

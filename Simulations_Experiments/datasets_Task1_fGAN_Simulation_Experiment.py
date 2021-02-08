@@ -7,8 +7,11 @@ import torchvision.utils as vutils
 imgsize = 32
 def choose_dataset(select_dataset):
     if select_dataset == "mnist":
+        # We use transforms.Resize(imgsize) because MNIST has 28*28=784 dimensions.
         transform = transforms.Compose([transforms.Resize(imgsize), transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
         MNIST = torchvision.datasets.MNIST('data-cifar10', train=True, download=True, transform=transform)
+        #import torchvision.datasets as dset
+        #MNIST = dset.MNIST('data-cifar10', train=True, download=True, transform=transforms.Compose([transforms.Resize(32), transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,)),]))
         return MNIST
     elif select_dataset == "mnist2":
         transform = transforms.Compose([transforms.Grayscale(3), transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])

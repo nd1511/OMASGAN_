@@ -15,7 +15,7 @@ lr_select_gen = lr_select
 lr_select_disc = lr_select
 mu_select = mu_select
 ni_select = ni_select
-import math
+import math # for example, use math.inf
 import torch
 import scipy.stats
 import numpy as np

@@ -32,7 +32,7 @@ abnormal_class_LOO = opt.abnormal_class
 #abnormal_class_LOO = 0
 #abnormal_class_LOO = 1
 #abnormal_class_LOO = 2
-import math
+import math # for example, use math.inf
 import numpy as np
 import matplotlib.pyplot as plt
 import torch

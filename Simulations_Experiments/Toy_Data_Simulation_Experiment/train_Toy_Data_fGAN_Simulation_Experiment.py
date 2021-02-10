@@ -150,6 +150,7 @@ fgan = FGANLearningObjective(gen, disc, "pearson", gamma=1.0)
 fgan2 = FGANLearningObjective(gen2, disc2, "pearson", gamma=1.0)
 fgan = fgan.to(device)
 fgan2 = fgan2.to(device)
+# Halve the learning rate if you halve the batch size.
 batchsize = 64
 #batchsize = 128
 optimizer_gen = optim.Adam(fgan.gen.parameters(), lr=lr_select_gen)

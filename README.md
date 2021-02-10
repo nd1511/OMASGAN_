@@ -142,6 +142,8 @@ Future Date: Thursday 11 February 2021: Supplementary Materials Submission Deadl
 
 Project Website: [OMASGAN Project](https://anonymous.4open.science/r/3aa6fd41-f42d-4941-9dcb-8522660cabb8/).
 
+This website is best viewed in Chrome or Firefox.
+
 ## Acknowledgements:
 
 Thanks to the repositories: [PyTorch-Template](https://github.com/victoresque/pytorch-template "PyTorch Template"), [Generative Models](https://github.com/shayneobrien/generative-models/blob/master/src/f_gan.py), [f-GAN](https://github.com/nowozin/mlss2018-madrid-gan), and [KLWGAN](https://github.com/ermongroup/f-wgan/tree/master/image_generation).
@@ -153,8 +155,6 @@ Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous
 Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](https://anonymous.4open.science/repository/99219ca9-ff6a-49e5-a525-c954080de8a7/losses.py), [DeepSAD](https://github.com/lukasruff/Deep-SAD-PyTorch), and [GANomaly](https://github.com/samet-akcay/ganomaly).
 
 All the acknowledgements, references, and citations can be found in the paper "OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary".
-
-This website is best viewed in Chrome or Firefox.
 
 ## References:
 Asokan, S. and Seelamantula, C., “Teaching a GAN What Not to Learn,” in Proceedings 34th Conference on Neural Information Processing Systems (NeurIPS 2020), Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H. (eds), Vancouver, Canada, December 2020.

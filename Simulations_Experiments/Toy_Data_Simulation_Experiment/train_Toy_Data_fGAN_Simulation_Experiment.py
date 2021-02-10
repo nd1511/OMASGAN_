@@ -25,6 +25,8 @@ print(device)
 df = 40.0
 tdist = scipy.stats.t(df, loc=1.5, scale=0.15)
 tdist2 = scipy.stats.t(df, loc=1.5, scale=0.15)
+#df = 40.0
+#tdist = scipy.stats.t(df, loc=4, scale=0.25)
 ntrain = 5000
 #ntrain = 10000
 Xtrain = tdist.rvs(ntrain)

@@ -113,7 +113,7 @@ cd ./Experiments/
 sh run_OMASGAN_KLWGAN_CIFAR.sh
 ```
 
-Also, to run the KLWGAN-based OMASGAN using the LOO methodology on MNIST image data, run the bash script:
+Also, to run the KLWGAN-based OMASGAN using the LOO methodology on MNIST image data, run the following bash script from the Terminal:
 ```
 cd ./Experiments/
 sh run_OMASGAN_KLWGAN_MNIST.sh

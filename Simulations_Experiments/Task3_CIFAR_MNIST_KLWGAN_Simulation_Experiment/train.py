@@ -123,7 +123,9 @@ def run(config):
             #metrics = train(x, y)
             print('')
             # Random seed
-            print(config['seed'])
+            #print(config['seed'])
+            if epoch==0 and i==0:
+                print(config['seed'])
             # We double the learning rate if we double the batch size.
             metrics = train(x, y)
             train_log.log(itr=int(state_dict['itr']), **metrics)

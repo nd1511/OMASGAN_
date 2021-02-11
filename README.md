@@ -52,7 +52,7 @@ cd ./Experiments/
 sh run_OMASGAN_fGAN_MNIST.sh
 ```
 
-Example usage:
+Example usage: Run from the Terminal:
 ```
 cd ./Simulations_Experiments/
 python train_Task1_fGAN_Simulation_Experiment.py

@@ -123,7 +123,7 @@ sh run_OMASGAN_KLWGAN_MNIST.sh
 
 ## Further Usage Information:
 
-This Code Repository contains a PyTorch implementation for the OMASGAN model. To run the code, we use a virtual environment and conda. For the versions of the libraries we use, see the requirements.txt file which has been created by using "pip freeze > requirements.txt". For installing the versions of the Python libraries we use, run "pip install -r requirements.txt".
+This Code Repository contains a PyTorch implementation for the OMASGAN model. To run the code, we use a virtual environment and conda. For the versions of the libraries we use, see the requirements.txt file which has been created by using "pip freeze > requirements.txt". For installing the versions of the Python libraries we use, run "pip install -r requirements.txt" from the Terminal.
 
 To clone the Code Repository, run:
 ```

@@ -150,7 +150,7 @@ Acknowledgement: Thanks to the repositories: [f-GAN](https://github.com/nowozin/
 
 Also, thanks to the repositories: [Negative-Data-Augmentation](https://anonymous.4open.science/r/99219ca9-ff6a-49e5-a525-c954080de8a7/), [Negative-Data-Augmentation-Paper](https://openreview.net/forum?id=Ovp8dvB8IBH), and [BigGAN](https://github.com/ajbrock/BigGAN-PyTorch).
 
-Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](https://anonymous.4open.science/repository/99219ca9-ff6a-49e5-a525-c954080de8a7/losses.py), [ExGAN](https://github.com/Stream-AD/ExGAN), [Extreme-GAN](https://github.com/Stream-AD/ExGAN/blob/master/ExGAN-Colab.ipynb), [Teaching-GANs-What-Not-To-Learn](https://github.com/DarthSid95/RumiGANs/tree/main/models/GANs), [DeepSAD](https://github.com/lukasruff/Deep-SAD-PyTorch), and [GANomaly](https://github.com/samet-akcay/ganomaly).
+Additional acknowledgement: Thanks to the repositories: [Pearson-Chi-Squared](https://anonymous.4open.science/repository/99219ca9-ff6a-49e5-a525-c954080de8a7/losses.py), [ExGAN](https://github.com/Stream-AD/ExGAN), [Extreme-Samples-GAN](https://github.com/Stream-AD/ExGAN/blob/master/ExGAN-Colab.ipynb), [Teaching-GANs-What-Not-To-Learn](https://github.com/DarthSid95/RumiGANs/tree/main/models/GANs), [DeepSAD](https://github.com/lukasruff/Deep-SAD-PyTorch), and [GANomaly](https://github.com/samet-akcay/ganomaly).
 
 All the acknowledgements, references, and citations can be found in the paper "OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary".
 

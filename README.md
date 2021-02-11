@@ -161,6 +161,8 @@ Asokan, S. and Seelamantula, C., “Teaching a GAN What Not to Learn,” in Proc
 
 Author, “OMASGAN: Out-of-Distribution Minimum Anomaly Score GAN for Sample Generation on the Boundary,” Submitted to International Conference on Machine Learning (ICML), 2021.
 
+Bhatia, S., Jain, A., and Hooi, B., “ExGAN: Adversarial Generation of Extreme Samples,” in Proceedings 35th Association for the Advancement of Artificial Intelligence (AAAI) Conference on Artificial Intelligence, AAAI-2050, Virtual Conference, February 2021.
+
 Bian, J., Hui, X., Sun, S., Zhao, X., and Tan, M., “A Novel and Efficient CVAE-GAN-Based Approach With Informative Manifold for Semi-Supervised Anomaly Detection,” in IEEE Access, vol. 7, pp. 88903-88916, June 2019. DOI: 10.1109/ACCESS.2019.2920251
 
 Brock, A., Donahue, J., and Simonyan, K., “Large Scale GAN Training for High Fidelity Natural Image Synthesis,” in Proceedings Seventh International Conference on Learning Representations (ICLR), New Orleans, Louisiana, USA, May 2019.

@@ -134,12 +134,6 @@ pip install --user --requirement requirements.txt
 
 Environments - Requirements: Python 3.7 and PyTorch 1.2 (requirements.txt)
 
-Future Date: Saturday 8 May 2021: Author Notification: Release the source code, make the source code public, and make the Code Repository non-anonymous.
-
-Future Date: Thursday 11 February 2021: Supplementary Materials Submission Deadline: This anonymous GitHub Repository will not be modified until Saturday 8 May 2021, Author Notification.
-
-Project Website: [OMASGAN Project](https://anonymous.4open.science/r/c8245e67-dbac-42d9-b436-7bfc114c80a2/).
-
 This website is best viewed in Chrome or Firefox.
 
 ## Acknowledgements:

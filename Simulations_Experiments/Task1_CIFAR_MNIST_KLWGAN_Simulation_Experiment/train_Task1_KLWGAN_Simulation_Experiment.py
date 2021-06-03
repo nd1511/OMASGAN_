@@ -104,6 +104,8 @@ def run(config):
     sample = functools.partial(utils_Task1_KLWGAN_Simulation_Experiment.sample, G=(G_ema if config['ema'] and config['use_ema'] else G), z_=z_, y_=y_, config=config)
     if config['dataset'] == 'C10U' or config['dataset'] == 'C10':
         data_moments = 'fid_stats_cifar10_train.npz'
+        #'../Task1_CIFAR_MNIST_KLWGAN_Simulation_Experiment/fid_stats_cifar10_train.npz'
+        #data_moments = '../Task1_CIFAR_MNIST_KLWGAN_Simulation_Experiment/fid_stats_cifar10_train.npz'
     else:
         print("Cannot find the dataset.")
         sys.exit()

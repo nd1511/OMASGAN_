@@ -99,9 +99,9 @@ def run(config):
         train = train_fns.dummy_training_function()
     sample = functools.partial(utils.sample, G=(G_ema if config['ema'] and config['use_ema'] else G), z_=z_, y_=y_, config=config)
     if config['dataset'] == 'C10U' or config['dataset'] == 'C10':
-        #data_moments = 'fid_stats_cifar10_train.npz'
+        data_moments = 'fid_stats_cifar10_train.npz'
         #'../Task1_CIFAR_MNIST_KLWGAN_Simulation_Experiment/fid_stats_cifar10_train.npz'
-        data_moments = '../Task1_CIFAR_MNIST_KLWGAN_Simulation_Experiment/fid_stats_cifar10_train.npz'
+        #data_moments = '../Task1_CIFAR_MNIST_KLWGAN_Simulation_Experiment/fid_stats_cifar10_train.npz'
     else:
         print("Cannot find the image data set.")
         sys.exit()
